@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spanien & Baskenland Roadtrip 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Archivo+Expanded:wght@500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..600;1,8..60,300..600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B2A30;
+    --ink-soft:#2C4046;
+    --sand:#E8DCC8;
+    --chalk:#F7F4ED;
+    --coral:#E8633D;
+    --coral-deep:#C44A2B;
+    --seagreen:#7A9B8E;
+    --seagreen-deep:#587A6E;
+    --line:rgba(27,42,48,0.14);
+    --shadow:0 18px 40px -20px rgba(27,42,48,0.35);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--chalk);
+    color:var(--ink);
+    font-family:'Source Serif 4', Georgia, serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3,.eyebrow,.stat-num,.navlink,.daychip{
+    font-family:'Archivo Expanded', sans-serif;
+    letter-spacing:0.01em;
+  }
+
+  .display{
+    font-family:'Fraunces', serif;
+    font-optical-sizing:auto;
+  }
+
+  a{color:inherit;}
+
+  /* ---------- TOPBAR ---------- */
+  .topbar{
+    position:sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 28px;
+    background:rgba(247,244,237,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{
+    font-family:'Archivo Expanded', sans-serif;
+    font-weight:800; font-size:14px; letter-spacing:0.12em;
+    text-transform:uppercase;
+    display:flex; align-items:center; gap:8px;
+  }
+  .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--coral);display:inline-block;}
+  .navlinks{display:flex; gap:22px; font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em;}
+  .navlinks a{text-decoration:none; opacity:0.7; transition:opacity .2s;}
+  .navlinks a:hover{opacity:1;}
+  @media (max-width:640px){ .navlinks{display:none;} }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:86px 28px 60px;
+    background:
+      radial-gradient(ellipse 900px 500px at 85% -10%, rgba(232,99,61,0.18), transparent 60%),
+      linear-gradient(180deg, var(--ink) 0%, var(--ink-soft) 100%);
+    color:var(--chalk);
+    overflow:hidden;
+  }
+  .hero-inner{max-width:980px; margin:0 auto; position:relative; z-index:2;}
+  .eyebrow{
+    font-size:12px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--sand); opacity:0.85; margin-bottom:18px; display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow .bar{width:28px;height:2px;background:var(--coral);display:inline-block;}
+  .hero h1{
+    font-size:clamp(40px, 7vw, 84px);
+    line-height:0.98;
+    font-weight:600;
+    margin:0 0 22px;
+    font-style:italic;
+  }
+  .hero h1 .nostyle{font-style:normal; font-weight:300; opacity:0.55; display:block; font-size:0.42em; letter-spacing:0.02em; margin-bottom:6px;}
+  .hero p.lede{
+    font-size:18px; line-height:1.6; max-width:560px; opacity:0.82; margin:0 0 36px;
+    font-style:italic;
+  }
+  .crew{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:46px;}
+  .crew span{
+    font-family:'Archivo Expanded', sans-serif; font-size:12px; font-weight:600;
+    padding:7px 14px; border:1px solid rgba(247,244,237,0.28); border-radius:30px;
+    letter-spacing:0.03em;
+  }
+  .flightband{
+    display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:18px;
+    background:rgba(247,244,237,0.06); border:1px solid rgba(247,244,237,0.16);
+    border-radius:14px; padding:18px 22px; max-width:640px;
+  }
+  .flightband .leg{font-size:13px; line-height:1.5;}
+  .flightband .leg b{font-family:'Archivo Expanded',sans-serif; display:block; font-size:15px; margin-bottom:2px;}
+  .flightband .legline{opacity:0.65;}
+  .flightband .plane{color:var(--coral); font-size:20px;}
+
+  /* wave divider */
+  .wave{display:block; width:100%; height:46px; margin-top:-2px;}
+
+  /* ---------- ROUTE STRIP ---------- */
+  .routewrap{background:var(--chalk); padding:64px 28px 20px;}
+  .routehead{max-width:980px; margin:0 auto 38px;}
+  .routehead .eyebrow{color:var(--coral-deep);}
+  .routehead h2{font-size:clamp(26px,3.4vw,38px); margin:0; font-weight:800; color:var(--ink);}
+
+  .routeline{
+    max-width:980px; margin:0 auto 10px; position:relative;
+  }
+  .routeline svg{display:block; width:100%; height:auto;}
+  .stopmarkers{
+    display:grid; grid-template-columns:repeat(4,1fr); max-width:980px; margin:0 auto 70px;
+    font-family:'Archivo Expanded',sans-serif;
+  }
+  .stopmarkers .stop{text-align:center; padding:0 8px;}
+  .stopmarkers .stop .city{font-weight:800; font-size:15px; color:var(--ink);}
+  .stopmarkers .stop .dates{font-size:11px; opacity:0.55; margin-top:3px; letter-spacing:0.03em;}
+  @media (max-width:680px){
+    .stopmarkers .stop .city{font-size:12px;}
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  .section{
+    max-width:980px; margin:0 auto; padding:30px 28px 90px;
+    scroll-margin-top:80px;
+  }
+  .section-head{
+    display:flex; align-items:baseline; justify-content:space-between; gap:24px;
+    border-bottom:2px solid var(--ink); padding-bottom:18px; margin-bottom:8px;
+    flex-wrap:wrap;
+  }
+  .section-head h2{
+    font-size:clamp(34px,5.6vw,60px); margin:0; font-weight:600; font-style:italic;
+    font-family:'Fraunces',serif;
+  }
+  .section-head .meta{font-family:'Archivo Expanded',sans-serif; font-size:13px; font-weight:700; text-align:right; opacity:0.6; letter-spacing:0.03em;}
+  .section-intro{font-size:17px; line-height:1.7; max-width:640px; margin:22px 0 8px; opacity:0.85;}
+
+  .address-note{font-size:14px; opacity:0.6; margin-top:10px; font-style:italic; max-width:560px;}
+
+  /* ---------- STAY CARD (Apartment-Highlight) ---------- */
+  .stay{
+    display:grid; grid-template-columns:1fr 1.3fr; gap:0; margin:28px 0 38px;
+    border-radius:14px; overflow:hidden; box-shadow:var(--shadow);
+    border:1px solid var(--line);
+  }
+  .stay-art{
+    position:relative; min-height:200px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .stay-art svg{width:100%; height:100%; position:absolute; inset:0;}
+  .stay-body{
+    background:var(--ink); color:var(--chalk); padding:28px 30px;
+    display:flex; flex-direction:column; justify-content:center; gap:10px;
+  }
+  .stay-label{
+    font-family:'Archivo Expanded',sans-serif; font-size:11px; font-weight:800;
+    letter-spacing:0.14em; text-transform:uppercase; color:var(--coral);
+    display:flex; align-items:center; gap:8px;
+  }
+  .stay-label .pin{
+    width:20px; height:20px; border-radius:50%; background:var(--coral);
+    display:flex; align-items:center; justify-content:center; font-size:11px; flex-shrink:0; color:var(--ink);
+  }
+  .stay-address{
+    font-family:'Fraunces',serif; font-style:italic; font-weight:600;
+    font-size:clamp(22px,3vw,30px); line-height:1.15; margin:2px 0 4px;
+  }
+  .stay-meta{font-size:13.5px; opacity:0.72; line-height:1.5; max-width:420px;}
+  .stay-link{
+    margin-top:10px; display:inline-flex; align-items:center; gap:7px;
+    font-family:'Archivo Expanded',sans-serif; font-size:12.5px; font-weight:700;
+    text-decoration:none; color:var(--chalk); border-bottom:1.5px solid var(--coral);
+    padding-bottom:2px; width:fit-content; transition:opacity .2s;
+  }
+  .stay-link:hover{opacity:0.75;}
+  @media (max-width:680px){
+    .stay{grid-template-columns:1fr;}
+    .stay-art{min-height:140px;}
+  }
+
+  /* ---------- CARD GRID ---------- */
+  .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(270px,1fr)); gap:16px; margin-bottom:8px;}
+  .card{
+    border:1px solid var(--line); border-radius:8px; overflow:hidden;
+    background:#fff; position:relative; transition:transform .18s, box-shadow .18s;
+  }
+  .card:hover{transform:translateY(-3px); box-shadow:var(--shadow);}
+  .card-art{height:108px; position:relative; overflow:hidden;}
+  .card-art svg{width:100%; height:100%; display:block;}
+  .card-body{padding:18px 20px 22px;}
+  .card .tag{
+    font-family:'Archivo Expanded',sans-serif; font-size:10.5px; font-weight:700; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--coral-deep); margin-bottom:10px; display:block;
+  }
+  .card h3{
+    font-family:'Fraunces',serif; font-style:italic; font-weight:600; font-size:21px; margin:0 0 8px; line-height:1.2;
+  }
+  .card p{font-size:14.5px; line-height:1.55; opacity:0.8; margin:0;}
+  .card .rating{
+    margin-top:12px; display:flex; align-items:center; gap:6px;
+    font-family:'Archivo Expanded',sans-serif; font-size:12px; font-weight:700; opacity:0.55;
+  }
+  .card.feature{
+    background:var(--ink); color:var(--chalk); border-color:var(--ink);
+  }
+  .card.feature .tag{color:var(--sand);}
+  .card.feature p{opacity:0.78;}
+  .card.feature .rating{opacity:0.7;}
+
+  .subhead{
+    font-family:'Archivo Expanded',sans-serif; font-weight:800; font-size:13px;
+    letter-spacing:0.08em; text-transform:uppercase; color:var(--seagreen-deep);
+    margin:46px 0 16px; display:flex; align-items:center; gap:12px;
+  }
+  .subhead::after{content:''; flex:1; height:1px; background:var(--line);}
+
+  .callout{
+    border-left:3px solid var(--coral); background:rgba(232,99,61,0.06);
+    padding:16px 20px; border-radius:0 6px 6px 0; font-size:14.5px; line-height:1.6;
+    margin:28px 0; max-width:680px;
+  }
+  .callout b{font-family:'Archivo Expanded',sans-serif; font-size:13px; letter-spacing:0.02em;}
+
+  /* ---------- BILBAO BANNER ---------- */
+  .bilbao{
+    background:var(--seagreen); color:var(--chalk); border-radius:8px; padding:30px 30px 32px;
+    margin-top:50px; position:relative; overflow:hidden;
+  }
+  .bilbao .tag{color:var(--ink); opacity:0.55;}
+  .bilbao h3{font-size:26px; margin:4px 0 10px;}
+  .bilbao p{opacity:0.92;}
+  .bilbao .distance{
+    font-family:'Archivo Expanded',sans-serif; font-weight:800; font-size:13px;
+    display:inline-flex; gap:8px; align-items:center; margin-top:16px;
+    background:rgba(27,42,48,0.18); padding:8px 14px; border-radius:24px;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--ink); color:var(--chalk); padding:56px 28px 40px; text-align:center;
+  }
+  footer .display{font-size:28px; font-style:italic; margin-bottom:10px;}
+  footer .sub{opacity:0.55; font-size:13px; font-family:'Archivo Expanded',sans-serif; letter-spacing:0.04em;}
+  footer .emojis{font-size:22px; margin-top:18px; letter-spacing:6px;}
+
+  /* nightlife warning */
+  .warn{
+    border:1.5px dashed var(--coral-deep); border-radius:8px; padding:16px 18px;
+    font-size:13.5px; line-height:1.55; margin-top:18px; background:rgba(232,99,61,0.05);
+  }
+  .warn b{font-family:'Archivo Expanded',sans-serif; font-size:12px; letter-spacing:0.04em; color:var(--coral-deep); display:block; margin-bottom:6px; text-transform:uppercase;}
+</style>
+</head>
+<body>
+
+<!-- ============ SVG ILLUSTRATION LIBRARY ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+
+  <!-- Madrid street / Malasaña -->
+  <symbol id="ill-madrid" viewBox="0 0 300 200">
+    <rect width="300" height="200" fill="#E8DCC8"/>
+    <rect x="0" y="120" width="300" height="80" fill="#D9C9A8"/>
+    <rect x="10" y="40" width="70" height="100" fill="#C44A2B"/>
+    <rect x="90" y="20" width="60" height="120" fill="#E8DCC8"/>
+    <rect x="160" y="55" width="55" height="85" fill="#7A9B8E"/>
+    <rect x="225" y="35" width="65" height="105" fill="#1B2A30"/>
+    <rect x="20" y="55" width="14" height="20" fill="#F7F4ED" opacity="0.85"/>
+    <rect x="45" y="55" width="14" height="20" fill="#F7F4ED" opacity="0.85"/>
+    <rect x="20" y="85" width="14" height="20" fill="#F7F4ED" opacity="0.85"/>
+    <rect x="45" y="85" width="14" height="20" fill="#F7F4ED" opacity="0.85"/>
+    <rect x="105" y="40" width="12" height="18" fill="#1B2A30" opacity="0.5"/>
+    <rect x="125" y="40" width="12" height="18" fill="#1B2A30" opacity="0.5"/>
+    <rect x="105" y="68" width="12" height="18" fill="#1B2A30" opacity="0.5"/>
+    <rect x="125" y="68" width="12" height="18" fill="#1B2A30" opacity="0.5"/>
+    <rect x="172" y="70" width="12" height="16" fill="#F7F4ED" opacity="0.7"/>
+    <rect x="192" y="70" width="12" height="16" fill="#F7F4ED" opacity="0.7"/>
+    <rect x="238" y="50" width="12" height="18" fill="#E8633D" opacity="0.6"/>
+    <rect x="262" y="50" width="12" height="18" fill="#E8633D" opacity="0.6"/>
+    <rect x="238" y="78" width="12" height="18" fill="#E8633D" opacity="0.6"/>
+    <rect x="262" y="78" width="12" height="18" fill="#E8633D" opacity="0.6"/>
+    <circle cx="150" cy="170" r="3" fill="#1B2A30" opacity="0.3"/>
+    <circle cx="170" cy="172" r="3" fill="#1B2A30" opacity="0.3"/>
+    <path d="M0,200 L300,200 L300,195 Q150,185 0,195 Z" fill="#1B2A30" opacity="0.08"/>
+  </symbol>
+
+  <!-- Tapas / tortilla plate -->
+  <symbol id="ill-tapas" viewBox="0 0 300 200">
+    <rect width="300" height="200" fill="#2C4046"/>
+    <ellipse cx="150" cy="105" rx="95" ry="55" fill="#F7F4ED"/>
+    <ellipse cx="150" cy="105" rx="78" ry="44" fill="#E8DCC8"/>
+    <ellipse cx="135" cy="98" rx="42" ry="26" fill="#E8C770"/>
+    <ellipse cx="135" cy="92" rx="42" ry="20" fill="#F0D98C"/>
+    <circle cx="205" cy="80" r="7" fill="#C44A2B"/>
+    <circle cx="218" cy="95" r="7" fill="#C44A2B"/>
+    <circle cx="200" cy="112" r="7" fill="#C44A2B"/>
+    <rect x="60" y="150" width="3" height="30" fill="#7A9B8E" opacity="0.6"/>
+    <rect x="230" y="145" width="3" height="35" fill="#7A9B8E" opacity="0.6"/>
+  </symbol>
+
+  <!-- Vintage shop rack -->
+  <symbol id="ill-vintage" viewBox="0 0 300 200">
+    <rect width="300" height="200" fill="#E8DCC8"/>
+    <line x1="20" y1="55" x2="280" y2="55" stroke="#1B2A30" stroke-width="4"/>
+    <path d="M40,55 L40,85 L20,100 L60,100 Z" fill="#C44A2B"/>
+    <path d="M85,55 L85,90 L65,108 L105,108 Z" fill="#7A9B8E"/>
+    <path d="M130,55 L130,80 L110,95 L150,95 Z" fill="#1B2A30"/>
+    <path d="M175,55 L175,95 L155,112 L195,112 Z" fill="#E8633D"/>
+    <path d="M220,55 L220,85 L200,100 L240,100 Z" fill="#587A6E"/>
+    <path d="M260,55 L260,90 L242,108 L280,108 Z" fill="#2C4046"/>
+    <circle cx="40" cy="50" r="4" fill="#1B2A30"/>
+    <circle cx="85" cy="50" r="4" fill="#1B2A30"/>
+    <circle cx="130" cy="50" r="4" fill="#1B2A30"/>
+    <circle cx="175" cy="50" r="4" fill="#1B2A30"/>
+    <circle cx="220" cy="50" r="4" fill="#1B2A30"/>
+    <circle cx="260" cy="50" r="4" fill="#1B2A30"/>
+    <rect x="0" y="160" width="300" height="40" fill="#1B2A30" opacity="0.08"/>
+  </symbol>
+
+  <!-- Rooftop sunset -->
+  <symbol id="ill-rooftop" viewBox="0 0 300 200">
+    <rect width="300" height="120" fill="#C44A2B"/>
+    <rect width="300" height="120" fill="url(#sunsetGrad)"/>
+    <circle cx="220" cy="70" r="30" fill="#F0D98C" opacity="0.9"/>
+    <rect y="120" width="300" height="80" fill="#1B2A30"/>
+    <rect x="0" y="115" width="40" height="35" fill="#0F1A1E"/>
+    <rect x="50" y="100" width="35" height="50" fill="#0F1A1E"/>
+    <rect x="95" y="125" width="45" height="25" fill="#0F1A1E"/>
+    <rect x="150" y="108" width="30" height="42" fill="#0F1A1E"/>
+    <rect x="190" y="118" width="50" height="32" fill="#0F1A1E"/>
+    <rect x="250" y="95" width="40" height="55" fill="#0F1A1E"/>
+    <circle cx="60" cy="160" r="3" fill="#E8633D"/>
+    <circle cx="120" cy="165" r="3" fill="#E8633D"/>
+    <circle cx="180" cy="160" r="3" fill="#E8633D"/>
+  </symbol>
+
+  <!-- Flea market -->
+  <symbol id="ill-market" viewBox="0 0 300 200">
+    <rect width="300" height="200" fill="#7A9B8E"/>
+    <path d="M0,90 L300,90 L290,60 L10,60 Z" fill="#F7F4ED"/>
+    <path d="M0,90 L300,90 L290,60 L10,60 Z" fill="repeating-linear-gradient(90deg,#C44A2B,#C44A2B 10px,#F7F4ED 10px,#F7F4ED 20px)"/>
+    <rect x="10" y="60" width="20" height="30" fill="#C44A2B"/>
+    <rect x="50" y="60" width="20" height="30" fill="#F7F4ED"/>
+    <rect x="90" y="60" width="20" height="30" fill="#C44A2B"/>
+    <rect x="130" y="60" width="20" height="30" fill="#F7F4ED"/>
+    <rect x="170" y="60" width="20" height="30" fill="#C44A2B"/>
+    <rect x="210" y="60" width="20" height="30" fill="#F7F4ED"/>
+    <rect x="250" y="60" width="20" height="30" fill="#C44A2B"/>
+    <rect x="40" y="90" width="220" height="80" fill="#2C4046"/>
+    <rect x="55" y="100" width="35" height="20" fill="#E8DCC8" opacity="0.8"/>
+    <rect x="100" y="105" width="30" height="15" fill="#E8633D" opacity="0.8"/>
+    <rect x="140" y="98" width="25" height="22" fill="#F0D98C" opacity="0.8"/>
+    <rect x="175" y="103" width="35" height="17" fill="#E8DCC8" opacity="0.8"/>
+    <rect x="220" y="98" width="22" height="22" fill="#C44A2B" opacity="0.6"/>
+  </symbol>
+
+  <!-- Surf wave -->
+  <symbol id="ill-surf" viewBox="0 0 300 200">
+    <rect width="300" height="200" fill="#1B2A30"/>
+    <path d="M0,120 Q75,80 150,120 T300,120 L300,200 L0,200 Z" fill="#587A6E"/>
+    <path d="M0,140 Q75,100 150,140 T300,140 L300,200 L0,200 Z" fill="#7A9B8E"/>
+    <path d="M0,160 Q75,130 150,160 T300,160 L300,200 L0,200 Z" fill="#9DBAAE"/>
+    <path d="M40,95 Q55,80 70,95" stroke="#F7F4ED" stroke-width="3" fill="none" opacity="0.7"/>
+    <path d="M180,105 Q195,90 210,105" stroke="#F7F4ED" stroke-width="3" fill="none" opacity="0.6"/>
+    <circle cx="150" cy="40" r="22" fill="#F0D98C" opacity="0.85"/>
+    <path d="M100,150 L108,118 L116,150 Z" fill="#E8633D"/>
+    <circle cx="108" cy="112" r="6" fill="#2C4046"/>
+  </symbol>
+
+  <!-- Bistro / French restaurant -->
+  <symbol id="ill-bistro" viewBox="0 0 300 200">
+    <rect width="300" height="200" fill="#587A6E"/>
+    <rect y="130" width="300" height="70" fill="#2C4046"/>
+    <ellipse cx="150" cy="125" rx="70" ry="14" fill="#F7F4ED"/>
+    <rect x="80" y="125" width="140" height="6" fill="#1B2A30" opacity="0.15"/>
+    <circle cx="120" cy="110" r="16" fill="#C44A2B"/>
+    <circle cx="120" cy="106" r="13" fill="#E8633D"/>
+    <rect x="170" y="95" width="10" height="30" fill="#F0D98C"/>
+    <ellipse cx="175" cy="92" rx="9" ry="5" fill="#F0D98C"/>
+    <rect x="60" y="60" width="6" height="50" fill="#1B2A30" opacity="0.4"/>
+    <rect x="234" y="60" width="6" height="50" fill="#1B2A30" opacity="0.4"/>
+    <path d="M40,60 Q150,30 260,60" stroke="#F0D98C" stroke-width="3" fill="none" opacity="0.5"/>
+  </symbol>
+
+  <!-- Pintxos bar counter -->
+  <symbol id="ill-pintxos" viewBox="0 0 300 200">
+    <rect width="300" height="200" fill="#2C4046"/>
+    <rect y="120" width="300" height="20" fill="#8B5A3C"/>
+    <rect y="140" width="300" height="60" fill="#5C3A26"/>
+    <g>
+      <rect x="20" y="95" width="28" height="25" fill="#F7F4ED"/>
+      <circle cx="34" cy="100" r="5" fill="#C44A2B"/>
+      <path d="M22,118 L46,118" stroke="#1B2A30" stroke-width="2"/>
+    </g>
+    <g>
+      <rect x="65" y="100" width="26" height="20" fill="#F7F4ED"/>
+      <circle cx="78" cy="104" r="4" fill="#E8633D"/>
+      <circle cx="85" cy="106" r="4" fill="#E8633D"/>
+    </g>
+    <g>
+      <rect x="108" y="92" width="28" height="28" fill="#F7F4ED"/>
+      <rect x="113" y="97" width="18" height="6" fill="#7A9B8E"/>
+      <rect x="113" y="106" width="18" height="6" fill="#F0D98C"/>
+    </g>
+    <g>
+      <rect x="152" y="98" width="26" height="22" fill="#F7F4ED"/>
+      <circle cx="165" cy="103" r="5" fill="#8B5A3C"/>
+    </g>
+    <g>
+      <rect x="195" y="94" width="28" height="26" fill="#F7F4ED"/>
+      <path d="M199,108 L219,108 L209,96 Z" fill="#C44A2B"/>
+    </g>
+    <g>
+      <rect x="240" y="100" width="26" height="20" fill="#F7F4ED"/>
+      <circle cx="253" cy="104" r="4" fill="#F0D98C"/>
+      <circle cx="246" cy="110" r="3" fill="#F0D98C"/>
+    </g>
+  </symbol>
+
+  <!-- Museum / Guggenheim curve -->
+  <symbol id="ill-museum" viewBox="0 0 300 200">
+    <rect width="300" height="200" fill="#7A9B8E"/>
+    <rect y="150" width="300" height="50" fill="#587A6E"/>
+    <path d="M20,150 Q40,60 110,75 Q160,85 150,130 Q145,150 180,140 Q230,125 250,90 Q270,60 290,150 Z" fill="#F7F4ED"/>
+    <path d="M20,150 Q40,60 110,75 Q160,85 150,130 Q145,150 180,140 Q230,125 250,90 Q270,60 290,150 Z" fill="none" stroke="#1B2A30" stroke-width="1.5" opacity="0.25"/>
+    <path d="M60,150 Q75,95 110,90" stroke="#1B2A30" stroke-width="1" opacity="0.2" fill="none"/>
+    <path d="M180,148 Q210,120 230,100" stroke="#1B2A30" stroke-width="1" opacity="0.2" fill="none"/>
+    <circle cx="270" cy="45" r="18" fill="#F0D98C" opacity="0.8"/>
+  </symbol>
+
+  <!-- Nightlife / bar -->
+  <symbol id="ill-bar" viewBox="0 0 300 200">
+    <rect width="300" height="200" fill="#1B2A30"/>
+    <circle cx="60" cy="50" r="3" fill="#F0D98C"/>
+    <circle cx="120" cy="35" r="3" fill="#E8633D"/>
+    <circle cx="200" cy="55" r="3" fill="#F0D98C"/>
+    <circle cx="250" cy="30" r="3" fill="#7A9B8E"/>
+    <circle cx="160" cy="65" r="3" fill="#E8633D"/>
+    <rect y="130" width="300" height="70" fill="#2C4046"/>
+    <path d="M100,100 L115,100 L107,130 Z" fill="#C44A2B" opacity="0.85"/>
+    <path d="M140,95 L157,95 L148,130 Z" fill="#7A9B8E" opacity="0.85"/>
+    <path d="M180,102 L195,102 L187,130 Z" fill="#F0D98C" opacity="0.85"/>
+    <rect x="100" y="90" width="15" height="4" fill="#F7F4ED" opacity="0.5"/>
+    <rect x="140" y="85" width="17" height="4" fill="#F7F4ED" opacity="0.5"/>
+    <rect x="180" y="92" width="15" height="4" fill="#F7F4ED" opacity="0.5"/>
+  </symbol>
+
+  <!-- gradient for rooftop sunset -->
+  <linearGradient id="sunsetGrad" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#E8633D"/>
+    <stop offset="100%" stop-color="#F0D98C"/>
+  </linearGradient>
+
+</defs>
+</svg>
+
+<div class="topbar">
+  <div class="brand"><span class="dot"></span> ROADTRIP 2026</div>
+  <nav class="navlinks">
+    <a href="#madrid">Madrid</a>
+    <a href="#biarritz">Biarritz</a>
+    <a href="#sansebastian">San Sebastián</a>
+    <a href="#bilbao">Bilbao</a>
+  </nav>
+</div>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow"><span class="bar"></span> 24.–31. JULI 2026 · VATER + RONJA + LOLA + LILLI</div>
+    <h1><span class="nostyle">Spanien &amp; Baskenland</span>Eine Woche<br>am Atlantik.</h1>
+    <p class="lede">Malasaña-Gassen, Pintxos-Theken, Wellen an der Côte des Basques und ein Guggenheim-Abstecher dazwischen. Vier Leute, ein BMW X2, 1.250 Kilometer Küste.</p>
+    <div class="crew">
+      <span>🚗 Sixt BMW X2</span>
+      <span>🏄‍♀️ Surfen</span>
+      <span>🍴 Pintxos</span>
+      <span>🏛️ Guggenheim</span>
+      <span>☀️ Sommermodus</span>
+    </div>
+    <div class="flightband">
+      <div class="leg">
+        <b>IB792 · Wien → Madrid</b>
+        <span class="legline">Fr, 24.07. · 12:20 – 15:30</span>
+      </div>
+      <div class="plane">✈</div>
+      <div class="leg" style="text-align:right">
+        <b>IB795 · Madrid → Wien</b>
+        <span class="legline">Fr, 31.07. · 16:05 – 19:05</span>
+      </div>
+    </div>
+  </div>
+  <svg class="wave" viewBox="0 0 1200 46" preserveAspectRatio="none">
+    <path d="M0,30 C150,5 350,5 500,30 C650,55 850,55 1000,30 C1100,15 1150,15 1200,30 L1200,46 L0,46 Z" fill="#F7F4ED"/>
+  </svg>
+</header>
+
+<section class="routewrap">
+  <div class="routehead">
+    <div class="eyebrow">DIE ROUTE</div>
+    <h2>Madrid → Biarritz → San Sebastián → Madrid</h2>
+  </div>
+  <div class="routeline">
+    <svg viewBox="0 0 980 90" preserveAspectRatio="none" fill="none">
+      <path d="M30,60 C150,10 230,10 280,55 C340,110 420,110 480,55 C540,5 610,5 660,55 C710,100 780,100 830,50 C870,15 900,15 950,40"
+        stroke="#1B2A30" stroke-width="2.5" stroke-dasharray="1 9" stroke-linecap="round"/>
+      <circle cx="30" cy="60" r="7" fill="#E8633D"/>
+      <circle cx="480" cy="55" r="7" fill="#7A9B8E"/>
+      <circle cx="660" cy="55" r="7" fill="#7A9B8E"/>
+      <circle cx="950" cy="40" r="7" fill="#1B2A30"/>
+    </svg>
+  </div>
+  <div class="stopmarkers">
+    <div class="stop"><div class="city">Madrid</div><div class="dates">24.–26.7.</div></div>
+    <div class="stop"><div class="city">Biarritz</div><div class="dates">26.–29.7.*</div></div>
+    <div class="stop"><div class="city">San Sebastián</div><div class="dates">29.–31.7.*</div></div>
+    <div class="stop"><div class="city">Madrid Flughafen</div><div class="dates">31.7.</div></div>
+  </div>
+</section>
+
+<!-- ===================== MADRID ===================== -->
+<section class="section" id="madrid">
+  <div class="section-head">
+    <h2>Madrid</h2>
+    <div class="meta">FR–SO · 24.–26.07.</div>
+  </div>
+  <p class="section-intro">Malasaña ist euer Basislager: schmale Gassen, Vintage-Läden an jeder Ecke, Tortilla-Theken und abends Rooftops über der Gran Vía. Sonntag gehört dem Rastro.</p>
+
+  <div class="stay">
+    <div class="stay-art"><svg><use href="#ill-madrid"/></svg></div>
+    <div class="stay-body">
+      <div class="stay-label"><span class="pin">🏠</span> Euer Apartment in Madrid</div>
+      <div class="stay-address">Calle del Divino Pastor 9</div>
+      <div class="stay-meta">28004 Madrid · Líbere Malasaña Apartments — mitten im Viertel, alles unten in 5–10 Gehminuten erreichbar.</div>
+      <a class="stay-link" href="https://www.google.com/maps/search/?api=1&query=Calle+del+Divino+Pastor+9+Madrid" target="_blank" rel="noopener">In Google Maps öffnen →</a>
+    </div>
+  </div>
+
+  <div class="subhead">Tapas &amp; Tortilla</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-art"><svg><use href="#ill-tapas"/></svg></div>
+      <div class="card-body">
+      <span class="tag">Lokale Institution</span>
+      <h3>Pez Tortilla</h3>
+      <p>Cremige, klassische Tortilla und Ham-Croquetas, schnell und günstig. Lokaler Treffpunkt — man steht oft an der Bar.</p>
+      <div class="rating">★ 4.5 · €</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art"><svg><use href="#ill-tapas"/></svg></div>
+      <div class="card-body">
+      <span class="tag">Reservierung empfohlen</span>
+      <h3>Casa Macareno</h3>
+      <p>Thunfisch-Tataki, Rindertatar, perfekt gewürzte Steaks. Klein, beliebt, lohnt sich vorzubuchen.</p>
+      <div class="rating">★ 4.6 · €€</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art"><svg><use href="#ill-tapas"/></svg></div>
+      <div class="card-body">
+      <span class="tag">Vegetarierfreundlich</span>
+      <h3>La Musa Malasaña</h3>
+      <p>Lebhafte Atmosphäre, gute Musik. Auberginen mit Tamarinde, gebratene grüne Tomaten.</p>
+      <div class="rating">★ 4.5 · €€</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subhead">Vintage Shopping</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-art"><svg><use href="#ill-vintage"/></svg></div>
+      <div class="card-body">
+      <span class="tag">Top-Adresse</span>
+      <h3>Vintage Point</h3>
+      <p>Kuratierte Burberry-Polos, Ralph-Lauren-Jacken. Gilt als einer der besten Vintage-Shops im Viertel.</p>
+      <div class="rating">★ 4.9</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art"><svg><use href="#ill-vintage"/></svg></div>
+      <div class="card-body">
+      <span class="tag">Große Auswahl</span>
+      <h3>Magpie Vintage</h3>
+      <p>Selbst kuratierte Stücke, faire Preise. Sonntags geschlossen — also samstags einplanen.</p>
+      <div class="rating">★ 4.4</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art"><svg><use href="#ill-vintage"/></svg></div>
+      <div class="card-body">
+      <span class="tag">Rock / 70s / 80s</span>
+      <h3>Aramayo Vintage</h3>
+      <p>Organisiert, entspannt zum Durchstöbern, gute Preise für Damen- und Herrenmode.</p>
+      <div class="rating">★ 4.4</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subhead">Sonnenuntergang über der Stadt</div>
+  <div class="grid">
+    <div class="card feature">
+      <div class="card-art"><svg><use href="#ill-rooftop"/></svg></div>
+      <div class="card-body">
+      <span class="tag">Entspannte Stimmung</span>
+      <h3>Vincci Rooftop Bar</h3>
+      <p>Gran Vía 66. Ruhiger Vibe, man kann sich noch unterhalten, guter Sonnenuntergangsblick über die Stadt.</p>
+      <div class="rating">★ 4.3</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <b>SONNTAG, 26.07.</b><br>
+    El Rastro Flohmarkt — <i>nur sonntags, 9–15 Uhr.</i> Früh starten (gegen 9 Uhr) lohnt sich wegen der Menschenmassen am Nachmittag. Danach Mittagessen in La Latina, z.B. bei <b>Rosi La Loca</b> (Plaza de Cádiz 4, ★4.7 — Paella &amp; Bravas, Reservierung empfohlen). Anschließend Auto bei Sixt abholen und Richtung Norden starten.
+  </div>
+</section>
+
+<!-- ===================== BIARRITZ ===================== -->
+<section class="section" id="biarritz">
+  <div class="section-head">
+    <h2>Biarritz</h2>
+    <div class="meta">SO–MI · 26.–29.07.*</div>
+  </div>
+  <p class="section-intro">Côte des Basques zum Surfen lernen, Altstadt mit französischem Café-Charme, und ein paar richtig gute Restaurants für die Abende.</p>
+
+  <div class="stay">
+    <div class="stay-art"><svg><use href="#ill-surf"/></svg></div>
+    <div class="stay-body">
+      <div class="stay-label"><span class="pin">🏠</span> Euer Apartment in Biarritz</div>
+      <div class="stay-address">12 Rue Font Jean Blanc</div>
+      <div class="stay-meta">64200 Biarritz · Ca. 15 Min. zu Fuß zur Côte des Basques.</div>
+      <a class="stay-link" href="https://www.google.com/maps/search/?api=1&query=12+Rue+Font+Jean+Blanc+Biarritz" target="_blank" rel="noopener">In Google Maps öffnen →</a>
+    </div>
+  </div>
+
+  <div class="subhead">Surfen lernen</div>
+  <div class="grid">
+    <div class="card feature">
+      <div class="card-art"><svg><use href="#ill-surf"/></svg></div>
+      <div class="card-body">
+      <span class="tag">Local-Empfehlung</span>
+      <h3>Hastea Surf School</h3>
+      <p>Direkt an der Côte des Basques. Laut Bewertungen die Schule, die Locals selbst empfehlen — geeignet für Anfänger und Teens.</p>
+      <div class="rating">★ 4.8</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art"><svg><use href="#ill-surf"/></svg></div>
+      <div class="card-body">
+      <span class="tag">Mehrsprachig</span>
+      <h3>The Basque Wave</h3>
+      <p>Französisch, Englisch, Spanisch im Unterricht. Gut strukturierte Kurse, auch für größere Gruppen.</p>
+      <div class="rating">★ 4.9</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art"><svg><use href="#ill-surf"/></svg></div>
+      <div class="card-body">
+      <span class="tag">Für Familien</span>
+      <h3>Mahi-Mahi Surf School</h3>
+      <p>Etwas weiter von der Côte des Basques, dafür individuelle Betreuung und Spot-Auswahl nach Bedingungen.</p>
+      <div class="rating">★ 5.0</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subhead">Essen &amp; Abende</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-art"><svg><use href="#ill-bistro"/></svg></div>
+      <div class="card-body">
+      <span class="tag">Bestes Preis-Leistung</span>
+      <h3>Le Saleya, Les Halles</h3>
+      <p>3-Gänge-Menü für 45€, ausgewogene Küche mit interessanten Texturen. Entspannter, professioneller Service.</p>
+      <div class="rating">★ 4.9 · €€</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art"><svg><use href="#ill-bistro"/></svg></div>
+      <div class="card-body">
+      <span class="tag">Direkt am Platz</span>
+      <h3>Chez BB Bistroquet</h3>
+      <p>Moules-frites, durchgehend warme Küche (selten in Biarritz nach 14:30 Uhr!). Gute Auswahl an Tapas.</p>
+      <div class="rating">★ 4.6 · €€</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art"><svg><use href="#ill-rooftop"/></svg></div>
+      <div class="card-body">
+      <span class="tag">Rooftop mit Meerblick</span>
+      <h3>Biarritz Bonheur</h3>
+      <p>Über den Galeries Lafayette. Cocktail vor Sonnenuntergang auf dem Dach, danach französische Küche.</p>
+      <div class="rating">★ 4.6 · €€€</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="warn">
+    <b>Nightlife-Hinweis</b>
+    Die großen Clubs im Zentrum (Duplex, Carré Coast, Le Caveau) haben in den Bewertungen wiederkehrende Beschwerden über Türpolitik und Vorfälle mit dem Sicherheitspersonal. Falls die Mädchen abends ausgehen wollen: <b>Opiom Club</b> (★4.4) oder eine entspannte Bar mit Live-Atmosphäre sind die verlässlichere Wahl.
+  </div>
+</section>
+
+<!-- ===================== SAN SEBASTIAN ===================== -->
+<section class="section" id="sansebastian">
+  <div class="section-head">
+    <h2>San Sebastián</h2>
+    <div class="meta">MI–FR · 29.–31.07.*</div>
+  </div>
+  <p class="section-intro">Zurriola zum Surfen, die Altstadt für die beste Pintxos-Dichte Spaniens, und Gros für die jüngere Bar-Szene am Abend.</p>
+
+  <div class="stay">
+    <div class="stay-art"><svg><use href="#ill-surf"/></svg></div>
+    <div class="stay-body">
+      <div class="stay-label"><span class="pin">🏠</span> Euer Apartment in San Sebastián</div>
+      <div class="stay-address">Larramendi 23</div>
+      <div class="stay-meta">20006 Donostia / San Sebastián · Liegt im ruhigeren Amara-Viertel, südlich der Altstadt — ca. 15–20 Min. zu Fuß zum Zurriola-Strand und zur Altstadt. Nicht direkt in Gros, aber zentral zwischen beidem.</div>
+      <a class="stay-link" href="https://www.google.com/maps/search/?api=1&query=Larramendi+23+San+Sebastian" target="_blank" rel="noopener">In Google Maps öffnen →</a>
+    </div>
+  </div>
+
+  <div class="subhead">Surfen am Zurriola</div>
+  <div class="grid">
+    <div class="card feature">
+      <div class="card-art"><svg><use href="#ill-surf"/></svg></div>
+      <div class="card-body">
+      <span class="tag">Bekannte Adresse</span>
+      <h3>Pukas Surf Eskola</h3>
+      <p>Schule und Shop direkt am Zurriola. Strukturierter Unterricht, auch als Wochenkurs buchbar.</p>
+      <div class="rating">★ 4.3</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art"><svg><use href="#ill-surf"/></svg></div>
+      <div class="card-body">
+      <span class="tag">Sehr gut für Anfänger</span>
+      <h3>Zurriola Surf Eskola</h3>
+      <p>Mehrsprachiger Unterricht, gute Betreuung auch für gemischte Levels und Familien.</p>
+      <div class="rating">★ 4.8</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art"><svg><use href="#ill-surf"/></svg></div>
+      <div class="card-body">
+      <span class="tag">Direkt am Sand</span>
+      <h3>Kresala Surf Eskola</h3>
+      <p>Wenige Minuten zu Fuß vom Strand, Schließfächer &amp; warme Duschen vor Ort.</p>
+      <div class="rating">★ 4.9</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subhead">Pintxos-Tour Altstadt — die Reihenfolge</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-art"><svg><use href="#ill-pintxos"/></svg></div>
+      <div class="card-body">
+      <span class="tag">Stopp 1 · Start hier</span>
+      <h3>Bar Sport</h3>
+      <p>Berühmtes Foie-Gras-Pintxo und Seeigel-Suppe. Lebhafter Einstieg in die Tour, meist gut gefüllt.</p>
+      <div class="rating">★ 4.7</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art"><svg><use href="#ill-pintxos"/></svg></div>
+      <div class="card-body">
+      <span class="tag">Stopp 2 · Institution</span>
+      <h3>La Cuchara de San Telmo</h3>
+      <p>Geschmortes Backenfleisch, Foie Gras. Die Theke ist eng — bewusst hingehen, wenn man Geduld mitbringt.</p>
+      <div class="rating">★ 4.6</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art"><svg><use href="#ill-pintxos"/></svg></div>
+      <div class="card-body">
+      <span class="tag">Stopp 3 · Spezialist</span>
+      <h3>Bar Txepetxa</h3>
+      <p>Auf Anchovis spezialisiert, ungewöhnliche Kombinationen (z.B. mit Heidelbeere). Nur für Fans von Sardellen.</p>
+      <div class="rating">★ 4.7</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art"><svg><use href="#ill-pintxos"/></svg></div>
+      <div class="card-body">
+      <span class="tag">Stopp 4 · Terrasse</span>
+      <h3>Atari Gastrolekua</h3>
+      <p>Txulet&oacute;n und Backenfleisch, Außenplätze mit Blick auf die Kathedrale. Guter Abschluss der Tour.</p>
+      <div class="rating">★ 4.5</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subhead">Abends in Gros</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-art"><svg><use href="#ill-bar"/></svg></div>
+      <div class="card-body">
+      <span class="tag">Lockere Bar-Szene</span>
+      <h3>Teorema</h3>
+      <p>Kleine Innenfläche, größere überdachte Terrasse. Entspannt, freundlich, gute Stimmung bis spät.</p>
+      <div class="rating">★ 4.3</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BILBAO ===================== -->
+<section class="section" id="bilbao">
+  <div class="bilbao">
+    <span class="tag" style="font-family:'Archivo Expanded',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">Optionaler Tagestrip</span>
+    <h3>Bilbao — Guggenheim &amp; Casco Viejo</h3>
+    <p>Architektur, die allein die Fahrt wert ist, plus ein kurzer Spaziergang durch die Altstadt mit Pintxos am Mercado de la Ribera. Am besten als halber Tag von San Sebastián aus.</p>
+    <div class="distance">🚗 ca. 100 km · ~1 Std. Fahrzeit pro Strecke</div>
+  </div>
+
+  <div class="subhead">Sehen &amp; Essen</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-art"><svg><use href="#ill-museum"/></svg></div>
+      <div class="card-body">
+      <span class="tag">Vorab Tickets buchen</span>
+      <h3>Guggenheim Museum</h3>
+      <p>Die Architektur selbst ist oft der Höhepunkt. Online-Tickets sparen Wartezeit, gerade in der Hauptsaison.</p>
+      <div class="rating">★ 4.5</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art"><svg><use href="#ill-pintxos"/></svg></div>
+      <div class="card-body">
+      <span class="tag">Plaza Nueva</span>
+      <h3>Gure Toki</h3>
+      <p>Kreative Pintxos in der Altstadt — Niveau vergleichbar mit San Sebastián, laut vielen Bewertungen.</p>
+      <div class="rating">★ 4.5</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art"><svg><use href="#ill-pintxos"/></svg></div>
+      <div class="card-body">
+      <span class="tag">Unauffällig, aber top</span>
+      <h3>Bar Santamaría</h3>
+      <p>Von außen schlichte Bar, von innen Foie Gras auf Sterne-Niveau. Geheimtipp der Locals.</p>
+      <div class="rating">★ 4.6</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art"><svg><use href="#ill-market"/></svg></div>
+      <div class="card-body">
+      <span class="tag">Mit Flussterrasse</span>
+      <h3>Mercado de la Ribera</h3>
+      <p>Food Market mit Pintxos-Bereich direkt an der Ría. Morgens lebhafter als am späten Nachmittag.</p>
+      <div class="rating">★ 4.4</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="display">Sonne, Surfen, gutes Essen.</div>
+  <div class="sub">SPANIEN &amp; BASKENLAND ROADTRIP · 24.–31. JULI 2026</div>
+  <div class="emojis">🏄‍♀️ 🍴 ☀️ 📸 🚗 😎</div>
+</footer>
+
+</body>
+</html>
