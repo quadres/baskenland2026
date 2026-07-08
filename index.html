@@ -210,6 +210,21 @@
   .card h3{
     font-family:'Fraunces',serif; font-style:italic; font-weight:600; font-size:21px; margin:0 0 8px; line-height:1.2;
   }
+  .card h3 a{
+    text-decoration:none; color:inherit;
+    border-bottom:1.5px solid transparent;
+    transition:border-color .2s;
+  }
+  .card h3 a:hover{ border-bottom-color:var(--coral); }
+  .card-link{
+    display:inline-flex; align-items:center; gap:5px; margin-top:10px;
+    font-family:'Archivo Expanded',sans-serif; font-size:11px; font-weight:700;
+    letter-spacing:0.05em; text-transform:uppercase; text-decoration:none;
+    color:var(--coral-deep); border-bottom:1px solid var(--coral-deep);
+    padding-bottom:1px; transition:opacity .2s;
+  }
+  .card-link:hover{opacity:0.7;}
+  .card.feature .card-link{color:var(--sand); border-bottom-color:var(--sand);}
   .card p{font-size:14.5px; line-height:1.55; opacity:0.8; margin:0;}
   .card .rating{
     margin-top:12px; display:flex; align-items:center; gap:6px;
@@ -424,27 +439,30 @@
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOuBDzTuvOjlgEmgYkOpqno5sT89Bhh0vh5iNJ6Duc64_K6qAYQFCd9GLirLgv6ieYO2v8jJd1cujCYdX8J-6UU5DoBPIatc0uGD7AKMSbZQaSb1U4v9-gI_quhtDGAifSxunG2QSLnxf1vDPEqM-mX=s800-w800-h600" alt="Pez Tortilla" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Lokale Institution</span>
-      <h3>Pez Tortilla</h3>
+      <h3><a href="https://peztortilla.com" target="_blank" rel="noopener">Pez Tortilla</a></h3>
       <p>Cremige, klassische Tortilla und Ham-Croquetas, schnell und günstig. Lokaler Treffpunkt — man steht oft an der Bar.</p>
       <div class="rating">★ 4.5 · €</div>
+      <a class="card-link" href="https://peztortilla.com" target="_blank" rel="noopener">Website →</a>
       </div>
     </div>
     <div class="card">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZMI7grWQHCwXoBRB7LHjSYprvONybKQmMX0vFuDokuRyH4-hobRRvxSmpqqM5SYrV6tslEpmRIXY2iX9JM7iIN4pFVrzpJE3lfReC-8ilh3t3I0BN9mfiNFLgc3fNNUmkc3RC0RspMM2DRkeXtlH5Xm8w=s800-w800-h600" alt="Casa Macareno" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Reservierung empfohlen</span>
-      <h3>Casa Macareno</h3>
+      <h3><a href="https://casamacareno.com" target="_blank" rel="noopener">Casa Macareno</a></h3>
       <p>Thunfisch-Tataki, Rindertatar, perfekt gewürzte Steaks. Klein, beliebt, lohnt sich vorzubuchen.</p>
       <div class="rating">★ 4.6 · €€</div>
+      <a class="card-link" href="https://casamacareno.com" target="_blank" rel="noopener">Website →</a>
       </div>
     </div>
     <div class="card">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZMpkNgHUQIKDHwyT3ZV1hVFMNrrBlt_8KXESfUAPvBleUFMJCJxo2ClR4bXzgia-no9u9v76nioR9f9r22bok68eFHMwSV7iD8XRF_u_zTxs0PohFm7qUBPXiEm7y-DhHiz0usTWMauesvVlHY=s800-w800-h600" alt="La Musa Malasaña" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Vegetarierfreundlich</span>
-      <h3>La Musa Malasaña</h3>
+      <h3><a href="https://grupolamusa.com/restaurante-musa-malasana/" target="_blank" rel="noopener">La Musa Malasaña</a></h3>
       <p>Lebhafte Atmosphäre, gute Musik. Auberginen mit Tamarinde, gebratene grüne Tomaten.</p>
       <div class="rating">★ 4.5 · €€</div>
+      <a class="card-link" href="https://grupolamusa.com/restaurante-musa-malasana/" target="_blank" rel="noopener">Website →</a>
       </div>
     </div>
   </div>
@@ -455,18 +473,20 @@
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZNzJgJq917LztOb24k7-TOY5N6ORXewnUJdIHI9EYPK2lK_ZfyOPeo-tD5Nzn-hU2mf7LT0VZ2PV6DpDCR2jM3_P0MSZLQQBt19WudSN6EV7hZ2n8hsTGlyZTeUFySd63x5y-sF0m3AtWppKThRhzTOUg=s800-w800-h600" alt="Destino Malasaña" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Privat buchbar</span>
-      <h3>Destino Malasaña</h3>
+      <h3><a href="https://www.privateaser.es/local/38561-destino-malasana" target="_blank" rel="noopener">Destino Malasaña</a></h3>
       <p>Eigene Musik mitbringen, eigene Snacks erlaubt. Entspannte Bar für eine größere Gruppe oder einen Geburtstag.</p>
       <div class="rating">★ 4.5</div>
+      <a class="card-link" href="https://www.privateaser.es/local/38561-destino-malasana" target="_blank" rel="noopener">Info →</a>
       </div>
     </div>
     <div class="card">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOmNVbzW3UfbNZOeep4iHZbut-aSgPsL5UYJXp2v2mLfnrCEX6_--DFipFTi76OtadVliogYbJcRSt-otcbPXTZb_2-ALrSQTaM1GhvN0HuEzOrgpk9naGjK04dgGBYoyEmNPYS5jz5TcKeUG0=s800-w800-h600" alt="Gorila Malasaña" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Bunt &amp; entspannt</span>
-      <h3>Gorila Malasaña</h3>
+      <h3><a href="https://www.instagram.com/gorilamadrid/" target="_blank" rel="noopener">Gorila Malasaña</a></h3>
       <p>Cocktailbar mit auffälliger Kunst an den Wänden, tagsüber auch als Café nutzbar. Lockere Atmosphäre.</p>
       <div class="rating">★ 4.4</div>
+      <a class="card-link" href="https://www.instagram.com/gorilamadrid/" target="_blank" rel="noopener">Instagram →</a>
       </div>
     </div>
   </div>
@@ -477,27 +497,30 @@
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZPqIiKqOmwVO1EvgWjuO3yVhKWVM5K1oII8gfP0OwHwvypw2FFQkU_1JMXd6rtADNOAs-Xx4NcVf_a7bjLiAvBe2I4wcaO1xcOwbpXHbM0zOIGA8M8J04ln59aOB8HNlbGmK2c3d5Nz-BEMZQ=s800-w768-h600" alt="Vintage Point Malasaña" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Top-Adresse</span>
-      <h3>Vintage Point</h3>
+      <h3><a href="https://maps.google.com/?cid=17864098807354444557" target="_blank" rel="noopener">Vintage Point</a></h3>
       <p>Kuratierte Burberry-Polos, Ralph-Lauren-Jacken. Gilt als einer der besten Vintage-Shops im Viertel.</p>
       <div class="rating">★ 4.9</div>
+      <a class="card-link" href="https://maps.google.com/?cid=17864098807354444557" target="_blank" rel="noopener">Google Maps →</a>
       </div>
     </div>
     <div class="card">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZML9pUZ5u0utJ__O36evw4eCSaDwCs5623GK2YPoFHNEH8quRM9o-sa0456BaRQdFb2ILz2xoK5PJDbFDcKc5_Qmqm_br08HkUbPky-ER2C0tRVRU9-GXwswTR4Vh6aHw7jbp-5pzv6eoGdLls=s800-w800-h600" alt="Magpie Vintage" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Große Auswahl</span>
-      <h3>Magpie Vintage</h3>
+      <h3><a href="http://www.magpie.es" target="_blank" rel="noopener">Magpie Vintage</a></h3>
       <p>Selbst kuratierte Stücke, faire Preise. Sonntags geschlossen — also samstags einplanen.</p>
       <div class="rating">★ 4.4</div>
+      <a class="card-link" href="http://www.magpie.es" target="_blank" rel="noopener">Website →</a>
       </div>
     </div>
     <div class="card">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZO3KctBzNDc6GoUDbQ--m8N9JNbySsP7VMfKED2AF8GYojSKXaBD-NSPoWSwJOhg8XUp-36ReYz6P5Ve8dARNoSe1JebrRUndbJUXEsq29ryKXXJILhWFBTlb8kmtykfSulb2zYugTD6wjcEkU=s800-w800-h600" alt="Aramayo Vintage" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Rock / 70s / 80s</span>
-      <h3>Aramayo Vintage</h3>
+      <h3><a href="http://aramayo.es" target="_blank" rel="noopener">Aramayo Vintage</a></h3>
       <p>Organisiert, entspannt zum Durchstöbern, gute Preise für Damen- und Herrenmode.</p>
       <div class="rating">★ 4.4</div>
+      <a class="card-link" href="http://aramayo.es" target="_blank" rel="noopener">Website →</a>
       </div>
     </div>
   </div>
@@ -508,25 +531,27 @@
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZNOHxCpuSY60Lf5NdF36QmWabgjRGNWya0UmdkAZoqgNzKj06nhJEPBbOzweiSi7lGxfxjFIggEoVD8q-BJSoIcMFRheOMyZETauDPjnTngKEogRa7s3OtcTZtB_tJpmi05ii_d76E8WDNZdw=s800-w800-h600" alt="Vincci Rooftop Bar" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Entspannte Stimmung</span>
-      <h3>Vincci Rooftop Bar</h3>
+      <h3><a href="https://www.vinccivia66.com/es/" target="_blank" rel="noopener">Vincci Rooftop Bar</a></h3>
       <p>Gran Vía 66. Ruhiger Vibe, man kann sich noch unterhalten, guter Sonnenuntergangsblick über die Stadt.</p>
       <div class="rating">★ 4.3</div>
+      <a class="card-link" href="https://www.vinccivia66.com/es/" target="_blank" rel="noopener">Website →</a>
       </div>
     </div>
     <div class="card">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOmCTknpSUXj_wGEyycNYaG5lySig3oiUw7BypwehThgtpYWov31odoaQ8cikRCRHb4N8K__fQFP558DOjCc_psIoLBmbwzftSC4JRdeQf_psiO6FrcdKQOe_ma_sKF57dcD1Cp4DnWbLrxSltV8uLEpw=s800-w800-h600" alt="Diverzo Cocktail Bar" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Cocktailbar Chueca</span>
-      <h3>Diverzo Cocktail Bar</h3>
+      <h3><a href="https://maps.google.com/?cid=1029170183474343459" target="_blank" rel="noopener">Diverzo Cocktail Bar</a></h3>
       <p>Gute Cocktails, netter Sound — kann am Wochenende auch Fußball auf der Leinwand laufen, vorher checken.</p>
       <div class="rating">★ 4.3</div>
+      <a class="card-link" href="https://maps.google.com/?cid=1029170183474343459" target="_blank" rel="noopener">Google Maps →</a>
       </div>
     </div>
   </div>
 
   <div class="callout">
     <b>SONNTAG, 26.07.</b><br>
-    El Rastro Flohmarkt — <i>nur sonntags, 9–15 Uhr.</i> Früh starten (gegen 9 Uhr) lohnt sich wegen der Menschenmassen am Nachmittag. Danach Mittagessen in La Latina, z.B. bei <b>Rosi La Loca</b> (Plaza de Cádiz 4, ★4.7 — Paella &amp; Bravas, Reservierung empfohlen). Anschließend Auto bei Sixt abholen und Richtung Norden starten.
+    El Rastro Flohmarkt — <i>nur sonntags, 9–15 Uhr.</i> Früh starten (gegen 9 Uhr) lohnt sich wegen der Menschenmassen am Nachmittag. Danach Mittagessen in La Latina, z.B. bei <b><a href="http://www.rosilaloca.com" target="_blank" rel="noopener" style="color:inherit">Rosi La Loca</a></b> (Plaza de Cádiz 4, ★4.7 — Paella &amp; Bravas, Reservierung empfohlen). Anschließend Auto bei Sixt abholen und Richtung Norden starten.
   </div>
 </section>
 
@@ -554,27 +579,30 @@
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZPh5rc-FUmhSIjctjZL1S3pMtZqSHGWqFtKXFdWBrybm7jYOzeES6V0tYoYIXYcnPnFS4ccpregM-qUZD5TR3Y8JiEyAwWmPpcNig9Y0ApaorUYgDfcFZFy9-HVSUvTAmtlnpbO8r7H1i8N2CE=s800-w800-h600" alt="Hastea Surf School" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Local-Empfehlung</span>
-      <h3>Hastea Surf School</h3>
+      <h3><a href="https://hastea.com" target="_blank" rel="noopener">Hastea Surf School</a></h3>
       <p>Direkt an der Côte des Basques. Laut Bewertungen die Schule, die Locals selbst empfehlen — geeignet für Anfänger und Teens.</p>
       <div class="rating">★ 4.8</div>
+      <a class="card-link" href="https://hastea.com" target="_blank" rel="noopener">Website →</a>
       </div>
     </div>
     <div class="card">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOqyfh-3WXcF-sefLvWXOKlwd8Y_LiFrIDsXxSywSvD51Vlr-t3HikTnjSlWVp6G_iZu_8D2YFK-WUIxpakev-1Kp6oVF4rDQaY2ZdwHUp8RvPIijQyJCu0E40gwZ6gwn1gFNRGs3M_wK79pY4=s800-w560-h373" alt="The Basque Wave Surf School" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Mehrsprachig</span>
-      <h3>The Basque Wave</h3>
+      <h3><a href="http://www.vaguebasque.fr" target="_blank" rel="noopener">The Basque Wave</a></h3>
       <p>Französisch, Englisch, Spanisch im Unterricht. Gut strukturierte Kurse, auch für größere Gruppen.</p>
       <div class="rating">★ 4.9</div>
+      <a class="card-link" href="http://www.vaguebasque.fr" target="_blank" rel="noopener">Website →</a>
       </div>
     </div>
     <div class="card">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOshjym9br4xR7aigeGG1pp5rgWs-CvkU4qqBLM5XHyhaU2DTecUe7Jt5smOKC7aUGE207FANiUiw-25t2SmBoItxdeGX8KUYXwACRHJjhhd31jmTZWa2HZraUkNMgoknIj84nWxG7KfTPNww=s800-w800-h600" alt="Mahi-Mahi Surf School" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Für Familien</span>
-      <h3>Mahi-Mahi Surf School</h3>
+      <h3><a href="https://www.mahimahisurfschool.com" target="_blank" rel="noopener">Mahi-Mahi Surf School</a></h3>
       <p>Etwas weiter von der Côte des Basques, dafür individuelle Betreuung und Spot-Auswahl nach Bedingungen.</p>
       <div class="rating">★ 5.0</div>
+      <a class="card-link" href="https://www.mahimahisurfschool.com" target="_blank" rel="noopener">Website →</a>
       </div>
     </div>
   </div>
@@ -585,45 +613,50 @@
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZMWUiLrE1pQ0OezX8xuPAvZQze1HE_j1hvtJRT2vZSmJQtx7YjzhrcFAtQ7rW2MS_hMiq9phrG8QSD1WyevMl7CRcaTnusj7hHkMT39NX1lG46eQtSMj2nlVbrNuHWUclqkPka5G8u5qjs6TbzM6uQdQA=s800-w800-h600" alt="Le Saleya" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Bestes Preis-Leistung</span>
-      <h3>Le Saleya, Les Halles</h3>
+      <h3><a href="https://lesaleyabiarritz.sumupstore.com" target="_blank" rel="noopener">Le Saleya, Les Halles</a></h3>
       <p>3-Gänge-Menü für 45€, ausgewogene Küche mit interessanten Texturen. Entspannter, professioneller Service.</p>
       <div class="rating">★ 4.9 · €€</div>
+      <a class="card-link" href="https://lesaleyabiarritz.sumupstore.com" target="_blank" rel="noopener">Reservierung →</a>
       </div>
     </div>
     <div class="card">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOZndee05C-vPoth57xi3AK4CxDE_jIROVoDYQPqDYEE_9it6GpmKB7YxMPlapVofMQOE7qC5n2t80r9awtT8abn0q_qa4ojQBlD9-Bcb_6NR0NzbI9Ze225BG77Z4Gcx2eS7Uwxnq8Crrjc8s=s800-w800-h600" alt="Chez BB Bistroquet" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Direkt am Platz</span>
-      <h3>Chez BB Bistroquet</h3>
+      <h3><a href="https://linktr.ee/chezbb" target="_blank" rel="noopener">Chez BB Bistroquet</a></h3>
       <p>Moules-frites, durchgehend warme Küche (selten in Biarritz nach 14:30 Uhr!). Gute Auswahl an Tapas.</p>
       <div class="rating">★ 4.6 · €€</div>
+      <a class="card-link" href="https://linktr.ee/chezbb" target="_blank" rel="noopener">Website →</a>
       </div>
     </div>
     <div class="card">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOtOpj37tlJdO-HP3-Gq9EEosqwfLL0gIpbwYgCS-aAmkkR10Rhq4iLKQqvA4v8VJILTjPOVwDgcmU_kHHTCxmRa92UVbVJ3KpAmkkED3BEleUuv7weEO0h18hxc9fU5lTbmzIzn6T_Tz5EmS_h63VJCw=s800-w800-h600" alt="Biarritz Bonheur" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Rooftop mit Meerblick</span>
-      <h3>Biarritz Bonheur</h3>
+      <h3><a href="http://www.biarritzbonheur.com" target="_blank" rel="noopener">Biarritz Bonheur</a></h3>
       <p>Über den Galeries Lafayette. Cocktail vor Sonnenuntergang auf dem Dach, danach französische Küche.</p>
       <div class="rating">★ 4.6 · €€€</div>
+      <a class="card-link" href="http://www.biarritzbonheur.com" target="_blank" rel="noopener">Website →</a>
       </div>
     </div>
     <div class="card">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZPA8DmWIJFHz2Pu5WpdzNO_vn6oz7tV7QliQT1-6tZRFMnOV3mmrShtK_fHly0SyuWvsjvwei1jhtfZ8U6TxpPdzg5SEUYNrdXWPwSHYYZ6XceiknBd2ASshiPCCjqrVAMG6tB-9RPjH-x8aQ=s800-w800-h600" alt="Bouillon Hortense" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Gutes Preis-Leistung</span>
-      <h3>Bouillon Hortense</h3>
+      <h3><a href="https://maps.google.com/?cid=9106496894242189977" target="_blank" rel="noopener">Bouillon Hortense</a></h3>
       <p>Klassische französische Küche (Boeuf Bourguignon, Confit de Canard) zu fairen Preisen, freundlicher Service.</p>
       <div class="rating">★ 4.6 · €</div>
+      <a class="card-link" href="https://maps.google.com/?cid=9106496894242189977" target="_blank" rel="noopener">Google Maps →</a>
       </div>
     </div>
     <div class="card">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZMWWIHF5JAvDbvM6fW5q2vsMB0wFiz4DOu6REbIvt2pZ7q4jN0t0aFrPEVyuIuqRCjhpNE6RZlg3VpZ0yuz9c0Gy1wk2jV73MpM6G3qI3Y3X0i3ECzt11c6QDDw4mdNHtzZxXvGOpHSiOYA=s800-w800-h600" alt="Bistrot Etxeko" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Familienfreundlich</span>
-      <h3>Bistrot Etxeko</h3>
+      <h3><a href="https://maps.google.com/?cid=2172710765624251950" target="_blank" rel="noopener">Bistrot Etxeko</a></h3>
       <p>Authentische Basken-Tapas, kinderfreundlicher Service. Schöner Platz mit Außen- und Innenplätzen.</p>
       <div class="rating">★ 4.4 · €€</div>
+      <a class="card-link" href="https://maps.google.com/?cid=2172710765624251950" target="_blank" rel="noopener">Google Maps →</a>
       </div>
     </div>
   </div>
@@ -658,27 +691,30 @@
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZNHFFUw13FevUNb9TjQ7cNrHp-mo8X5bZofgY79Vu3NN1-hb5FxIU5mYckHUIl6sJNtJq9JOCspYLTkGEWLV3pbQ2XS1CjZAZfNCfpQJzumeaq4Fxepmm6OoYH1WYc333uewUith79sTw29EVlYmAoDFQ=s800-w800-h600" alt="Pukas Surf Eskola" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Bekannte Adresse</span>
-      <h3>Pukas Surf Eskola</h3>
+      <h3><a href="https://eskola.pukassurf.com" target="_blank" rel="noopener">Pukas Surf Eskola</a></h3>
       <p>Schule und Shop direkt am Zurriola. Strukturierter Unterricht, auch als Wochenkurs buchbar.</p>
       <div class="rating">★ 4.3</div>
+      <a class="card-link" href="https://eskola.pukassurf.com" target="_blank" rel="noopener">Website →</a>
       </div>
     </div>
     <div class="card">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZNvJQsiDUzwNncg_9mNprf2Kuv2mVyvCNAZnlF6f8EZQjySdqjhQIdPYx5glcf7VmZqIXr6QRt-RLi1zhHSCzdlcy80uSilTt4n2yZkHjHWxaKWD597KgYrqwYidP79SfTwTJlp8RijQ0cVlg=s800-w800-h600" alt="Zurriola Surf Eskola" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Sehr gut für Anfänger</span>
-      <h3>Zurriola Surf Eskola</h3>
+      <h3><a href="http://zurriolasurfeskola.com" target="_blank" rel="noopener">Zurriola Surf Eskola</a></h3>
       <p>Mehrsprachiger Unterricht, gute Betreuung auch für gemischte Levels und Familien.</p>
       <div class="rating">★ 4.8</div>
+      <a class="card-link" href="http://zurriolasurfeskola.com" target="_blank" rel="noopener">Website →</a>
       </div>
     </div>
     <div class="card">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZPFpluiKlSFrp2jaKEes6xrgJNq004J883wjQ1zT9iYRi7ejPsZ9AbA-wKNgT2tcnlMWqZcknCxFLGLE2cWTNhuQoky2g49m7EFXmHSI7PymK0CGva5vNWycmZHZbHySz4jiT177pPiaO3HIj8=s800-w800-h600" alt="Kresala Surf Eskola" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Direkt am Sand</span>
-      <h3>Kresala Surf Eskola</h3>
+      <h3><a href="http://www.kresalasurf.com" target="_blank" rel="noopener">Kresala Surf Eskola</a></h3>
       <p>Wenige Minuten zu Fuß vom Strand, Schließfächer &amp; warme Duschen vor Ort.</p>
       <div class="rating">★ 4.9</div>
+      <a class="card-link" href="http://www.kresalasurf.com" target="_blank" rel="noopener">Website →</a>
       </div>
     </div>
   </div>
@@ -689,54 +725,60 @@
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOGi0iFfdF_BlqLEDZs0JDBmtNygyxM_qsADBRT1OJASpPrp72C5UwgmNT-_55eOMU_BG1UmAN1tQ222LimFgP2pu4Pk_msNcJPGFVU1eYc0sjQcuuTwl1q426SaIb4pErYh6HHD-M_wRhNS6Y=s800-w800-h600" alt="Bar Sport" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Stopp 1 · Start hier</span>
-      <h3>Bar Sport</h3>
+      <h3><a href="https://maps.google.com/?cid=13724444345769521282" target="_blank" rel="noopener">Bar Sport</a></h3>
       <p>Berühmtes Foie-Gras-Pintxo und Seeigel-Suppe. Lebhafter Einstieg in die Tour, meist gut gefüllt.</p>
       <div class="rating">★ 4.7</div>
+      <a class="card-link" href="https://maps.google.com/?cid=13724444345769521282" target="_blank" rel="noopener">Google Maps →</a>
       </div>
     </div>
     <div class="card">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZODrw_3XIPRJNLNQ9dCYtS2y5u9bQv7cm8HoSInGCluPnJ9M2L-RlcRUIV2vhfCVEaAljcyY9JnpvDvdgerdnH_v8dISpywx9hEmMV6wWlJu08S64bZIA38hYy8QI6XlkiNzQSL0KshjLbXyfVHbI33DA=s800-w800-h600" alt="La Cuchara de San Telmo" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Stopp 2 · Institution</span>
-      <h3>La Cuchara de San Telmo</h3>
+      <h3><a href="https://maps.google.com/?cid=110698052843782129" target="_blank" rel="noopener">La Cuchara de San Telmo</a></h3>
       <p>Geschmortes Backenfleisch, Foie Gras. Die Theke ist eng — bewusst hingehen, wenn man Geduld mitbringt.</p>
       <div class="rating">★ 4.6</div>
+      <a class="card-link" href="https://maps.google.com/?cid=110698052843782129" target="_blank" rel="noopener">Google Maps →</a>
       </div>
     </div>
     <div class="card">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZNMo0u0hTLYGF4qvpaRQs-5ZpjsOWlsJQDaK7IXvIqpKJWE9Veei0aRt_gCVvZLA170qidnOxUSGhQpvlFT4ZQloZEjrh_bM6LhF-UEiHMFnh8Ma2QIs5plgQN6pFtalbGuwaDucE_-Eh2x6pltAytxEQ=s800-w800-h600" alt="Bar Txepetxa" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Stopp 3 · Spezialist</span>
-      <h3>Bar Txepetxa</h3>
+      <h3><a href="http://www.bartxepetxa.es" target="_blank" rel="noopener">Bar Txepetxa</a></h3>
       <p>Auf Anchovis spezialisiert, ungewöhnliche Kombinationen (z.B. mit Heidelbeere). Nur für Fans von Sardellen.</p>
       <div class="rating">★ 4.7</div>
+      <a class="card-link" href="http://www.bartxepetxa.es" target="_blank" rel="noopener">Website →</a>
       </div>
     </div>
     <div class="card">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZMud4c4yGGuoRRMq9-GRFLmZorgCDt5K86j94NFo2Hzx9ZobhswLFpJc6m7uixUCMVTzD7P8wR-sYVHmY2yXwgEeqVkBT-piLTlAEwWEjdJYyH_9gYu4pH93N1fV9p1NeSeqptBqUSFGAGUlg=s800-w800-h600" alt="Atari Gastrolekua" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Stopp 4 · Terrasse</span>
-      <h3>Atari Gastrolekua</h3>
+      <h3><a href="https://atarigastroleku.com" target="_blank" rel="noopener">Atari Gastrolekua</a></h3>
       <p>Txulet&oacute;n und Backenfleisch, Außenplätze mit Blick auf die Kathedrale. Guter Abschluss der Tour.</p>
       <div class="rating">★ 4.5</div>
+      <a class="card-link" href="https://atarigastroleku.com" target="_blank" rel="noopener">Website →</a>
       </div>
     </div>
     <div class="card">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOIgckncq-rIFkbeMQzmbbOHWVEnzHO37JrE5ZXRiK8ExO9XOM-wqEuJGW-GDBunV0Qb6Sw3muC_t3uF0d-kosVykwrDjXEKrrwyuvHQtNxuxdRI8MgUjKYNuVUPO3GTkPahPT0bIneRt-yXrwa5rMbOA=s800-w800-h600" alt="Bergara Taberna" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Bonus · Im Michelin Guide</span>
-      <h3>Bergara Taberna</h3>
+      <h3><a href="http://www.pinchosbergara.es" target="_blank" rel="noopener">Bergara Taberna</a></h3>
       <p>Liegt in Gros statt Altstadt — Foie-Gras-Risotto, weniger touristisch, Eis aufs Haus dazu.</p>
       <div class="rating">★ 4.3</div>
+      <a class="card-link" href="http://www.pinchosbergara.es" target="_blank" rel="noopener">Website →</a>
       </div>
     </div>
     <div class="card">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZMZa5MLdhE9_J_I-Yc1c3j3JPXbj1m-S3VT7VKJvBMkpG9YB9RxQKYUF3xsqpEpTfEACUauLrtzare2RbvvEXsv4s6-EA8YjrtFfzA85HcZy8Cf_mINMImShfaoT5jKbMGh6yAJgyLrAaXl74s6zU2B_g=s800-w800-h600" alt="Bar Desy" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Bonus · Berühmter Burger</span>
-      <h3>Bar Desy</h3>
+      <h3><a href="https://bar-desy.shop" target="_blank" rel="noopener">Bar Desy</a></h3>
       <p>Laut, hektisch, aber der Txuleta-Burger ist legendär. Eher für die Jüngeren in der Gruppe, lockere Atmosphäre.</p>
       <div class="rating">★ 4.7</div>
+      <a class="card-link" href="https://bar-desy.shop" target="_blank" rel="noopener">Website →</a>
       </div>
     </div>
   </div>
@@ -747,9 +789,10 @@
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZO72X8-E5wpk1NcjNfFP6XJp1VvZT8YTbKDW6OFOWgCLLEsnjFKC_8RRXDmvpIKSOoRd_8IrmKabMNRZovb7wnGyrJf6aIM8Cedg3dL2C9j_ZvlLNuvH-IniJ6hK3xWG4DrkPrIhxk5ei5G=s800-w800-h600" alt="Teorema" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Lockere Bar-Szene</span>
-      <h3>Teorema</h3>
+      <h3><a href="https://maps.google.com/?cid=14206641979330126287" target="_blank" rel="noopener">Teorema</a></h3>
       <p>Kleine Innenfläche, größere überdachte Terrasse. Entspannt, freundlich, gute Stimmung bis spät.</p>
       <div class="rating">★ 4.3</div>
+      <a class="card-link" href="https://maps.google.com/?cid=14206641979330126287" target="_blank" rel="noopener">Google Maps →</a>
       </div>
     </div>
   </div>
@@ -770,45 +813,50 @@
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZMQbRTwPUudb6mPU6HbcC0-O-VLC5z7XfTlfL24ikG-zFVUUv13wpfdr0bSu3d6trHbkvJAS6wlMo3h-85lzntwOAw-iW4zkGFId4d8YG5f1uvzVOoLyscFgkrEWH9I8In1lVaHeTcm44-mh_0=s800-w800-h600" alt="Guggenheim Museum Bilbao" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Vorab Tickets buchen</span>
-      <h3>Guggenheim Museum</h3>
+      <h3><a href="https://www.guggenheim-bilbao.eus" target="_blank" rel="noopener">Guggenheim Museum</a></h3>
       <p>Die Architektur selbst ist oft der Höhepunkt. Online-Tickets sparen Wartezeit, gerade in der Hauptsaison.</p>
       <div class="rating">★ 4.5</div>
+      <a class="card-link" href="https://www.guggenheim-bilbao.eus/en/visit/tickets-prices" target="_blank" rel="noopener">Tickets →</a>
       </div>
     </div>
     <div class="card">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZN9rOecif1RwWpHfabEBffI4XJORh7rYYv3aV6fW3GzaR4xc_1U330EXNFqtOsw3N14SkBkdnQWSmx7kyIHzv9P0wGfrV5RPlTsB85cswt7nciXUy4RbeB5TVgtCK9kQbHRsAzoPfq9Sh0JNg=s800-w800-h600" alt="Gure Toki" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Plaza Nueva</span>
-      <h3>Gure Toki</h3>
+      <h3><a href="http://guretoki.com" target="_blank" rel="noopener">Gure Toki</a></h3>
       <p>Kreative Pintxos in der Altstadt — Niveau vergleichbar mit San Sebastián, laut vielen Bewertungen.</p>
       <div class="rating">★ 4.5</div>
+      <a class="card-link" href="http://guretoki.com" target="_blank" rel="noopener">Website →</a>
       </div>
     </div>
     <div class="card">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZPTGbVzLmtQclaf3c4CvZ_3A2v4XiH-aNHIhmqtmj3jknJuvK7-Zk2po90NM-BomIutx63zx_P7CTuw2NgRvfZGfBxGPUO_cKjs8ks1M6oZ68qRPQaRZDJpCsJsopWXkfMPW6GAx6iZlzjyHBM=s800-w800-h600" alt="Bar Santamaría" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Unauffällig, aber top</span>
-      <h3>Bar Santamaría</h3>
+      <h3><a href="https://maps.google.com/?cid=2865497206876026541" target="_blank" rel="noopener">Bar Santamaría</a></h3>
       <p>Von außen schlichte Bar, von innen Foie Gras auf Sterne-Niveau. Geheimtipp der Locals.</p>
       <div class="rating">★ 4.6</div>
+      <a class="card-link" href="https://maps.google.com/?cid=2865497206876026541" target="_blank" rel="noopener">Google Maps →</a>
       </div>
     </div>
     <div class="card">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZNowtE5LQ6G2wi_rEQr6Ist5dqKaZgXIxGUuWExAhQUTWQrkvgXDVt7d4JWzdMBfvrjIWrqCUNYwiSr08xLxQ62iSusETX2VfcH3qgagmLsmRygxGb3cj8h9QMdhAI8dLzqHfZBdmbMwxAohw=s800-w800-h600" alt="Mercado de la Ribera" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Mit Flussterrasse</span>
-      <h3>Mercado de la Ribera</h3>
+      <h3><a href="https://bilbaozerbitzuak.bilbao.eus/inicio/mercado-de-la-ribera/" target="_blank" rel="noopener">Mercado de la Ribera</a></h3>
       <p>Food Market mit Pintxos-Bereich direkt an der Ría. Morgens lebhafter als am späten Nachmittag.</p>
       <div class="rating">★ 4.4</div>
+      <a class="card-link" href="https://bilbaozerbitzuak.bilbao.eus/inicio/mercado-de-la-ribera/" target="_blank" rel="noopener">Website →</a>
       </div>
     </div>
     <div class="card">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZMy0dTc1PNxYOzQYuHta0B84XtUUI6S2NbtxpNBCOdzUr2WftC8e5Y9BuEkvQgHw-6j7-rIKbLsWUxjngMmgnKRncarTRgiO2OD758TYc4TNhkLaDmeJyPUBBqn3T85en9t4YFXKxHL-_7mOqBofYEtCw=s800-w800-h600" alt="Supay Coctelería" loading="lazy"></div>
       <div class="card-body">
       <span class="tag">Cocktailbar Casco Viejo</span>
-      <h3>Supay Coctelería</h3>
+      <h3><a href="https://www.cocteleriasupay.com" target="_blank" rel="noopener">Supay Coctelería</a></h3>
       <p>Versteckte, gemütliche Cocktailbar mit kreativen Eigenkreationen — guter Abschluss vor der Rückfahrt.</p>
       <div class="rating">★ 4.9</div>
+      <a class="card-link" href="https://www.cocteleriasupay.com" target="_blank" rel="noopener">Website →</a>
       </div>
     </div>
   </div>
