@@ -48,22 +48,117 @@
   .topbar{
     position:sticky; top:0; z-index:50;
     display:flex; align-items:center; justify-content:space-between;
-    padding:14px 28px;
-    background:rgba(247,244,237,0.86);
-    backdrop-filter:blur(10px);
+    padding:0 28px;
+    height:52px;
+    background:rgba(247,244,237,0.94);
+    backdrop-filter:blur(12px);
     border-bottom:1px solid var(--line);
   }
   .brand{
     font-family:'Archivo Expanded', sans-serif;
-    font-weight:800; font-size:14px; letter-spacing:0.12em;
-    text-transform:uppercase;
+    font-weight:800; font-size:13px; letter-spacing:0.1em;
+    text-transform:uppercase; flex-shrink:0;
     display:flex; align-items:center; gap:8px;
   }
   .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--coral);display:inline-block;}
-  .navlinks{display:flex; gap:22px; font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em;}
-  .navlinks a{text-decoration:none; opacity:0.7; transition:opacity .2s;}
-  .navlinks a:hover{opacity:1;}
-  @media (max-width:640px){ .navlinks{display:none;} }
+
+  /* Desktop Nav */
+  .navlinks{
+    display:flex; gap:4px; align-items:center;
+    font-family:'Archivo Expanded',sans-serif;
+    font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em;
+  }
+  .navlinks > .navitem{position:relative;}
+  .navlinks > .navitem > a,
+  .navlinks > .navitem > span{
+    display:flex; align-items:center; gap:4px;
+    text-decoration:none; color:var(--ink);
+    padding:6px 12px; border-radius:6px;
+    opacity:0.6; transition:opacity .2s, background .2s;
+    cursor:pointer; white-space:nowrap;
+  }
+  .navlinks > .navitem > a:hover,
+  .navlinks > .navitem > span:hover,
+  .navlinks > .navitem.active > a,
+  .navlinks > .navitem.active > span{
+    opacity:1; background:rgba(27,42,48,0.06);
+  }
+  .navlinks > .navitem.active > a,
+  .navlinks > .navitem.active > span{
+    color:var(--coral-deep);
+  }
+  .chevron{font-size:9px; opacity:0.5; transition:transform .2s;}
+  .navitem:hover .chevron{transform:rotate(180deg);}
+
+  /* Dropdown */
+  .dropdown{
+    position:absolute; top:calc(100% + 6px); right:0;
+    background:#fff; border:1px solid var(--line);
+    border-radius:10px; box-shadow:0 8px 28px -8px rgba(27,42,48,0.22);
+    min-width:210px; padding:6px;
+    opacity:0; pointer-events:none; transform:translateY(-6px);
+    transition:opacity .18s, transform .18s;
+  }
+  .navitem:hover .dropdown,
+  .navitem:focus-within .dropdown{
+    opacity:1; pointer-events:auto; transform:translateY(0);
+  }
+  .dropdown a{
+    display:block; text-decoration:none; color:var(--ink);
+    font-family:'Archivo Expanded',sans-serif; font-size:11px;
+    font-weight:700; letter-spacing:0.05em; text-transform:uppercase;
+    padding:9px 14px; border-radius:6px;
+    transition:background .15s;
+    opacity:0.75;
+  }
+  .dropdown a:hover{background:var(--sand); opacity:1;}
+  .dropdown .sep{
+    height:1px; background:var(--line); margin:4px 6px;
+  }
+
+  /* Hamburger (mobile) */
+  .hamburger{
+    display:none; flex-direction:column; gap:5px;
+    background:none; border:none; cursor:pointer; padding:8px 4px;
+  }
+  .hamburger span{
+    display:block; width:22px; height:2px;
+    background:var(--ink); border-radius:2px;
+    transition:transform .25s, opacity .25s;
+  }
+  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .hamburger.open span:nth-child(2){opacity:0;}
+  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  /* Mobile drawer */
+  .mobile-menu{
+    display:none;
+    position:fixed; top:52px; left:0; right:0; bottom:0;
+    background:var(--chalk); z-index:49;
+    overflow-y:auto; padding:16px 20px 40px;
+    transform:translateX(100%); transition:transform .28s ease;
+  }
+  .mobile-menu.open{transform:translateX(0);}
+  .mobile-menu .m-section{margin-bottom:24px;}
+  .mobile-menu .m-label{
+    font-family:'Archivo Expanded',sans-serif; font-size:11px;
+    font-weight:800; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--coral-deep); margin-bottom:8px; padding:0 4px;
+  }
+  .mobile-menu a{
+    display:block; text-decoration:none; color:var(--ink);
+    font-family:'Archivo Expanded',sans-serif; font-size:13px;
+    font-weight:700; letter-spacing:0.04em;
+    padding:12px 14px; border-radius:8px; margin-bottom:2px;
+    transition:background .15s;
+  }
+  .mobile-menu a:hover{background:var(--sand);}
+
+  @media (max-width:720px){
+    .navlinks{display:none;}
+    .hamburger{display:flex;}
+    .mobile-menu{display:block;}
+  }
 
   /* ---------- HERO ---------- */
   .hero{
@@ -339,11 +434,90 @@
 <div class="topbar">
   <div class="brand"><span class="dot"></span> ROADTRIP 2026</div>
   <nav class="navlinks">
-    <a href="#madrid">Madrid</a>
-    <a href="#biarritz">Biarritz</a>
-    <a href="#sansebastian">San Sebastián</a>
-    <a href="#bilbao">Bilbao</a>
+    <!-- Madrid mit Dropdown -->
+    <div class="navitem">
+      <span>Madrid <span class="chevron">▾</span></span>
+      <div class="dropdown">
+        <a href="#madrid">↑ Übersicht Madrid</a>
+        <div class="sep"></div>
+        <a href="#madrid-tapas">🍳 Tapas &amp; Tortilla</a>
+        <a href="#madrid-bars">🍹 Bars &amp; Abende</a>
+        <a href="#madrid-vintage">👗 Vintage Shopping</a>
+        <a href="#madrid-rooftop">🌆 Rooftops</a>
+        <a href="#madrid-insider">💡 Insider-Tipps</a>
+        <a href="#madrid-cafes">☕ Cafés &amp; Kaffee</a>
+        <a href="#madrid-nightlife">🎸 Nachtleben</a>
+        <a href="#madrid-essen">🍷 Weitere Tapas</a>
+        <a href="#madrid-shopping">👟 Shopping</a>
+        <a href="#madrid-rastro">📅 Sonntag: Rastro</a>
+      </div>
+    </div>
+    <!-- Biarritz mit Dropdown -->
+    <div class="navitem">
+      <span>Biarritz <span class="chevron">▾</span></span>
+      <div class="dropdown">
+        <a href="#biarritz">↑ Übersicht Biarritz</a>
+        <div class="sep"></div>
+        <a href="#biarritz-surf">🏄 Surfschulen</a>
+        <a href="#biarritz-essen">🍽️ Essen &amp; Abende</a>
+      </div>
+    </div>
+    <!-- San Sebastián mit Dropdown -->
+    <div class="navitem">
+      <span>San Sebastián <span class="chevron">▾</span></span>
+      <div class="dropdown">
+        <a href="#sansebastian">↑ Übersicht San Sebastián</a>
+        <div class="sep"></div>
+        <a href="#ss-surf">🏄 Surfschulen</a>
+        <a href="#ss-pintxos">🥖 Pintxos-Tour</a>
+        <a href="#ss-bars">🍸 Abends in Gros</a>
+      </div>
+    </div>
+    <!-- Bilbao -->
+    <div class="navitem">
+      <a href="#bilbao">Bilbao</a>
+    </div>
   </nav>
+
+  <!-- Hamburger für Mobile -->
+  <button class="hamburger" aria-label="Menü öffnen" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<!-- Mobile Drawer -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="m-section">
+    <div class="m-label">Madrid</div>
+    <a href="#madrid" onclick="closeMenu()">Übersicht Madrid</a>
+    <a href="#madrid-tapas" onclick="closeMenu()">🍳 Tapas &amp; Tortilla</a>
+    <a href="#madrid-bars" onclick="closeMenu()">🍹 Bars &amp; Abende</a>
+    <a href="#madrid-vintage" onclick="closeMenu()">👗 Vintage Shopping</a>
+    <a href="#madrid-rooftop" onclick="closeMenu()">🌆 Rooftops</a>
+    <a href="#madrid-insider" onclick="closeMenu()">💡 Insider-Tipps</a>
+    <a href="#madrid-cafes" onclick="closeMenu()">☕ Cafés &amp; Kaffee</a>
+    <a href="#madrid-nightlife" onclick="closeMenu()">🎸 Nachtleben</a>
+    <a href="#madrid-essen" onclick="closeMenu()">🍷 Weitere Tapas</a>
+    <a href="#madrid-shopping" onclick="closeMenu()">👟 Shopping</a>
+    <a href="#madrid-rastro" onclick="closeMenu()">📅 Sonntag: Rastro</a>
+  </div>
+  <div class="m-section">
+    <div class="m-label">Biarritz</div>
+    <a href="#biarritz" onclick="closeMenu()">Übersicht Biarritz</a>
+    <a href="#biarritz-surf" onclick="closeMenu()">🏄 Surfschulen</a>
+    <a href="#biarritz-essen" onclick="closeMenu()">🍽️ Essen &amp; Abende</a>
+  </div>
+  <div class="m-section">
+    <div class="m-label">San Sebastián</div>
+    <a href="#sansebastian" onclick="closeMenu()">Übersicht San Sebastián</a>
+    <a href="#ss-surf" onclick="closeMenu()">🏄 Surfschulen</a>
+    <a href="#ss-pintxos" onclick="closeMenu()">🥖 Pintxos-Tour</a>
+    <a href="#ss-bars" onclick="closeMenu()">🍸 Abends in Gros</a>
+  </div>
+  <div class="m-section">
+    <div class="m-label">Bilbao</div>
+    <a href="#bilbao" onclick="closeMenu()">Guggenheim &amp; Casco Viejo</a>
+  </div>
 </div>
 
 <header class="hero">
@@ -433,7 +607,7 @@
     </div>
   </div>
 
-  <div class="subhead">Tapas &amp; Tortilla</div>
+  <div class="subhead" id="madrid-tapas">Tapas &amp; Tortilla</div>
   <div class="grid">
     <div class="card">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOuBDzTuvOjlgEmgYkOpqno5sT89Bhh0vh5iNJ6Duc64_K6qAYQFCd9GLirLgv6ieYO2v8jJd1cujCYdX8J-6UU5DoBPIatc0uGD7AKMSbZQaSb1U4v9-gI_quhtDGAifSxunG2QSLnxf1vDPEqM-mX=s800-w800-h600" alt="Pez Tortilla" loading="lazy"></div>
@@ -467,7 +641,7 @@
     </div>
   </div>
 
-  <div class="subhead">Bars &amp; Abende in Malasaña</div>
+  <div class="subhead" id="madrid-bars">Bars &amp; Abende in Malasaña</div>
   <div class="grid">
     <div class="card">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZNzJgJq917LztOb24k7-TOY5N6ORXewnUJdIHI9EYPK2lK_ZfyOPeo-tD5Nzn-hU2mf7LT0VZ2PV6DpDCR2jM3_P0MSZLQQBt19WudSN6EV7hZ2n8hsTGlyZTeUFySd63x5y-sF0m3AtWppKThRhzTOUg=s800-w800-h600" alt="Destino Malasaña" loading="lazy"></div>
@@ -491,7 +665,7 @@
     </div>
   </div>
 
-  <div class="subhead">Vintage Shopping</div>
+  <div class="subhead" id="madrid-vintage">Vintage Shopping</div>
   <div class="grid">
     <div class="card">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZPqIiKqOmwVO1EvgWjuO3yVhKWVM5K1oII8gfP0OwHwvypw2FFQkU_1JMXd6rtADNOAs-Xx4NcVf_a7bjLiAvBe2I4wcaO1xcOwbpXHbM0zOIGA8M8J04ln59aOB8HNlbGmK2c3d5Nz-BEMZQ=s800-w768-h600" alt="Vintage Point Malasaña" loading="lazy"></div>
@@ -525,7 +699,7 @@
     </div>
   </div>
 
-  <div class="subhead">Sonnenuntergang über der Stadt</div>
+  <div class="subhead" id="madrid-rooftop">Sonnenuntergang über der Stadt</div>
   <div class="grid">
     <div class="card feature">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZNOHxCpuSY60Lf5NdF36QmWabgjRGNWya0UmdkAZoqgNzKj06nhJEPBbOzweiSi7lGxfxjFIggEoVD8q-BJSoIcMFRheOMyZETauDPjnTngKEogRa7s3OtcTZtB_tJpmi05ii_d76E8WDNZdw=s800-w800-h600" alt="Vincci Rooftop Bar" loading="lazy"></div>
@@ -549,7 +723,201 @@
     </div>
   </div>
 
-  <div class="callout">
+  <!-- ===== INSIDER-TIPPS von tracksandthecity.de ===== -->
+  <div class="subhead" id="madrid-insider">Malasaña Insider-Tipps <span style="font-weight:400;opacity:0.55;font-size:10px;letter-spacing:0.05em;">via <a href="https://tracksandthecity.de/barrio-malasana-madrid-tipps/" target="_blank" rel="noopener" style="color:inherit;border-bottom:1px solid currentColor;">tracksandthecity.de</a></span></div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-art" style="background:#2C4046;display:flex;align-items:center;justify-content:center;font-size:48px;">🏛️</div>
+      <div class="card-body">
+        <span class="tag">Geheimtipp · 5 € Eintritt</span>
+        <h3><a href="https://www.sanantoniodelosalemanes.org/" target="_blank" rel="noopener">San Antonio de los Alemanes</a></h3>
+        <p>Die „Sixtinische Kapelle Madrids" — innen komplett mit Fresken ausgemalt, von außen völlig unscheinbar. Audioguide inklusive. Calle de la Puebla 22.</p>
+        <a class="card-link" href="https://www.google.com/maps/search/?api=1&query=San+Antonio+de+los+Alemanes+Madrid" target="_blank" rel="noopener">Google Maps →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art" style="background:#587A6E;display:flex;align-items:center;justify-content:center;font-size:48px;">🎨</div>
+      <div class="card-body">
+        <span class="tag">Kostenlos · Sa ab 14 Uhr &amp; So</span>
+        <h3><a href="https://www.madrid.es/museodehistoria" target="_blank" rel="noopener">Museo de Historia de Madrid</a></h3>
+        <p>Prachtvolles Barockgebäude mit Stadtmodellen und Gemälden zur Geschichte Madrids. Calle de Fuencarral 78.</p>
+        <a class="card-link" href="https://www.madrid.es/museodehistoria" target="_blank" rel="noopener">Website →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art" style="background:#1B2A30;display:flex;align-items:center;justify-content:center;font-size:48px;">🌹</div>
+      <div class="card-body">
+        <span class="tag">Kostenlos Sa/So · Ruhiger Garten</span>
+        <h3><a href="https://maps.app.goo.gl/F4bq4aDj5W3dQbwk8" target="_blank" rel="noopener">Museo del Romanticismo</a></h3>
+        <p>Wohnräume des 19. Jahrhunderts in einer alten Stadtvilla, ruhiger Garten mit kleinem Café. Calle de San Mateo 13.</p>
+        <a class="card-link" href="https://maps.app.goo.gl/F4bq4aDj5W3dQbwk8" target="_blank" rel="noopener">Google Maps →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art" style="background:#7A9B8E;display:flex;align-items:center;justify-content:center;font-size:48px;">🎭</div>
+      <div class="card-body">
+        <span class="tag">Freier Eintritt · Open-Air-Kino im Sommer</span>
+        <h3><a href="https://www.condeduquemadrid.es/" target="_blank" rel="noopener">Centro Cultural Condeduque</a></h3>
+        <p>Ausstellungen und Konzerte oft kostenlos, im Sommer Open-Air-Kino im Innenhof. Calle del Conde Duque 11.</p>
+        <a class="card-link" href="https://www.condeduquemadrid.es/" target="_blank" rel="noopener">Website →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="subhead" id="madrid-cafes" style="margin-top:38px;">Cafés &amp; Kaffee</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-art" style="background:#E8DCC8;display:flex;align-items:center;justify-content:center;font-size:48px;">☕</div>
+      <div class="card-body">
+        <span class="tag">Specialty Coffee · Kimchi-Sandwich</span>
+        <h3><a href="https://hansocafe.es/" target="_blank" rel="noopener">HanSo Café</a></h3>
+        <p>Minimalistisches Design, exzellenter Specialty Coffee. Unbedingt das Kimchi-Sandwich probieren. Corredera Baja de San Pablo 51.</p>
+        <a class="card-link" href="https://hansocafe.es/" target="_blank" rel="noopener">Website →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art" style="background:#2C4046;display:flex;align-items:center;justify-content:center;font-size:48px;">☕</div>
+      <div class="card-body">
+        <span class="tag">Institution · Bester Flat White</span>
+        <h3><a href="http://tomacafe.es/" target="_blank" rel="noopener">Toma Café</a></h3>
+        <p>Laut Insidern der beste Flat White der Stadt. Calle de la Palma 49.</p>
+        <a class="card-link" href="http://tomacafe.es/" target="_blank" rel="noopener">Website →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art" style="background:#C44A2B;display:flex;align-items:center;justify-content:center;font-size:48px;">🛋️</div>
+      <div class="card-body">
+        <span class="tag">Retro 60s/70s · Auch Vermut abends</span>
+        <h3><a href="https://lolinacafe.com/" target="_blank" rel="noopener">Lolina Vintage Café</a></h3>
+        <p>Originalmöbel der 60er und 70er, echte Zeitkapsel. Kaffee am Nachmittag oder Vermut zum Feierabend. Calle del Espíritu Santo 9.</p>
+        <a class="card-link" href="https://lolinacafe.com/" target="_blank" rel="noopener">Website →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art" style="background:#E8633D;display:flex;align-items:center;justify-content:center;font-size:48px;">🍦</div>
+      <div class="card-body">
+        <span class="tag">Eis &amp; Kaffee · Toma-Café-Bohnen</span>
+        <h3><a href="https://www.totoicecream.com/" target="_blank" rel="noopener">TÖTO Ice Cream &amp; Coffee</a></h3>
+        <p>Handgemachtes Eis mit Profi-Kaffee — bezieht seine Bohnen direkt vom Toma Café. Corredera Alta de San Pablo 12.</p>
+        <a class="card-link" href="https://www.totoicecream.com/" target="_blank" rel="noopener">Website →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="subhead" id="madrid-nightlife" style="margin-top:38px;">Bars &amp; Nachtleben</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-art" style="background:#1B2A30;display:flex;align-items:center;justify-content:center;font-size:48px;">🎸</div>
+      <div class="card-body">
+        <span class="tag">Legende seit 1979</span>
+        <h3><a href="https://www.facebook.com/lavialacteamadrid/" target="_blank" rel="noopener">La Vía Láctea</a></h3>
+        <p>Atmet noch immer den Geist der Freiheit nach der Diktatur. Indie, Rock, alternative Sounds. Calle de Velarde 18.</p>
+        <a class="card-link" href="https://www.google.com/maps/search/?api=1&query=La+Via+Lactea+Velarde+18+Madrid" target="_blank" rel="noopener">Google Maps →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art" style="background:#2C4046;display:flex;align-items:center;justify-content:center;font-size:48px;">🎵</div>
+      <div class="card-body">
+        <span class="tag">Movida-Ära · Spanische Musikgeschichte</span>
+        <h3><a href="https://elpenta.com/" target="_blank" rel="noopener">El Penta</a></h3>
+        <p>Eine echte Institution der Movida-Ära. Wer spanische Musikgeschichte liebt, kommt hier nicht vorbei. Calle de la Palma 4.</p>
+        <a class="card-link" href="https://elpenta.com/" target="_blank" rel="noopener">Website →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art" style="background:#587A6E;display:flex;align-items:center;justify-content:center;font-size:48px;">🍸</div>
+      <div class="card-body">
+        <span class="tag">Seit 1929 · Klassischer Start</span>
+        <h3><a href="https://www.instagram.com/casacamacho1929/" target="_blank" rel="noopener">Casa Camacho</a></h3>
+        <p>„Yayo" bestellen (Wermut, Gin, Casera) — der Laden ist seit 1929 fast unverändert und herrlich trubelig. Calle de San Andrés 4.</p>
+        <a class="card-link" href="https://www.instagram.com/casacamacho1929/" target="_blank" rel="noopener">Instagram →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art" style="background:#C44A2B;display:flex;align-items:center;justify-content:center;font-size:48px;">🎶</div>
+      <div class="card-body">
+        <span class="tag">Indie-Rock · Authentisch</span>
+        <h3><a href="https://www.facebook.com/angiesbarmadrid/" target="_blank" rel="noopener">Angie's Bar</a></h3>
+        <p>Ehrlicher Indie-Rock, authentische Atmosphäre, kein Touristentrubel. Calle de San Vicente Ferrer 34.</p>
+        <a class="card-link" href="https://www.google.com/maps/search/?api=1&query=Angies+Bar+San+Vicente+Ferrer+34+Madrid" target="_blank" rel="noopener">Google Maps →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="subhead" id="madrid-essen" style="margin-top:38px;">Weitere Tapas &amp; Essen</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-art" style="background:#2C4046;display:flex;align-items:center;justify-content:center;font-size:48px;">🍷</div>
+      <div class="card-body">
+        <span class="tag">Seit 1892 · Klassiker</span>
+        <h3><a href="https://www.laardosa.es/" target="_blank" rel="noopener">Bodega de la Ardosa</a></h3>
+        <p>Eine der besten Tortillas der Stadt, dazu ein exzellenter Salmorejo. Urige Bodega-Atmosphäre seit 1892. Calle de Colón 13.</p>
+        <a class="card-link" href="https://www.laardosa.es/" target="_blank" rel="noopener">Website →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art" style="background:#587A6E;display:flex;align-items:center;justify-content:center;font-size:48px;">🍜</div>
+      <div class="card-body">
+        <span class="tag">Ramen &amp; Japan-Tapas</span>
+        <h3><a href="https://www.konnichiwa.es/" target="_blank" rel="noopener">Konnichiwa</a></h3>
+        <p>Gute Ramen und japanische Tapas direkt an der Calle Fuencarral — perfekt beim Shoppen dazwischen. Calle de Fuencarral 98.</p>
+        <a class="card-link" href="https://www.konnichiwa.es/" target="_blank" rel="noopener">Website →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art" style="background:#7A9B8E;display:flex;align-items:center;justify-content:center;font-size:48px;">📚</div>
+      <div class="card-body">
+        <span class="tag">Buchhandlung mit Weinbar</span>
+        <h3><a href="https://www.tiposinfames.com/" target="_blank" rel="noopener">Tipos Infames</a></h3>
+        <p>Bücher kaufen und dabei Wein oder Kaffee trinken. Calle de San Joaquín 3.</p>
+        <a class="card-link" href="https://www.tiposinfames.com/" target="_blank" rel="noopener">Website →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art" style="background:#E8DCC8;display:flex;align-items:center;justify-content:center;font-size:48px;">🎲</div>
+      <div class="card-body">
+        <span class="tag">Gesellschaftsspiele · Rote Samtsofas</span>
+        <h3><a href="https://www.google.com/maps/search/?api=1&query=La+Manuela+Bar+San+Vicente+Ferrer+29+Madrid" target="_blank" rel="noopener">La Manuela Bar</a></h3>
+        <p>Entspannte Nachmittage mit Gesellschaftsspielen auf roten Samtsofas. Calle de San Vicente Ferrer 29.</p>
+        <a class="card-link" href="https://www.google.com/maps/search/?api=1&query=La+Manuela+Bar+San+Vicente+Ferrer+29+Madrid" target="_blank" rel="noopener">Google Maps →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="subhead" id="madrid-shopping" style="margin-top:38px;">Shopping-Geheimtipps</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-art" style="background:#1B2A30;display:flex;align-items:center;justify-content:center;font-size:48px;">👟</div>
+      <div class="card-body">
+        <span class="tag">Seit 1863 · Handgemacht · Eure Straße!</span>
+        <h3><a href="http://www.antiguacasacrespo.com/" target="_blank" rel="noopener">Antigua Casa Crespo</a></h3>
+        <p>Handgefertigte Alpargatas (Espadrilles) seit 1863. Liegt in eurer eigenen Straße: Calle del Divino Pastor 29!</p>
+        <a class="card-link" href="http://www.antiguacasacrespo.com/" target="_blank" rel="noopener">Website →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art" style="background:#C44A2B;display:flex;align-items:center;justify-content:center;font-size:48px;">🛍️</div>
+      <div class="card-body">
+        <span class="tag">Concept Store · Design &amp; Kunst</span>
+        <h3><a href="http://www.rughara.com/" target="_blank" rel="noopener">Rughara</a></h3>
+        <p>Modernes Design und Kunst. Calle de Sta. Feliciana 9.</p>
+        <a class="card-link" href="http://www.rughara.com/" target="_blank" rel="noopener">Website →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-art" style="background:#587A6E;display:flex;align-items:center;justify-content:center;font-size:48px;">👗</div>
+      <div class="card-body">
+        <span class="tag">Vintage · Calle Velarde</span>
+        <h3><a href="https://maps.google.com/?cid=14387573208131594148" target="_blank" rel="noopener">El Templo de Susu</a></h3>
+        <p>Neben Magpie der zweite Top-Vintage-Anlaufpunkt an der Calle Velarde. Man findet eigentlich immer etwas. Calle del Espíritu Santo 1.</p>
+        <a class="card-link" href="https://maps.google.com/?cid=14387573208131594148" target="_blank" rel="noopener">Google Maps →</a>
+      </div>
+    </div>
+  </div>
+  <!-- ===== ENDE INSIDER-TIPPS ===== -->
+
+  <div id="madrid-rastro" class="callout">
     <b>SONNTAG, 26.07.</b><br>
     El Rastro Flohmarkt — <i>nur sonntags, 9–15 Uhr.</i> Früh starten (gegen 9 Uhr) lohnt sich wegen der Menschenmassen am Nachmittag. Danach Mittagessen in La Latina, z.B. bei <b><a href="http://www.rosilaloca.com" target="_blank" rel="noopener" style="color:inherit">Rosi La Loca</a></b> (Plaza de Cádiz 4, ★4.7 — Paella &amp; Bravas, Reservierung empfohlen). Anschließend Auto bei Sixt abholen und Richtung Norden starten.
   </div>
@@ -573,7 +941,7 @@
     </div>
   </div>
 
-  <div class="subhead">Surfen lernen</div>
+  <div class="subhead" id="biarritz-surf">Surfen lernen</div>
   <div class="grid">
     <div class="card feature">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZPh5rc-FUmhSIjctjZL1S3pMtZqSHGWqFtKXFdWBrybm7jYOzeES6V0tYoYIXYcnPnFS4ccpregM-qUZD5TR3Y8JiEyAwWmPpcNig9Y0ApaorUYgDfcFZFy9-HVSUvTAmtlnpbO8r7H1i8N2CE=s800-w800-h600" alt="Hastea Surf School" loading="lazy"></div>
@@ -607,7 +975,7 @@
     </div>
   </div>
 
-  <div class="subhead">Essen &amp; Abende</div>
+  <div class="subhead" id="biarritz-essen">Essen &amp; Abende</div>
   <div class="grid">
     <div class="card">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZMWUiLrE1pQ0OezX8xuPAvZQze1HE_j1hvtJRT2vZSmJQtx7YjzhrcFAtQ7rW2MS_hMiq9phrG8QSD1WyevMl7CRcaTnusj7hHkMT39NX1lG46eQtSMj2nlVbrNuHWUclqkPka5G8u5qjs6TbzM6uQdQA=s800-w800-h600" alt="Le Saleya" loading="lazy"></div>
@@ -685,7 +1053,7 @@
     </div>
   </div>
 
-  <div class="subhead">Surfen am Zurriola</div>
+  <div class="subhead" id="ss-surf">Surfen am Zurriola</div>
   <div class="grid">
     <div class="card feature">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZNHFFUw13FevUNb9TjQ7cNrHp-mo8X5bZofgY79Vu3NN1-hb5FxIU5mYckHUIl6sJNtJq9JOCspYLTkGEWLV3pbQ2XS1CjZAZfNCfpQJzumeaq4Fxepmm6OoYH1WYc333uewUith79sTw29EVlYmAoDFQ=s800-w800-h600" alt="Pukas Surf Eskola" loading="lazy"></div>
@@ -719,7 +1087,7 @@
     </div>
   </div>
 
-  <div class="subhead">Pintxos-Tour Altstadt — die Reihenfolge</div>
+  <div class="subhead" id="ss-pintxos">Pintxos-Tour Altstadt — die Reihenfolge</div>
   <div class="grid">
     <div class="card">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOGi0iFfdF_BlqLEDZs0JDBmtNygyxM_qsADBRT1OJASpPrp72C5UwgmNT-_55eOMU_BG1UmAN1tQ222LimFgP2pu4Pk_msNcJPGFVU1eYc0sjQcuuTwl1q426SaIb4pErYh6HHD-M_wRhNS6Y=s800-w800-h600" alt="Bar Sport" loading="lazy"></div>
@@ -783,7 +1151,7 @@
     </div>
   </div>
 
-  <div class="subhead">Abends in Gros</div>
+  <div class="subhead" id="ss-bars">Abends in Gros</div>
   <div class="grid">
     <div class="card">
       <div class="card-art"><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZO72X8-E5wpk1NcjNfFP6XJp1VvZT8YTbKDW6OFOWgCLLEsnjFKC_8RRXDmvpIKSOoRd_8IrmKabMNRZovb7wnGyrJf6aIM8Cedg3dL2C9j_ZvlLNuvH-IniJ6hK3xWG4DrkPrIhxk5ei5G=s800-w800-h600" alt="Teorema" loading="lazy"></div>
@@ -868,5 +1236,53 @@
   <div class="emojis">🏄‍♀️ 🍴 ☀️ 📸 🚗 😎</div>
 </footer>
 
+<script>
+// Hamburger toggle
+function toggleMenu(){
+  const btn = document.querySelector('.hamburger');
+  const menu = document.getElementById('mobileMenu');
+  btn.classList.toggle('open');
+  menu.classList.toggle('open');
+  document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+}
+function closeMenu(){
+  document.querySelector('.hamburger').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Active nav item beim Scrollen
+const sections = [
+  {id:'madrid',   nav:'Madrid'},
+  {id:'biarritz', nav:'Biarritz'},
+  {id:'sansebastian', nav:'San Sebastián'},
+  {id:'bilbao',   nav:'Bilbao'},
+];
+const navItems = document.querySelectorAll('.navlinks > .navitem');
+
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const id = entry.target.id;
+      navItems.forEach(item=>{
+        const link = item.querySelector('a, span');
+        const text = link ? link.textContent.trim() : '';
+        const match = sections.find(s => s.id === id);
+        item.classList.toggle('active', match && text.startsWith(match.nav.substring(0,6)));
+      });
+    }
+  });
+},{rootMargin:'-10% 0px -80% 0px'});
+
+sections.forEach(s=>{
+  const el = document.getElementById(s.id);
+  if(el) observer.observe(el);
+});
+
+// scroll-margin-top für Sticky-Nav-Offset
+document.querySelectorAll('[id]').forEach(el=>{
+  el.style.scrollMarginTop = '68px';
+});
+</script>
 </body>
 </html>
