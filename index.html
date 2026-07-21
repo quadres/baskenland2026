@@ -1362,18 +1362,12 @@
 const REPO_OWNER  = 'quadres';
 const REPO_NAME   = 'baskenland2026';
 const BRANCH      = 'main';
+const PHOTOS_PATH = 'photos';
 
-// Das Token steht NICHT hier im Code.
-// Upload läuft über GitHub Actions (Token liegt sicher als Repo-Secret).
-// Workflow-Name: upload-photo.yml (siehe .github/workflows/ im Repo)
-const WORKFLOW_ID = 'upload-photo.yml';
-
-// Passwort-Hash (SHA-256) — aktuell: "baskenland2026"
-// Ändern: neuen Hash auf https://emn178.github.io/online-tools/sha256.html erzeugen
+// Passwort-Hash SHA-256 — aktuell: "baskenland2026"
 const PW_HASH = 'b04b3dc256ff67b0c0efb79e7d31d0c91608c41acc5974cce7e5f1afc26485cc';
 
-// PAT nur für workflow_dispatch (kein repo-write nötig) — actions:write Scope
-// Dieser wird vom Nutzer beim ersten Login eingegeben und nur im sessionStorage gehalten
+// Token wird NICHT im Code gespeichert — nur im sessionStorage
 let SESSION_TOKEN = sessionStorage.getItem('gal_token') || '';
 
 // ============================================================
@@ -1388,52 +1382,69 @@ async function checkPw(){
   const val = document.getElementById('pw-input').value;
   const hash = await sha256(val);
   if(hash === PW_HASH){
-    // Token abfragen (wird nur im sessionStorage gespeichert, nie im Code)
-    const tok = prompt('GitHub Token eingeben (einmalig pro Browser-Session):\n\nErstellen unter: github.com/settings/tokens\nScope: Actions (workflow_dispatch)');
-    if(!tok || !tok.startsWith('gh')){
-      document.getElementById('pw-error').textContent = '✗ Kein gültiges Token eingegeben';
-      document.getElementById('pw-error').style.display='inline';
+    // Token abfragen — bleibt nur im sessionStorage, nie im Code oder Repo
+    const tok = prompt(
+      'GitHub Token eingeben:\n\n' +
+      '→ github.com/settings/tokens/new\n' +
+      '→ Scope: "repo" (Contents read+write)\n\n' +
+      'Das Token wird nur für diese Browser-Session gespeichert.'
+    );
+    if(!tok || !tok.trim().startsWith('gh')){
+      showError('✗ Kein gültiges Token (muss mit "gh" beginnen)');
       return;
     }
-    SESSION_TOKEN = tok;
-    sessionStorage.setItem('gal_token', tok);
-    sessionStorage.setItem('gal_auth','1');
-    document.getElementById('upload-gate').style.display='none';
-    document.getElementById('upload-panel').style.display='block';
-    document.getElementById('pw-error').style.display='none';
+    SESSION_TOKEN = tok.trim();
+    sessionStorage.setItem('gal_token', SESSION_TOKEN);
+    sessionStorage.setItem('gal_auth', '1');
+    showUploadPanel();
   } else {
-    document.getElementById('pw-error').textContent = '✗ Falsches Passwort';
-    document.getElementById('pw-error').style.display='inline';
+    showError('✗ Falsches Passwort');
     document.getElementById('pw-input').style.borderColor='var(--coral-deep)';
     setTimeout(()=>document.getElementById('pw-input').style.borderColor='var(--line)',1500);
   }
 }
 
+function showError(msg){
+  const el = document.getElementById('pw-error');
+  el.textContent = msg;
+  el.style.display = 'inline';
+}
+
+function showUploadPanel(){
+  document.getElementById('upload-gate').style.display = 'none';
+  document.getElementById('upload-panel').style.display = 'block';
+  document.getElementById('pw-error').style.display = 'none';
+}
+
 // Session wiederherstellen
-if(sessionStorage.getItem('gal_auth')==='1' && SESSION_TOKEN){
-  document.getElementById('upload-gate').style.display='none';
-  document.getElementById('upload-panel').style.display='block';
+if(sessionStorage.getItem('gal_auth') === '1' && SESSION_TOKEN){
+  showUploadPanel();
 }
 
 // ============================================================
-// UPLOAD — Drag & Drop und File-Input
+// DRAG & DROP / FILE INPUT
 // ============================================================
 let pendingFiles = [];
 
 function handleDrop(e){
   e.preventDefault();
-  document.getElementById('drop-zone').style.borderColor='var(--line)';
-  document.getElementById('drop-zone').style.background='#fff';
+  const dz = document.getElementById('drop-zone');
+  dz.style.borderColor = 'var(--line)';
+  dz.style.background = '#fff';
   handleFiles(e.dataTransfer.files);
 }
 
 function handleFiles(files){
-  [...files].forEach(f=>{
-    if(!f.type.startsWith('image/')) return;
-    if(f.size > 10*1024*1024){ setStatus(`${f.name} ist zu groß (max 10 MB)`,'error'); return; }
+  [...files].forEach(f => {
+    if(!f.type.startsWith('image/') && !f.name.toLowerCase().endsWith('.heic')){
+      setStatus('Nur Bilddateien erlaubt (JPG, PNG, HEIC)', 'error'); return;
+    }
+    if(f.size > 10 * 1024 * 1024){
+      setStatus(`${f.name} ist zu groß (max. 10 MB)`, 'error'); return;
+    }
     const reader = new FileReader();
     reader.onload = e => {
-      pendingFiles.push({name:f.name, data:e.target.result, file:f});
+      pendingFiles.push({ name: f.name, data: e.target.result });
       renderQueue();
     };
     reader.readAsDataURL(f);
@@ -1442,83 +1453,105 @@ function handleFiles(files){
 
 function renderQueue(){
   const q = document.getElementById('upload-queue');
-  q.innerHTML = pendingFiles.map((pf,i)=>`
-    <div style="position:relative;width:80px;height:80px;border-radius:8px;overflow:hidden;border:1px solid var(--line);">
+  q.innerHTML = pendingFiles.map((pf, i) => `
+    <div style="position:relative;width:80px;height:80px;border-radius:8px;
+                overflow:hidden;border:1px solid var(--line);flex-shrink:0;">
       <img src="${pf.data}" style="width:100%;height:100%;object-fit:cover;">
       <button onclick="removePending(${i})"
-        style="position:absolute;top:3px;right:3px;width:20px;height:20px;border-radius:50%;
-               background:rgba(27,42,48,0.75);color:#fff;border:none;cursor:pointer;
-               font-size:11px;line-height:1;display:flex;align-items:center;justify-content:center;">✕</button>
+        style="position:absolute;top:3px;right:3px;width:20px;height:20px;
+               border-radius:50%;background:rgba(27,42,48,0.75);color:#fff;
+               border:none;cursor:pointer;font-size:11px;line-height:1;
+               display:flex;align-items:center;justify-content:center;">✕</button>
     </div>`).join('');
 }
 
 function removePending(i){
-  pendingFiles.splice(i,1);
+  pendingFiles.splice(i, 1);
   renderQueue();
 }
 
+// ============================================================
+// UPLOAD — direkt via GitHub Contents API
+// ============================================================
 async function uploadPhotos(){
-  if(!pendingFiles.length){ setStatus('Erst Fotos auswählen.','error'); return; }
-  if(!SESSION_TOKEN){ setStatus('Bitte zuerst einloggen.','error'); return; }
+  if(!pendingFiles.length){ setStatus('Erst Fotos auswählen.', 'error'); return; }
+  if(!SESSION_TOKEN){ setStatus('Bitte zuerst einloggen.', 'error'); return; }
 
   const caption = document.getElementById('caption-input').value.trim();
   const btn = document.getElementById('upload-btn');
-  btn.disabled = true; btn.textContent = 'Lädt…';
-  setStatus('','');
+  btn.disabled = true;
+  btn.textContent = 'Lädt…';
+  setStatus('', '');
 
-  let ok=0, fail=0;
+  let ok = 0, fail = 0;
+
   for(const pf of pendingFiles){
     const ts = Date.now();
     const ext = pf.name.split('.').pop().toLowerCase().replace('heic','jpg');
     const filename = `${ts}_${Math.random().toString(36).slice(2,7)}.${ext}`;
     const base64 = pf.data.split(',')[1];
+    const commitMsg = caption ? `📷 ${caption}` : `📷 Foto ${new Date().toLocaleDateString('de-AT')}`;
 
     try {
-      // Workflow dispatchen — Token bleibt im Browser, geht aber nicht ins Repo
       const res = await fetch(
-        `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/actions/workflows/${WORKFLOW_ID}/dispatches`,
-        { method: 'POST',
+        `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${PHOTOS_PATH}/${filename}`,
+        {
+          method: 'PUT',
           headers: {
             'Authorization': `Bearer ${SESSION_TOKEN}`,
             'Content-Type': 'application/json',
             'Accept': 'application/vnd.github+json'
           },
           body: JSON.stringify({
-            ref: BRANCH,
-            inputs: {
-              filename: filename,
-              image_base64: base64,
-              caption: caption || `Urlaubsfoto ${new Date().toLocaleDateString('de-AT')}`
-            }
+            message: commitMsg,
+            content: base64,
+            branch: BRANCH
           })
         }
       );
-      // 204 = Workflow gestartet
-      if(res.status === 204){ ok++; }
-      else {
+
+      if(res.ok || res.status === 201){
+        ok++;
+      } else {
         const err = await res.json();
-        console.error('Upload-Fehler:', err);
+        console.error('Upload-Fehler:', res.status, err.message);
+        // Token ungültig oder kein Zugriff
+        if(res.status === 401 || res.status === 403){
+          setStatus('✗ Token ungültig oder kein Repo-Zugriff. Neu einloggen.', 'error');
+          sessionStorage.removeItem('gal_token');
+          sessionStorage.removeItem('gal_auth');
+          SESSION_TOKEN = '';
+          btn.disabled = false;
+          btn.textContent = 'Hochladen →';
+          return;
+        }
         fail++;
       }
-    } catch(e){ console.error(e); fail++; }
+    } catch(e){
+      console.error('Netzwerkfehler:', e);
+      fail++;
+    }
   }
 
   pendingFiles = [];
   renderQueue();
-  document.getElementById('caption-input').value='';
-  btn.disabled=false; btn.textContent='Hochladen →';
+  document.getElementById('caption-input').value = '';
+  btn.disabled = false;
+  btn.textContent = 'Hochladen →';
 
   if(ok){
-    setStatus(`✓ ${ok} Foto${ok>1?'s':''} wird${ok>1?'en':''} verarbeitet — in ~30 Sek. in der Galerie sichtbar.`,'ok');
-    setTimeout(loadGallery, 35000); // Galerie nach Workflow-Laufzeit neu laden
+    setStatus(`✓ ${ok} Foto${ok > 1 ? 's' : ''} hochgeladen!`, 'ok');
+    setTimeout(loadGallery, 2000);
   }
-  if(fail) setStatus(`✗ ${fail} Foto${fail>1?'s':''} fehlgeschlagen — Token korrekt?`,'error');
+  if(fail){
+    setStatus(`✗ ${fail} Foto${fail > 1 ? 's' : ''} fehlgeschlagen.`, 'error');
+  }
 }
 
 function setStatus(msg, type){
   const el = document.getElementById('upload-status');
   el.textContent = msg;
-  el.style.color = type==='error' ? 'var(--coral-deep)' : 'var(--seagreen-deep)';
+  el.style.color = type === 'error' ? 'var(--coral-deep)' : 'var(--seagreen-deep)';
 }
 
 // ============================================================
