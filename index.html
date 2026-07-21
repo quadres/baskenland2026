@@ -477,6 +477,10 @@
     <div class="navitem">
       <a href="#bilbao">Bilbao</a>
     </div>
+    <!-- Galerie -->
+    <div class="navitem">
+      <a href="#galerie" style="color:var(--coral-deep);">📷 Galerie</a>
+    </div>
   </nav>
 
   <!-- Hamburger für Mobile -->
@@ -517,6 +521,10 @@
   <div class="m-section">
     <div class="m-label">Bilbao</div>
     <a href="#bilbao" onclick="closeMenu()">Guggenheim &amp; Casco Viejo</a>
+  </div>
+  <div class="m-section">
+    <div class="m-label" style="color:var(--coral-deep);">📷 Galerie</div>
+    <a href="#galerie" onclick="closeMenu()">Urlaubsfotos ansehen &amp; hochladen</a>
   </div>
 </div>
 
@@ -1230,11 +1238,415 @@
   </div>
 </section>
 
+
+<!-- ===================== GALERIE ===================== -->
+<section class="section" id="galerie" style="scroll-margin-top:68px;">
+  <div class="section-head">
+    <h2>Unsere Fotos</h2>
+    <div class="meta">🏖️ Live aus dem Urlaub</div>
+  </div>
+  <p class="section-intro">Bilder direkt aus dem Urlaub — hochgeladen von Papa, Ronja, Lola &amp; Lilli.</p>
+
+  <!-- Upload-Bereich (passwortgeschützt) -->
+  <div id="upload-gate">
+    <div style="display:flex;align-items:center;gap:14px;margin:28px 0 18px;flex-wrap:wrap;">
+      <input type="password" id="pw-input" placeholder="Passwort eingeben…"
+        style="font-family:'Archivo Expanded',sans-serif;font-size:13px;font-weight:600;
+               padding:11px 16px;border:1.5px solid var(--line);border-radius:8px;
+               background:#fff;color:var(--ink);outline:none;width:220px;
+               transition:border-color .2s;"
+        onkeydown="if(event.key==='Enter')checkPw()">
+      <button onclick="checkPw()"
+        style="font-family:'Archivo Expanded',sans-serif;font-size:12px;font-weight:800;
+               letter-spacing:0.08em;text-transform:uppercase;
+               padding:11px 22px;background:var(--ink);color:var(--chalk);
+               border:none;border-radius:8px;cursor:pointer;transition:opacity .2s;"
+        onmouseover="this.style.opacity='.75'" onmouseout="this.style.opacity='1'">
+        Entsperren
+      </button>
+      <span id="pw-error" style="font-family:'Archivo Expanded',sans-serif;font-size:12px;
+            font-weight:700;color:var(--coral-deep);display:none;">
+        ✗ Falsches Passwort
+      </span>
+    </div>
+  </div>
+
+  <!-- Upload-Panel (nach Login) -->
+  <div id="upload-panel" style="display:none;margin:0 0 36px;">
+    <div id="drop-zone"
+      style="border:2px dashed var(--line);border-radius:12px;padding:36px 24px;
+             text-align:center;background:#fff;cursor:pointer;transition:border-color .2s,background .2s;
+             margin-bottom:20px;"
+      onclick="document.getElementById('file-input').click()"
+      ondragover="event.preventDefault();this.style.borderColor='var(--coral)';this.style.background='rgba(232,99,61,0.04)'"
+      ondragleave="this.style.borderColor='var(--line)';this.style.background='#fff'"
+      ondrop="handleDrop(event)">
+      <div style="font-size:36px;margin-bottom:10px;">📷</div>
+      <div style="font-family:'Archivo Expanded',sans-serif;font-size:13px;font-weight:700;
+                  letter-spacing:0.05em;text-transform:uppercase;margin-bottom:6px;">
+        Fotos hier reinziehen
+      </div>
+      <div style="font-size:13px;opacity:0.55;">oder klicken zum Auswählen · JPG, PNG, HEIC · max. 10 MB/Bild</div>
+    </div>
+    <input type="file" id="file-input" multiple accept="image/*" style="display:none" onchange="handleFiles(this.files)">
+
+    <!-- Upload-Queue -->
+    <div id="upload-queue" style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;"></div>
+
+    <!-- Caption + Upload-Button -->
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+      <input type="text" id="caption-input" placeholder="Bildtitel / Beschreibung (optional)…"
+        style="font-family:'Source Serif 4',serif;font-size:14px;font-style:italic;
+               padding:10px 14px;border:1.5px solid var(--line);border-radius:8px;
+               background:#fff;color:var(--ink);outline:none;flex:1;min-width:200px;">
+      <button id="upload-btn" onclick="uploadPhotos()"
+        style="font-family:'Archivo Expanded',sans-serif;font-size:12px;font-weight:800;
+               letter-spacing:0.08em;text-transform:uppercase;
+               padding:10px 24px;background:var(--coral);color:#fff;
+               border:none;border-radius:8px;cursor:pointer;white-space:nowrap;
+               transition:opacity .2s;"
+        onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">
+        Hochladen →
+      </button>
+    </div>
+    <div id="upload-status" style="font-family:'Archivo Expanded',sans-serif;font-size:12px;
+         font-weight:700;margin-top:12px;min-height:20px;"></div>
+  </div>
+
+  <!-- Galerie-Grid -->
+  <div id="gallery-grid"
+    style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+           gap:12px;margin-top:8px;">
+    <div id="gallery-empty"
+      style="grid-column:1/-1;text-align:center;padding:60px 20px;
+             font-family:'Fraunces',serif;font-style:italic;font-size:22px;
+             opacity:0.35;color:var(--ink);">
+      Noch keine Fotos — aber die Reise hat ja gerade erst begonnen ✈️
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox"
+    style="display:none;position:fixed;inset:0;background:rgba(27,42,48,0.93);
+           z-index:200;align-items:center;justify-content:center;flex-direction:column;">
+    <button onclick="closeLightbox()"
+      style="position:absolute;top:20px;right:24px;background:none;border:none;
+             color:#fff;font-size:28px;cursor:pointer;opacity:0.8;line-height:1;">✕</button>
+    <button id="lb-prev" onclick="lbNav(-1)"
+      style="position:absolute;left:16px;top:50%;transform:translateY(-50%);
+             background:rgba(255,255,255,0.12);border:none;color:#fff;
+             font-size:22px;cursor:pointer;padding:12px 16px;border-radius:8px;">‹</button>
+    <img id="lb-img" src="" alt=""
+      style="max-width:92vw;max-height:80vh;border-radius:8px;object-fit:contain;">
+    <div id="lb-caption"
+      style="color:rgba(255,255,255,0.75);font-family:'Fraunces',serif;
+             font-style:italic;font-size:17px;margin-top:16px;text-align:center;
+             max-width:600px;padding:0 20px;"></div>
+    <button id="lb-next" onclick="lbNav(1)"
+      style="position:absolute;right:16px;top:50%;transform:translateY(-50%);
+             background:rgba(255,255,255,0.12);border:none;color:#fff;
+             font-size:22px;cursor:pointer;padding:12px 16px;border-radius:8px;">›</button>
+  </div>
+</section>
+
 <footer>
   <div class="display">Sonne, Surfen, gutes Essen.</div>
   <div class="sub">SPANIEN &amp; BASKENLAND ROADTRIP · 24.–31. JULI 2026</div>
   <div class="emojis">🏄‍♀️ 🍴 ☀️ 📸 🚗 😎</div>
 </footer>
+
+<script>
+// ============================================================
+// KONFIGURATION
+// ============================================================
+const REPO_OWNER  = 'quadres';
+const REPO_NAME   = 'baskenland2026';
+const BRANCH      = 'main';
+
+// Das Token steht NICHT hier im Code.
+// Upload läuft über GitHub Actions (Token liegt sicher als Repo-Secret).
+// Workflow-Name: upload-photo.yml (siehe .github/workflows/ im Repo)
+const WORKFLOW_ID = 'upload-photo.yml';
+
+// Passwort-Hash (SHA-256) — aktuell: "baskenland2026"
+// Ändern: neuen Hash auf https://emn178.github.io/online-tools/sha256.html erzeugen
+const PW_HASH = 'b04b3dc256ff67b0c0efb79e7d31d0c91608c41acc5974cce7e5f1afc26485cc';
+
+// PAT nur für workflow_dispatch (kein repo-write nötig) — actions:write Scope
+// Dieser wird vom Nutzer beim ersten Login eingegeben und nur im sessionStorage gehalten
+let SESSION_TOKEN = sessionStorage.getItem('gal_token') || '';
+
+// ============================================================
+// PASSWORT-CHECK
+// ============================================================
+async function sha256(str){
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+async function checkPw(){
+  const val = document.getElementById('pw-input').value;
+  const hash = await sha256(val);
+  if(hash === PW_HASH){
+    // Token abfragen (wird nur im sessionStorage gespeichert, nie im Code)
+    const tok = prompt('GitHub Token eingeben (einmalig pro Browser-Session):\n\nErstellen unter: github.com/settings/tokens\nScope: Actions (workflow_dispatch)');
+    if(!tok || !tok.startsWith('gh')){
+      document.getElementById('pw-error').textContent = '✗ Kein gültiges Token eingegeben';
+      document.getElementById('pw-error').style.display='inline';
+      return;
+    }
+    SESSION_TOKEN = tok;
+    sessionStorage.setItem('gal_token', tok);
+    sessionStorage.setItem('gal_auth','1');
+    document.getElementById('upload-gate').style.display='none';
+    document.getElementById('upload-panel').style.display='block';
+    document.getElementById('pw-error').style.display='none';
+  } else {
+    document.getElementById('pw-error').textContent = '✗ Falsches Passwort';
+    document.getElementById('pw-error').style.display='inline';
+    document.getElementById('pw-input').style.borderColor='var(--coral-deep)';
+    setTimeout(()=>document.getElementById('pw-input').style.borderColor='var(--line)',1500);
+  }
+}
+
+// Session wiederherstellen
+if(sessionStorage.getItem('gal_auth')==='1' && SESSION_TOKEN){
+  document.getElementById('upload-gate').style.display='none';
+  document.getElementById('upload-panel').style.display='block';
+}
+
+// ============================================================
+// UPLOAD — Drag & Drop und File-Input
+// ============================================================
+let pendingFiles = [];
+
+function handleDrop(e){
+  e.preventDefault();
+  document.getElementById('drop-zone').style.borderColor='var(--line)';
+  document.getElementById('drop-zone').style.background='#fff';
+  handleFiles(e.dataTransfer.files);
+}
+
+function handleFiles(files){
+  [...files].forEach(f=>{
+    if(!f.type.startsWith('image/')) return;
+    if(f.size > 10*1024*1024){ setStatus(`${f.name} ist zu groß (max 10 MB)`,'error'); return; }
+    const reader = new FileReader();
+    reader.onload = e => {
+      pendingFiles.push({name:f.name, data:e.target.result, file:f});
+      renderQueue();
+    };
+    reader.readAsDataURL(f);
+  });
+}
+
+function renderQueue(){
+  const q = document.getElementById('upload-queue');
+  q.innerHTML = pendingFiles.map((pf,i)=>`
+    <div style="position:relative;width:80px;height:80px;border-radius:8px;overflow:hidden;border:1px solid var(--line);">
+      <img src="${pf.data}" style="width:100%;height:100%;object-fit:cover;">
+      <button onclick="removePending(${i})"
+        style="position:absolute;top:3px;right:3px;width:20px;height:20px;border-radius:50%;
+               background:rgba(27,42,48,0.75);color:#fff;border:none;cursor:pointer;
+               font-size:11px;line-height:1;display:flex;align-items:center;justify-content:center;">✕</button>
+    </div>`).join('');
+}
+
+function removePending(i){
+  pendingFiles.splice(i,1);
+  renderQueue();
+}
+
+async function uploadPhotos(){
+  if(!pendingFiles.length){ setStatus('Erst Fotos auswählen.','error'); return; }
+  if(!SESSION_TOKEN){ setStatus('Bitte zuerst einloggen.','error'); return; }
+
+  const caption = document.getElementById('caption-input').value.trim();
+  const btn = document.getElementById('upload-btn');
+  btn.disabled = true; btn.textContent = 'Lädt…';
+  setStatus('','');
+
+  let ok=0, fail=0;
+  for(const pf of pendingFiles){
+    const ts = Date.now();
+    const ext = pf.name.split('.').pop().toLowerCase().replace('heic','jpg');
+    const filename = `${ts}_${Math.random().toString(36).slice(2,7)}.${ext}`;
+    const base64 = pf.data.split(',')[1];
+
+    try {
+      // Workflow dispatchen — Token bleibt im Browser, geht aber nicht ins Repo
+      const res = await fetch(
+        `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/actions/workflows/${WORKFLOW_ID}/dispatches`,
+        { method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${SESSION_TOKEN}`,
+            'Content-Type': 'application/json',
+            'Accept': 'application/vnd.github+json'
+          },
+          body: JSON.stringify({
+            ref: BRANCH,
+            inputs: {
+              filename: filename,
+              image_base64: base64,
+              caption: caption || `Urlaubsfoto ${new Date().toLocaleDateString('de-AT')}`
+            }
+          })
+        }
+      );
+      // 204 = Workflow gestartet
+      if(res.status === 204){ ok++; }
+      else {
+        const err = await res.json();
+        console.error('Upload-Fehler:', err);
+        fail++;
+      }
+    } catch(e){ console.error(e); fail++; }
+  }
+
+  pendingFiles = [];
+  renderQueue();
+  document.getElementById('caption-input').value='';
+  btn.disabled=false; btn.textContent='Hochladen →';
+
+  if(ok){
+    setStatus(`✓ ${ok} Foto${ok>1?'s':''} wird${ok>1?'en':''} verarbeitet — in ~30 Sek. in der Galerie sichtbar.`,'ok');
+    setTimeout(loadGallery, 35000); // Galerie nach Workflow-Laufzeit neu laden
+  }
+  if(fail) setStatus(`✗ ${fail} Foto${fail>1?'s':''} fehlgeschlagen — Token korrekt?`,'error');
+}
+
+function setStatus(msg, type){
+  const el = document.getElementById('upload-status');
+  el.textContent = msg;
+  el.style.color = type==='error' ? 'var(--coral-deep)' : 'var(--seagreen-deep)';
+}
+
+// ============================================================
+// GALERIE — Bilder aus GitHub laden
+// ============================================================
+let galleryItems = [];
+let lbIndex = 0;
+
+async function loadGallery(){
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/photos?ref=${BRANCH}`
+    );
+    if(!res.ok){ return; }
+    const files = await res.json();
+    if(!Array.isArray(files)) return;
+
+    const images = files.filter(f=>/\.(jpe?g|png|gif|webp|heic)$/i.test(f.name))
+                        .sort((a,b)=>b.name.localeCompare(a.name)); // neueste zuerst
+
+    galleryItems = images.map(f=>({
+      url: f.download_url,
+      name: f.name,
+      caption: decodeCaption(f.name)
+    }));
+
+    renderGallery();
+  } catch(e){ console.warn('Galerie konnte nicht geladen werden:', e); }
+}
+
+function decodeCaption(filename){
+  // Dateiname: timestamp_randomid.ext — kein Caption codiert
+  // Caption kommt aus Commit-Message; für einfache Anzeige zeigen wir Datum
+  const ts = parseInt(filename.split('_')[0]);
+  if(!isNaN(ts) && ts > 1000000000000){
+    return new Date(ts).toLocaleDateString('de-AT',{day:'numeric',month:'long',year:'numeric'});
+  }
+  return '';
+}
+
+function renderGallery(){
+  const grid = document.getElementById('gallery-grid');
+  const empty = document.getElementById('gallery-empty');
+  if(!galleryItems.length){
+    empty.style.display='block';
+    return;
+  }
+  empty.style.display='none';
+
+  // Bestehende Foto-Kacheln entfernen (leere Meldung bleibt)
+  grid.querySelectorAll('.gal-item').forEach(el=>el.remove());
+
+  galleryItems.forEach((item,i)=>{
+    const div = document.createElement('div');
+    div.className='gal-item';
+    div.style.cssText=`
+      position:relative;border-radius:10px;overflow:hidden;
+      aspect-ratio:4/3;background:var(--sand);cursor:pointer;
+      transition:transform .18s,box-shadow .18s;
+    `;
+    div.innerHTML=`
+      <img src="${item.url}" alt="${item.caption}"
+        loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(27,42,48,0.55) 0%,transparent 50%);
+                  opacity:0;transition:opacity .2s;" class="gal-overlay"></div>
+      ${item.caption?`<div style="position:absolute;bottom:0;left:0;right:0;padding:12px 14px;
+        color:#fff;font-family:'Fraunces',serif;font-style:italic;font-size:14px;
+        transform:translateY(4px);transition:transform .2s,opacity .2s;opacity:0;"
+        class="gal-caption">${item.caption}</div>`:''}
+    `;
+    div.addEventListener('mouseenter',()=>{
+      div.style.transform='translateY(-3px)';
+      div.style.boxShadow='0 16px 32px -12px rgba(27,42,48,0.35)';
+      div.querySelector('.gal-overlay').style.opacity='1';
+      const cap=div.querySelector('.gal-caption');
+      if(cap){cap.style.opacity='1';cap.style.transform='translateY(0)';}
+    });
+    div.addEventListener('mouseleave',()=>{
+      div.style.transform='';div.style.boxShadow='';
+      div.querySelector('.gal-overlay').style.opacity='0';
+      const cap=div.querySelector('.gal-caption');
+      if(cap){cap.style.opacity='0';cap.style.transform='translateY(4px)';}
+    });
+    div.addEventListener('click',()=>openLightbox(i));
+    grid.insertBefore(div, empty);
+  });
+}
+
+// ============================================================
+// LIGHTBOX
+// ============================================================
+function openLightbox(i){
+  lbIndex=i;
+  const lb=document.getElementById('lightbox');
+  lb.style.display='flex';
+  document.body.style.overflow='hidden';
+  updateLightbox();
+}
+function closeLightbox(){
+  document.getElementById('lightbox').style.display='none';
+  document.body.style.overflow='';
+}
+function lbNav(dir){
+  lbIndex=(lbIndex+dir+galleryItems.length)%galleryItems.length;
+  updateLightbox();
+}
+function updateLightbox(){
+  const item=galleryItems[lbIndex];
+  document.getElementById('lb-img').src=item.url;
+  document.getElementById('lb-caption').textContent=item.caption||'';
+  document.getElementById('lb-prev').style.display=galleryItems.length>1?'block':'none';
+  document.getElementById('lb-next').style.display=galleryItems.length>1?'block':'none';
+}
+document.getElementById('lightbox').addEventListener('click',function(e){
+  if(e.target===this) closeLightbox();
+});
+document.addEventListener('keydown',e=>{
+  const lb=document.getElementById('lightbox');
+  if(lb.style.display==='flex'){
+    if(e.key==='Escape') closeLightbox();
+    if(e.key==='ArrowLeft') lbNav(-1);
+    if(e.key==='ArrowRight') lbNav(1);
+  }
+});
+
+// Galerie beim Start laden
+loadGallery();
+</script>
 
 <script>
 // Hamburger toggle
