@@ -135,7 +135,7 @@
     display:none;
     position:fixed; top:52px; left:0; right:0; bottom:0;
     background:var(--chalk); z-index:49;
-    overflow-y:auto; padding:16px 20px 40px;
+    overflow-y:auto; padding:24px 20px 40px;
     transform:translateX(100%); transition:transform .28s ease;
   }
   .mobile-menu.open{transform:translateX(0);}
@@ -495,45 +495,39 @@
 
 <!-- Mobile Drawer -->
 <div class="mobile-menu" id="mobileMenu">
-  <div class="m-section">
-    <div class="m-label">Madrid</div>
-    <a href="#madrid" onclick="closeMenu()">Übersicht Madrid</a>
-    <a href="#madrid-tapas" onclick="closeMenu()">🍳 Tapas &amp; Tortilla</a>
-    <a href="#madrid-bars" onclick="closeMenu()">🍹 Bars &amp; Abende</a>
-    <a href="#madrid-vintage" onclick="closeMenu()">👗 Vintage Shopping</a>
-    <a href="#madrid-rooftop" onclick="closeMenu()">🌆 Rooftops</a>
-    <a href="#madrid-insider" onclick="closeMenu()">💡 Insider-Tipps</a>
-    <a href="#madrid-cafes" onclick="closeMenu()">☕ Cafés &amp; Kaffee</a>
-    <a href="#madrid-nightlife" onclick="closeMenu()">🎸 Nachtleben</a>
-    <a href="#madrid-essen" onclick="closeMenu()">🍷 Weitere Tapas</a>
-    <a href="#madrid-shopping" onclick="closeMenu()">👟 Shopping</a>
-    <a href="#madrid-rastro" onclick="closeMenu()">📅 Sonntag: Rastro</a>
+
+  <!-- Galerie & Upload prominent oben -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px;">
+    <a href="#galerie" onclick="closeMenu()"
+      style="background:var(--ink);color:var(--chalk);border-radius:10px;
+             padding:16px 12px;text-align:center;text-decoration:none;
+             font-family:'Archivo Expanded',sans-serif;font-size:11px;
+             font-weight:800;letter-spacing:0.06em;text-transform:uppercase;
+             display:flex;flex-direction:column;align-items:center;gap:6px;">
+      <span style="font-size:24px;">📷</span>Galerie
+    </a>
+    <a href="#upload" onclick="closeMenu()"
+      style="background:var(--coral);color:#fff;border-radius:10px;
+             padding:16px 12px;text-align:center;text-decoration:none;
+             font-family:'Archivo Expanded',sans-serif;font-size:11px;
+             font-weight:800;letter-spacing:0.06em;text-transform:uppercase;
+             display:flex;flex-direction:column;align-items:center;gap:6px;">
+      <span style="font-size:24px;">↑</span>Upload
+    </a>
   </div>
+
+  <!-- Trennlinie -->
+  <div style="height:1px;background:var(--line);margin-bottom:24px;"></div>
+
+  <!-- Reisestationen kompakt -->
   <div class="m-section">
-    <div class="m-label">Biarritz</div>
-    <a href="#biarritz" onclick="closeMenu()">Übersicht Biarritz</a>
-    <a href="#biarritz-surf" onclick="closeMenu()">🏄 Surfschulen</a>
-    <a href="#biarritz-essen" onclick="closeMenu()">🍽️ Essen &amp; Abende</a>
+    <div class="m-label">Reisestationen</div>
+    <a href="#madrid" onclick="closeMenu()">🇪🇸 Madrid</a>
+    <a href="#biarritz" onclick="closeMenu()">🇫🇷 Biarritz</a>
+    <a href="#sansebastian" onclick="closeMenu()">🌊 San Sebastián</a>
+    <a href="#bilbao" onclick="closeMenu()">🏛️ Bilbao</a>
   </div>
-  <div class="m-section">
-    <div class="m-label">San Sebastián</div>
-    <a href="#sansebastian" onclick="closeMenu()">Übersicht San Sebastián</a>
-    <a href="#ss-surf" onclick="closeMenu()">🏄 Surfschulen</a>
-    <a href="#ss-pintxos" onclick="closeMenu()">🥖 Pintxos-Tour</a>
-    <a href="#ss-bars" onclick="closeMenu()">🍸 Abends in Gros</a>
-  </div>
-  <div class="m-section">
-    <div class="m-label">Bilbao</div>
-    <a href="#bilbao" onclick="closeMenu()">Guggenheim &amp; Casco Viejo</a>
-  </div>
-  <div class="m-section">
-    <div class="m-label" style="color:var(--seagreen-deep);">↑ Foto-Upload</div>
-    <a href="#upload" onclick="closeMenu()">Fotos hochladen</a>
-  </div>
-  <div class="m-section">
-    <div class="m-label" style="color:var(--coral-deep);">📷 Galerie</div>
-    <a href="#galerie" onclick="closeMenu()">Alle Urlaubsfotos</a>
-  </div>
+
 </div>
 
 <header class="hero">
@@ -1560,9 +1554,15 @@ async function uploadPhotos(){
   let ok = 0, fail = 0;
 
   for(const pf of pendingFiles){
-    const ts       = Date.now();
-    const ext      = pf.name.split('.').pop().toLowerCase().replace('heic','jpg');
-    const filename = `${ts}_${Math.random().toString(36).slice(2,7)}.${ext}`;
+    const ts  = Date.now();
+    const ext = pf.name.split('.').pop().toLowerCase().replace('heic','jpg');
+
+    // Caption URL-encoded im Dateinamen — funktioniert mit allen Unicode-Zeichen & Emojis
+    const safeCaption = caption
+      ? '_' + encodeURIComponent(caption.trim().slice(0, 60))
+          .replace(/%/g, '~')   // % → ~ damit GitHub den Dateinamen mag
+      : '';
+    const filename = `${ts}_${Math.random().toString(36).slice(2,7)}${safeCaption}.${ext}`;
     const base64   = pf.data.split(',')[1];
 
     try {
@@ -1649,12 +1649,29 @@ async function loadGallery(){
 }
 
 function decodeCaption(filename){
-  // Dateiname: timestamp_randomid.ext — kein Caption codiert
-  // Caption kommt aus Commit-Message; für einfache Anzeige zeigen wir Datum
-  const ts = parseInt(filename.split('_')[0]);
-  if(!isNaN(ts) && ts > 1000000000000){
-    return new Date(ts).toLocaleDateString('de-AT',{day:'numeric',month:'long',year:'numeric'});
+  // Format: timestamp_randomid_URL-encoded-caption.ext
+  const base  = filename.replace(/\.[^.]+$/, '');
+  const parts = base.split('_');
+  const ts    = parseInt(parts[0]);
+
+  const datum = (!isNaN(ts) && ts > 1000000000000)
+    ? new Date(ts).toLocaleDateString('de-AT', {day:'numeric', month:'long', year:'numeric'})
+    : '';
+
+  // Caption: Segment ab Index 2, ~ zurück zu % dann URL-decode
+  const captionRaw = parts.slice(2).join('_');
+  let captionText  = '';
+  if(captionRaw){
+    try {
+      captionText = decodeURIComponent(captionRaw.replace(/~/g, '%'));
+    } catch {
+      captionText = captionRaw.replace(/-/g, ' ');
+    }
   }
+
+  if(captionText && datum) return `${captionText} · ${datum}`;
+  if(captionText) return captionText;
+  if(datum) return datum;
   return '';
 }
 
