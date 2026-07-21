@@ -477,6 +477,10 @@
     <div class="navitem">
       <a href="#bilbao">Bilbao</a>
     </div>
+    <!-- Upload -->
+    <div class="navitem">
+      <a href="#upload" style="color:var(--seagreen-deep);">↑ Upload</a>
+    </div>
     <!-- Galerie -->
     <div class="navitem">
       <a href="#galerie" style="color:var(--coral-deep);">📷 Galerie</a>
@@ -523,8 +527,12 @@
     <a href="#bilbao" onclick="closeMenu()">Guggenheim &amp; Casco Viejo</a>
   </div>
   <div class="m-section">
+    <div class="m-label" style="color:var(--seagreen-deep);">↑ Foto-Upload</div>
+    <a href="#upload" onclick="closeMenu()">Fotos hochladen</a>
+  </div>
+  <div class="m-section">
     <div class="m-label" style="color:var(--coral-deep);">📷 Galerie</div>
-    <a href="#galerie" onclick="closeMenu()">Urlaubsfotos ansehen &amp; hochladen</a>
+    <a href="#galerie" onclick="closeMenu()">Alle Urlaubsfotos</a>
   </div>
 </div>
 
@@ -1240,112 +1248,189 @@
 
 
 <!-- ===================== GALERIE ===================== -->
-<section class="section" id="galerie" style="scroll-margin-top:68px;">
+<!-- ===================== UPLOAD ===================== -->
+<section class="section" id="upload" style="scroll-margin-top:68px;">
   <div class="section-head">
-    <h2>Unsere Fotos</h2>
-    <div class="meta">🏖️ Live aus dem Urlaub</div>
+    <h2>Foto-Upload</h2>
+    <div class="meta">🔒 Passwortgeschützt</div>
   </div>
-  <p class="section-intro">Bilder direkt aus dem Urlaub — hochgeladen von Papa, Ronja, Lola &amp; Lilli.</p>
+  <p class="section-intro">Fotos direkt aus dem Urlaub hochladen — sie erscheinen sofort in der Galerie.</p>
 
-  <!-- Upload-Bereich (passwortgeschützt) -->
+  <!-- Login-Gate -->
   <div id="upload-gate">
-    <div style="display:flex;align-items:center;gap:14px;margin:28px 0 18px;flex-wrap:wrap;">
-      <input type="password" id="pw-input" placeholder="Passwort eingeben…"
-        style="font-family:'Archivo Expanded',sans-serif;font-size:13px;font-weight:600;
-               padding:11px 16px;border:1.5px solid var(--line);border-radius:8px;
-               background:#fff;color:var(--ink);outline:none;width:220px;
-               transition:border-color .2s;"
-        onkeydown="if(event.key==='Enter')checkPw()">
-      <button onclick="checkPw()"
-        style="font-family:'Archivo Expanded',sans-serif;font-size:12px;font-weight:800;
-               letter-spacing:0.08em;text-transform:uppercase;
-               padding:11px 22px;background:var(--ink);color:var(--chalk);
-               border:none;border-radius:8px;cursor:pointer;transition:opacity .2s;"
-        onmouseover="this.style.opacity='.75'" onmouseout="this.style.opacity='1'">
-        Entsperren
-      </button>
-      <span id="pw-error" style="font-family:'Archivo Expanded',sans-serif;font-size:12px;
-            font-weight:700;color:var(--coral-deep);display:none;">
-        ✗ Falsches Passwort
-      </span>
+    <div style="max-width:480px;background:#fff;border:1px solid var(--line);
+                border-radius:14px;padding:32px;margin-top:24px;">
+      <div style="font-family:'Archivo Expanded',sans-serif;font-size:11px;font-weight:800;
+                  letter-spacing:0.14em;text-transform:uppercase;color:var(--seagreen-deep);
+                  margin-bottom:18px;">Zugang für Familie</div>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <input type="password" id="pw-input" placeholder="Passwort…"
+          style="font-family:'Archivo Expanded',sans-serif;font-size:14px;font-weight:600;
+                 padding:13px 16px;border:1.5px solid var(--line);border-radius:8px;
+                 background:var(--chalk);color:var(--ink);outline:none;width:100%;
+                 box-sizing:border-box;transition:border-color .2s;"
+          onkeydown="if(event.key==='Enter')checkPw()">
+        <button onclick="checkPw()"
+          style="font-family:'Archivo Expanded',sans-serif;font-size:12px;font-weight:800;
+                 letter-spacing:0.1em;text-transform:uppercase;padding:14px 24px;
+                 background:var(--ink);color:var(--chalk);border:none;border-radius:8px;
+                 cursor:pointer;transition:opacity .2s;width:100%;"
+          onmouseover="this.style.opacity='.75'" onmouseout="this.style.opacity='1'">
+          Entsperren →
+        </button>
+        <span id="pw-error" style="font-family:'Archivo Expanded',sans-serif;font-size:12px;
+              font-weight:700;color:var(--coral-deep);display:none;text-align:center;"></span>
+      </div>
     </div>
   </div>
 
-  <!-- Upload-Panel (nach Login) -->
-  <div id="upload-panel" style="display:none;margin:0 0 36px;">
+  <!-- Upload-Panel -->
+  <div id="upload-panel" style="display:none;max-width:680px;">
+    <!-- Drop-Zone -->
     <div id="drop-zone"
-      style="border:2px dashed var(--line);border-radius:12px;padding:36px 24px;
-             text-align:center;background:#fff;cursor:pointer;transition:border-color .2s,background .2s;
-             margin-bottom:20px;"
+      style="border:2px dashed var(--line);border-radius:16px;padding:48px 24px;
+             text-align:center;background:#fff;cursor:pointer;
+             transition:border-color .25s,background .25s;margin:24px 0 16px;"
       onclick="document.getElementById('file-input').click()"
       ondragover="event.preventDefault();this.style.borderColor='var(--coral)';this.style.background='rgba(232,99,61,0.04)'"
       ondragleave="this.style.borderColor='var(--line)';this.style.background='#fff'"
       ondrop="handleDrop(event)">
-      <div style="font-size:36px;margin-bottom:10px;">📷</div>
-      <div style="font-family:'Archivo Expanded',sans-serif;font-size:13px;font-weight:700;
-                  letter-spacing:0.05em;text-transform:uppercase;margin-bottom:6px;">
-        Fotos hier reinziehen
+      <div style="font-size:42px;margin-bottom:12px;line-height:1;">📷</div>
+      <div style="font-family:'Fraunces',serif;font-style:italic;font-size:22px;
+                  margin-bottom:6px;color:var(--ink);">Fotos hier reinziehen</div>
+      <div style="font-size:13px;opacity:0.5;font-family:'Archivo Expanded',sans-serif;
+                  font-weight:600;letter-spacing:0.03em;">
+        oder klicken · JPG PNG HEIC · max. 10 MB
       </div>
-      <div style="font-size:13px;opacity:0.55;">oder klicken zum Auswählen · JPG, PNG, HEIC · max. 10 MB/Bild</div>
     </div>
-    <input type="file" id="file-input" multiple accept="image/*" style="display:none" onchange="handleFiles(this.files)">
+    <input type="file" id="file-input" multiple accept="image/*" style="display:none"
+           onchange="handleFiles(this.files)">
 
-    <!-- Upload-Queue -->
-    <div id="upload-queue" style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;"></div>
+    <!-- Vorschau-Queue -->
+    <div id="upload-queue" style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;min-height:0;"></div>
 
-    <!-- Caption + Upload-Button -->
-    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
-      <input type="text" id="caption-input" placeholder="Bildtitel / Beschreibung (optional)…"
-        style="font-family:'Source Serif 4',serif;font-size:14px;font-style:italic;
-               padding:10px 14px;border:1.5px solid var(--line);border-radius:8px;
-               background:#fff;color:var(--ink);outline:none;flex:1;min-width:200px;">
+    <!-- Caption + Button -->
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:stretch;">
+      <input type="text" id="caption-input"
+        placeholder="Beschreibung oder Ort (optional)…"
+        style="font-family:'Source Serif 4',serif;font-size:15px;font-style:italic;
+               padding:12px 16px;border:1.5px solid var(--line);border-radius:8px;
+               background:#fff;color:var(--ink);outline:none;flex:1;min-width:180px;
+               box-sizing:border-box;">
       <button id="upload-btn" onclick="uploadPhotos()"
         style="font-family:'Archivo Expanded',sans-serif;font-size:12px;font-weight:800;
-               letter-spacing:0.08em;text-transform:uppercase;
-               padding:10px 24px;background:var(--coral);color:#fff;
-               border:none;border-radius:8px;cursor:pointer;white-space:nowrap;
-               transition:opacity .2s;"
+               letter-spacing:0.1em;text-transform:uppercase;padding:12px 28px;
+               background:var(--coral);color:#fff;border:none;border-radius:8px;
+               cursor:pointer;white-space:nowrap;transition:opacity .2s;"
         onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">
         Hochladen →
       </button>
     </div>
     <div id="upload-status" style="font-family:'Archivo Expanded',sans-serif;font-size:12px;
-         font-weight:700;margin-top:12px;min-height:20px;"></div>
+         font-weight:700;letter-spacing:0.04em;margin-top:12px;min-height:20px;"></div>
+  </div>
+</section>
+
+<!-- ===================== GALERIE ===================== -->
+<section id="galerie" style="scroll-margin-top:68px;padding:0 0 100px;">
+
+  <!-- Galerie-Header -->
+  <div style="background:var(--ink);color:var(--chalk);padding:60px 28px 50px;">
+    <div style="max-width:980px;margin:0 auto;">
+      <div style="font-family:'Archivo Expanded',sans-serif;font-size:11px;font-weight:800;
+                  letter-spacing:0.18em;text-transform:uppercase;color:var(--sand);
+                  opacity:0.7;margin-bottom:14px;display:flex;align-items:center;gap:10px;">
+        <span style="width:24px;height:2px;background:var(--coral);display:inline-block;"></span>
+        URLAUBSFOTOS 2026
+      </div>
+      <h2 style="font-family:'Fraunces',serif;font-style:italic;font-weight:600;
+                 font-size:clamp(38px,6vw,72px);margin:0 0 16px;line-height:0.95;">
+        Unsere Erinnerungen.
+      </h2>
+      <p style="font-size:16px;opacity:0.65;max-width:480px;line-height:1.6;
+                font-style:italic;margin:0;">
+        Papa, Ronja, Lola &amp; Lilli — live aus Spanien &amp; dem Baskenland.
+      </p>
+    </div>
   </div>
 
   <!-- Galerie-Grid -->
-  <div id="gallery-grid"
-    style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-           gap:12px;margin-top:8px;">
-    <div id="gallery-empty"
-      style="grid-column:1/-1;text-align:center;padding:60px 20px;
-             font-family:'Fraunces',serif;font-style:italic;font-size:22px;
-             opacity:0.35;color:var(--ink);">
-      Noch keine Fotos — aber die Reise hat ja gerade erst begonnen ✈️
+  <div style="background:var(--chalk);padding:40px 20px 0;">
+    <div id="gallery-grid" style="max-width:1100px;margin:0 auto;
+      columns:3 280px;column-gap:14px;">
+      <div id="gallery-empty"
+        style="column-span:all;text-align:center;padding:80px 20px;
+               font-family:'Fraunces',serif;font-style:italic;font-size:24px;
+               opacity:0.3;color:var(--ink);">
+        Noch keine Fotos —<br>aber die Reise fängt gerade erst an ✈️
+      </div>
     </div>
   </div>
 
   <!-- Lightbox -->
   <div id="lightbox"
-    style="display:none;position:fixed;inset:0;background:rgba(27,42,48,0.93);
-           z-index:200;align-items:center;justify-content:center;flex-direction:column;">
+    onclick="if(event.target===this)closeLightbox()"
+    style="display:none;position:fixed;inset:0;background:rgba(10,16,18,0.96);
+           z-index:200;align-items:center;justify-content:center;flex-direction:column;
+           padding:20px;">
+
+    <!-- Close -->
     <button onclick="closeLightbox()"
-      style="position:absolute;top:20px;right:24px;background:none;border:none;
-             color:#fff;font-size:28px;cursor:pointer;opacity:0.8;line-height:1;">✕</button>
-    <button id="lb-prev" onclick="lbNav(-1)"
-      style="position:absolute;left:16px;top:50%;transform:translateY(-50%);
-             background:rgba(255,255,255,0.12);border:none;color:#fff;
-             font-size:22px;cursor:pointer;padding:12px 16px;border-radius:8px;">‹</button>
-    <img id="lb-img" src="" alt=""
-      style="max-width:92vw;max-height:80vh;border-radius:8px;object-fit:contain;">
-    <div id="lb-caption"
-      style="color:rgba(255,255,255,0.75);font-family:'Fraunces',serif;
-             font-style:italic;font-size:17px;margin-top:16px;text-align:center;
-             max-width:600px;padding:0 20px;"></div>
-    <button id="lb-next" onclick="lbNav(1)"
-      style="position:absolute;right:16px;top:50%;transform:translateY(-50%);
-             background:rgba(255,255,255,0.12);border:none;color:#fff;
-             font-size:22px;cursor:pointer;padding:12px 16px;border-radius:8px;">›</button>
+      style="position:fixed;top:18px;right:22px;background:rgba(255,255,255,0.1);
+             border:none;color:#fff;font-size:20px;cursor:pointer;
+             width:40px;height:40px;border-radius:50%;display:flex;
+             align-items:center;justify-content:center;
+             transition:background .2s;z-index:201;"
+      onmouseover="this.style.background='rgba(255,255,255,0.2)'"
+      onmouseout="this.style.background='rgba(255,255,255,0.1)'">✕</button>
+
+    <!-- Counter -->
+    <div id="lb-counter"
+      style="position:fixed;top:22px;left:50%;transform:translateX(-50%);
+             font-family:'Archivo Expanded',sans-serif;font-size:11px;font-weight:700;
+             letter-spacing:0.1em;color:rgba(255,255,255,0.45);z-index:201;"></div>
+
+    <!-- Bild -->
+    <div style="position:relative;display:flex;align-items:center;gap:16px;
+                max-width:100%;max-height:85vh;">
+      <button id="lb-prev" onclick="lbNav(-1)"
+        style="flex-shrink:0;background:rgba(255,255,255,0.1);border:none;color:#fff;
+               font-size:24px;cursor:pointer;width:48px;height:48px;border-radius:50%;
+               display:flex;align-items:center;justify-content:center;
+               transition:background .2s;"
+        onmouseover="this.style.background='rgba(255,255,255,0.2)'"
+        onmouseout="this.style.background='rgba(255,255,255,0.1)'">‹</button>
+
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:16px;
+                  min-width:0;">
+        <img id="lb-img" src="" alt=""
+          style="max-width:min(88vw,900px);max-height:75vh;
+                 border-radius:4px;object-fit:contain;
+                 box-shadow:0 32px 80px -20px rgba(0,0,0,0.8);
+                 transition:opacity .25s;">
+        <div id="lb-caption"
+          style="color:rgba(255,255,255,0.6);font-family:'Fraunces',serif;
+                 font-style:italic;font-size:16px;text-align:center;
+                 max-width:560px;line-height:1.5;"></div>
+      </div>
+
+      <button id="lb-next" onclick="lbNav(1)"
+        style="flex-shrink:0;background:rgba(255,255,255,0.1);border:none;color:#fff;
+               font-size:24px;cursor:pointer;width:48px;height:48px;border-radius:50%;
+               display:flex;align-items:center;justify-content:center;
+               transition:background .2s;"
+        onmouseover="this.style.background='rgba(255,255,255,0.2)'"
+        onmouseout="this.style.background='rgba(255,255,255,0.1)'">›</button>
+    </div>
+
+    <!-- Thumbnail-Strip -->
+    <div id="lb-thumbs"
+      style="position:fixed;bottom:0;left:0;right:0;
+             display:flex;gap:6px;padding:12px 20px;
+             overflow-x:auto;justify-content:center;
+             background:linear-gradient(to top,rgba(10,16,18,0.9),transparent);
+             scrollbar-width:none;">
+    </div>
   </div>
 </section>
 
@@ -1362,16 +1447,15 @@
 const REPO_OWNER  = 'quadres';
 const REPO_NAME   = 'baskenland2026';
 const BRANCH      = 'main';
-const PHOTOS_PATH = 'photos';
+
+// ⚠️ Nach Worker-Deploy hier die URL eintragen:
+const WORKER_URL = 'https://baskenland-upload.hinterpc1130.workers.dev';
 
 // Passwort-Hash SHA-256 — aktuell: "baskenland2026"
 const PW_HASH = 'b04b3dc256ff67b0c0efb79e7d31d0c91608c41acc5974cce7e5f1afc26485cc';
 
-// Token wird NICHT im Code gespeichert — nur im sessionStorage
-let SESSION_TOKEN = sessionStorage.getItem('gal_token') || '';
-
 // ============================================================
-// PASSWORT-CHECK
+// PASSWORT-CHECK — kein Token nötig
 // ============================================================
 async function sha256(str){
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
@@ -1379,28 +1463,17 @@ async function sha256(str){
 }
 
 async function checkPw(){
-  const val = document.getElementById('pw-input').value;
+  const val  = document.getElementById('pw-input').value;
   const hash = await sha256(val);
   if(hash === PW_HASH){
-    // Token abfragen — bleibt nur im sessionStorage, nie im Code oder Repo
-    const tok = prompt(
-      'GitHub Token eingeben:\n\n' +
-      '→ github.com/settings/tokens/new\n' +
-      '→ Scope: "repo" (Contents read+write)\n\n' +
-      'Das Token wird nur für diese Browser-Session gespeichert.'
-    );
-    if(!tok || !tok.trim().startsWith('gh')){
-      showError('✗ Kein gültiges Token (muss mit "gh" beginnen)');
-      return;
-    }
-    SESSION_TOKEN = tok.trim();
-    sessionStorage.setItem('gal_token', SESSION_TOKEN);
     sessionStorage.setItem('gal_auth', '1');
+    sessionStorage.setItem('gal_hash', hash);
     showUploadPanel();
   } else {
     showError('✗ Falsches Passwort');
-    document.getElementById('pw-input').style.borderColor='var(--coral-deep)';
-    setTimeout(()=>document.getElementById('pw-input').style.borderColor='var(--line)',1500);
+    const inp = document.getElementById('pw-input');
+    inp.style.borderColor = 'var(--coral-deep)';
+    setTimeout(()=>{ inp.style.borderColor='var(--line)'; }, 1500);
   }
 }
 
@@ -1411,13 +1484,13 @@ function showError(msg){
 }
 
 function showUploadPanel(){
-  document.getElementById('upload-gate').style.display = 'none';
+  document.getElementById('upload-gate').style.display  = 'none';
   document.getElementById('upload-panel').style.display = 'block';
-  document.getElementById('pw-error').style.display = 'none';
+  document.getElementById('pw-error').style.display     = 'none';
 }
 
 // Session wiederherstellen
-if(sessionStorage.getItem('gal_auth') === '1' && SESSION_TOKEN){
+if(sessionStorage.getItem('gal_auth') === '1'){
   showUploadPanel();
 }
 
@@ -1430,7 +1503,7 @@ function handleDrop(e){
   e.preventDefault();
   const dz = document.getElementById('drop-zone');
   dz.style.borderColor = 'var(--line)';
-  dz.style.background = '#fff';
+  dz.style.background  = '#fff';
   handleFiles(e.dataTransfer.files);
 }
 
@@ -1443,8 +1516,8 @@ function handleFiles(files){
       setStatus(`${f.name} ist zu groß (max. 10 MB)`, 'error'); return;
     }
     const reader = new FileReader();
-    reader.onload = e => {
-      pendingFiles.push({ name: f.name, data: e.target.result });
+    reader.onload = ev => {
+      pendingFiles.push({ name: f.name, data: ev.target.result });
       renderQueue();
     };
     reader.readAsDataURL(f);
@@ -1471,60 +1544,53 @@ function removePending(i){
 }
 
 // ============================================================
-// UPLOAD — direkt via GitHub Contents API
+// UPLOAD — über Cloudflare Worker
 // ============================================================
 async function uploadPhotos(){
   if(!pendingFiles.length){ setStatus('Erst Fotos auswählen.', 'error'); return; }
-  if(!SESSION_TOKEN){ setStatus('Bitte zuerst einloggen.', 'error'); return; }
 
   const caption = document.getElementById('caption-input').value.trim();
-  const btn = document.getElementById('upload-btn');
-  btn.disabled = true;
+  const pwHash  = sessionStorage.getItem('gal_hash');
+  const btn     = document.getElementById('upload-btn');
+
+  btn.disabled    = true;
   btn.textContent = 'Lädt…';
   setStatus('', '');
 
   let ok = 0, fail = 0;
 
   for(const pf of pendingFiles){
-    const ts = Date.now();
-    const ext = pf.name.split('.').pop().toLowerCase().replace('heic','jpg');
+    const ts       = Date.now();
+    const ext      = pf.name.split('.').pop().toLowerCase().replace('heic','jpg');
     const filename = `${ts}_${Math.random().toString(36).slice(2,7)}.${ext}`;
-    const base64 = pf.data.split(',')[1];
-    const commitMsg = caption ? `📷 ${caption}` : `📷 Foto ${new Date().toLocaleDateString('de-AT')}`;
+    const base64   = pf.data.split(',')[1];
 
     try {
-      const res = await fetch(
-        `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${PHOTOS_PATH}/${filename}`,
-        {
-          method: 'PUT',
-          headers: {
-            'Authorization': `Bearer ${SESSION_TOKEN}`,
-            'Content-Type': 'application/json',
-            'Accept': 'application/vnd.github+json'
-          },
-          body: JSON.stringify({
-            message: commitMsg,
-            content: base64,
-            branch: BRANCH
-          })
-        }
-      );
+      const res = await fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          password_hash: pwHash,
+          filename,
+          image_base64:  base64,
+          caption:       caption || `Urlaubsfoto ${new Date().toLocaleDateString('de-AT')}`
+        })
+      });
 
-      if(res.ok || res.status === 201){
+      const data = await res.json();
+
+      if(res.ok && data.success){
         ok++;
+      } else if(res.status === 401){
+        setStatus('✗ Sitzung abgelaufen — bitte neu einloggen.', 'error');
+        sessionStorage.removeItem('gal_auth');
+        sessionStorage.removeItem('gal_hash');
+        document.getElementById('upload-panel').style.display = 'none';
+        document.getElementById('upload-gate').style.display  = 'block';
+        btn.disabled = false; btn.textContent = 'Hochladen →';
+        return;
       } else {
-        const err = await res.json();
-        console.error('Upload-Fehler:', res.status, err.message);
-        // Token ungültig oder kein Zugriff
-        if(res.status === 401 || res.status === 403){
-          setStatus('✗ Token ungültig oder kein Repo-Zugriff. Neu einloggen.', 'error');
-          sessionStorage.removeItem('gal_token');
-          sessionStorage.removeItem('gal_auth');
-          SESSION_TOKEN = '';
-          btn.disabled = false;
-          btn.textContent = 'Hochladen →';
-          return;
-        }
+        console.error('Worker-Fehler:', data.error);
         fail++;
       }
     } catch(e){
@@ -1536,7 +1602,7 @@ async function uploadPhotos(){
   pendingFiles = [];
   renderQueue();
   document.getElementById('caption-input').value = '';
-  btn.disabled = false;
+  btn.disabled    = false;
   btn.textContent = 'Hochladen →';
 
   if(ok){
@@ -1595,84 +1661,137 @@ function decodeCaption(filename){
 function renderGallery(){
   const grid = document.getElementById('gallery-grid');
   const empty = document.getElementById('gallery-empty');
+  grid.querySelectorAll('.gal-item').forEach(el=>el.remove());
+
   if(!galleryItems.length){
     empty.style.display='block';
     return;
   }
   empty.style.display='none';
 
-  // Bestehende Foto-Kacheln entfernen (leere Meldung bleibt)
-  grid.querySelectorAll('.gal-item').forEach(el=>el.remove());
-
   galleryItems.forEach((item,i)=>{
     const div = document.createElement('div');
-    div.className='gal-item';
-    div.style.cssText=`
-      position:relative;border-radius:10px;overflow:hidden;
-      aspect-ratio:4/3;background:var(--sand);cursor:pointer;
-      transition:transform .18s,box-shadow .18s;
+    div.className = 'gal-item';
+
+    // Leichte zufällige Rotation für Polaroid-Feeling (deterministisch per Index)
+    const rotations = [-1.8,-0.9,0,0.7,-1.2,1.5,-0.4,1.1,-1.6,0.8];
+    const rot = rotations[i % rotations.length];
+
+    div.style.cssText = `
+      break-inside:avoid;
+      margin-bottom:14px;
+      background:#fff;
+      padding:10px 10px 36px;
+      border-radius:2px;
+      box-shadow:0 4px 18px -6px rgba(27,42,48,0.22), 0 1px 4px rgba(27,42,48,0.08);
+      cursor:pointer;
+      transform:rotate(${rot}deg);
+      transition:transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .22s;
+      position:relative;
     `;
-    div.innerHTML=`
-      <img src="${item.url}" alt="${item.caption}"
-        loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
-      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(27,42,48,0.55) 0%,transparent 50%);
-                  opacity:0;transition:opacity .2s;" class="gal-overlay"></div>
-      ${item.caption?`<div style="position:absolute;bottom:0;left:0;right:0;padding:12px 14px;
-        color:#fff;font-family:'Fraunces',serif;font-style:italic;font-size:14px;
-        transform:translateY(4px);transition:transform .2s,opacity .2s;opacity:0;"
-        class="gal-caption">${item.caption}</div>`:''}
+    div.innerHTML = `
+      <div style="overflow:hidden;border-radius:1px;background:var(--sand);">
+        <img src="${item.url}" alt="${item.caption||''}"
+          loading="lazy"
+          style="width:100%;display:block;object-fit:cover;
+                 transition:transform .35s;
+                 image-rendering:auto;">
+      </div>
+      ${item.caption ? `
+      <div style="font-family:'Fraunces',serif;font-style:italic;
+                  font-size:13px;color:var(--ink);opacity:0.7;
+                  text-align:center;margin-top:10px;line-height:1.3;
+                  padding:0 2px;">
+        ${item.caption}
+      </div>` : ''}
     `;
+
     div.addEventListener('mouseenter',()=>{
-      div.style.transform='translateY(-3px)';
-      div.style.boxShadow='0 16px 32px -12px rgba(27,42,48,0.35)';
-      div.querySelector('.gal-overlay').style.opacity='1';
-      const cap=div.querySelector('.gal-caption');
-      if(cap){cap.style.opacity='1';cap.style.transform='translateY(0)';}
+      div.style.transform = 'rotate(0deg) scale(1.03) translateY(-4px)';
+      div.style.boxShadow = '0 20px 40px -10px rgba(27,42,48,0.3), 0 4px 12px rgba(27,42,48,0.12)';
+      const img = div.querySelector('img');
+      if(img) img.style.transform = 'scale(1.04)';
     });
     div.addEventListener('mouseleave',()=>{
-      div.style.transform='';div.style.boxShadow='';
-      div.querySelector('.gal-overlay').style.opacity='0';
-      const cap=div.querySelector('.gal-caption');
-      if(cap){cap.style.opacity='0';cap.style.transform='translateY(4px)';}
+      div.style.transform = `rotate(${rot}deg)`;
+      div.style.boxShadow = '0 4px 18px -6px rgba(27,42,48,0.22), 0 1px 4px rgba(27,42,48,0.08)';
+      const img = div.querySelector('img');
+      if(img) img.style.transform = '';
     });
     div.addEventListener('click',()=>openLightbox(i));
+
+    // Scroll-Einblend-Animation
+    div.style.opacity='0';
+    div.style.transition += ',opacity .4s';
     grid.insertBefore(div, empty);
+    setTimeout(()=>{ div.style.opacity='1'; }, i * 60);
   });
 }
 
 // ============================================================
-// LIGHTBOX
+// LIGHTBOX mit Thumbnail-Strip
 // ============================================================
 function openLightbox(i){
-  lbIndex=i;
-  const lb=document.getElementById('lightbox');
-  lb.style.display='flex';
-  document.body.style.overflow='hidden';
+  lbIndex = i;
+  const lb = document.getElementById('lightbox');
+  lb.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  buildThumbs();
   updateLightbox();
 }
+
 function closeLightbox(){
-  document.getElementById('lightbox').style.display='none';
-  document.body.style.overflow='';
+  document.getElementById('lightbox').style.display = 'none';
+  document.body.style.overflow = '';
 }
+
 function lbNav(dir){
-  lbIndex=(lbIndex+dir+galleryItems.length)%galleryItems.length;
+  lbIndex = (lbIndex + dir + galleryItems.length) % galleryItems.length;
   updateLightbox();
 }
-function updateLightbox(){
-  const item=galleryItems[lbIndex];
-  document.getElementById('lb-img').src=item.url;
-  document.getElementById('lb-caption').textContent=item.caption||'';
-  document.getElementById('lb-prev').style.display=galleryItems.length>1?'block':'none';
-  document.getElementById('lb-next').style.display=galleryItems.length>1?'block':'none';
+
+function buildThumbs(){
+  const strip = document.getElementById('lb-thumbs');
+  strip.innerHTML = galleryItems.map((item,i)=>`
+    <img src="${item.url}" alt="" data-i="${i}"
+      style="height:52px;width:52px;object-fit:cover;border-radius:4px;
+             cursor:pointer;flex-shrink:0;
+             border:2px solid transparent;
+             transition:border-color .15s,opacity .15s;opacity:0.55;"
+      onclick="lbIndex=${i};updateLightbox()">`
+  ).join('');
 }
-document.getElementById('lightbox').addEventListener('click',function(e){
-  if(e.target===this) closeLightbox();
-});
+
+function updateLightbox(){
+  const item = galleryItems[lbIndex];
+  const img = document.getElementById('lb-img');
+  img.style.opacity = '0';
+  setTimeout(()=>{
+    img.src = item.url;
+    img.onload = ()=>{ img.style.opacity='1'; };
+  }, 120);
+
+  document.getElementById('lb-caption').textContent = item.caption || '';
+  document.getElementById('lb-counter').textContent =
+    `${lbIndex+1} / ${galleryItems.length}`;
+
+  // Thumbnail-Strip aktiv markieren
+  document.querySelectorAll('#lb-thumbs img').forEach((t,i)=>{
+    t.style.borderColor = i===lbIndex ? 'var(--coral)' : 'transparent';
+    t.style.opacity = i===lbIndex ? '1' : '0.5';
+  });
+
+  // Aktives Thumbnail in Sicht scrollen
+  const thumb = document.querySelector(`#lb-thumbs img[data-i="${lbIndex}"]`);
+  if(thumb) thumb.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});
+}
+
+// Tastatur-Navigation
 document.addEventListener('keydown',e=>{
-  const lb=document.getElementById('lightbox');
+  const lb = document.getElementById('lightbox');
   if(lb.style.display==='flex'){
-    if(e.key==='Escape') closeLightbox();
-    if(e.key==='ArrowLeft') lbNav(-1);
+    if(e.key==='Escape')     closeLightbox();
+    if(e.key==='ArrowLeft')  lbNav(-1);
     if(e.key==='ArrowRight') lbNav(1);
   }
 });
