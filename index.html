@@ -207,6 +207,29 @@
   /* wave divider */
   .wave{display:block; width:100%; height:46px; margin-top:-2px;}
 
+  /* ---------- HERO POLAROID (Titelbild) ---------- */
+  .hero-flex{
+    display:flex; align-items:flex-end; justify-content:space-between; gap:40px;
+    flex-wrap:wrap;
+  }
+  .hero-text{flex:1 1 480px; min-width:0;}
+  .hero-polaroid{
+    flex:0 0 auto; width:200px; background:#F7F4ED; padding:10px 10px 34px;
+    border-radius:3px; box-shadow:0 22px 48px -18px rgba(0,0,0,0.55), 0 4px 14px rgba(0,0,0,0.25);
+    transform:rotate(4deg); position:relative; margin-bottom:6px;
+  }
+  .hero-polaroid img{
+    width:100%; display:block; border-radius:1px; aspect-ratio:3/4; object-fit:cover;
+  }
+  .hero-polaroid-cap{
+    position:absolute; bottom:9px; left:0; right:0; text-align:center;
+    font-family:'Fraunces',serif; font-style:italic; font-size:11.5px; color:#1B2A30; opacity:0.6;
+  }
+  @media (max-width:760px){
+    .hero-flex{justify-content:center; text-align:center;}
+    .hero-polaroid{transform:rotate(-2deg); width:160px; margin:8px auto 0;}
+  }
+
   /* ---------- ROUTE STRIP ---------- */
   .routewrap{background:var(--chalk); padding:64px 28px 20px;}
   .routehead{max-width:980px; margin:0 auto 38px;}
@@ -451,16 +474,22 @@
 </div>
 
 <header class="hero">
-  <div class="hero-inner">
-    <div class="eyebrow"><span class="bar"></span> 24.–31. JULI 2026 · PAPA + RONJA + LOLA + LILLI</div>
-    <h1><span class="nostyle">Spanien &amp; Baskenland</span>Das war<br>unsere Woche.</h1>
-    <p class="lede">Malasaña-Gassen, Pintxos-Theken, Wellen an der Côte des Basques und ein Guggenheim-Abstecher dazwischen. Hier sind die Orte, an denen wir wirklich waren — sortiert nach Stadt.</p>
-    <div class="crew">
-      <span>🚗 Sixt BMW X2</span>
-      <span>🏄‍♀️ Surfen</span>
-      <span>🍴 Pintxos</span>
-      <span>🏛️ Guggenheim</span>
-      <span>☀️ Sommermodus</span>
+  <div class="hero-inner hero-flex">
+    <div class="hero-text">
+      <div class="eyebrow"><span class="bar"></span> 24.–31. JULI 2026 · PAPA + RONJA + LOLA + LILLI</div>
+      <h1><span class="nostyle">Spanien &amp; Baskenland</span>Das war<br>unsere Woche.</h1>
+      <p class="lede">Malasaña-Gassen, Pintxos-Theken, Wellen an der Côte des Basques und ein Guggenheim-Abstecher dazwischen. Hier sind die Orte, an denen wir wirklich waren — sortiert nach Stadt.</p>
+      <div class="crew">
+        <span>🚗 Sixt BMW X2</span>
+        <span>🏄‍♀️ Surfen</span>
+        <span>🍴 Pintxos</span>
+        <span>🏛️ Guggenheim</span>
+        <span>☀️ Sommermodus</span>
+      </div>
+    </div>
+    <div class="hero-polaroid">
+      <img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785447085084_jl5xj_San~20Sebastian.jpeg" alt="Skizze aus dem Reisetagebuch">
+      <div class="hero-polaroid-cap">Aus dem Reisetagebuch</div>
     </div>
   </div>
   <svg class="wave" viewBox="0 0 1200 46" preserveAspectRatio="none">
@@ -495,13 +524,13 @@
 <section class="section" id="madrid">
   <div class="section-head">
     <h2>Madrid</h2>
-    <div class="meta">24.–26.07. · 8 GESPEICHERTE ORTE</div>
+    <div class="meta">24.–26.07. · 9 GESPEICHERTE ORTE</div>
   </div>
   <p class="section-intro">Die Orte aus Malasaña und der Innenstadt, die es auf unsere Google-Maps-Liste geschafft haben.</p>
   <div class="grid">
 
     <div class="card">
-      <div class="card-art" style="background:#1B2A30;display:flex;align-items:center;justify-content:center;font-size:48px;">🍹</div>
+      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785012639204_9k5eo.jpeg" alt="Bulevar" loading="lazy"></div>
       <div class="card-body">
         <span class="tag">Bar</span>
         <h3><a href="https://www.google.com/maps/place/?q=place_id:ChIJkbQS544oQg0RGscocBqEAUk" target="_blank" rel="noopener">Bulevar</a></h3>
@@ -512,7 +541,7 @@
     </div>
 
     <div class="card">
-      <div class="card-art" style="background:#587A6E;display:flex;align-items:center;justify-content:center;font-size:48px;">🌆</div>
+      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785447089417_35boy_San~20Sebastian.jpeg" alt="Vincci Rooftop Bar Gran Vía" loading="lazy"></div>
       <div class="card-body">
         <span class="tag">Rooftop-Bar</span>
         <h3><a href="https://www.google.com/maps/place/?q=place_id:ChIJiap-QY4pQg0Rht0GKvcFzEg" target="_blank" rel="noopener">Vincci Rooftop Bar Gran Vía</a></h3>
@@ -523,7 +552,7 @@
     </div>
 
     <div class="card">
-      <div class="card-art" style="background:#C44A2B;display:flex;align-items:center;justify-content:center;font-size:48px;">🦪</div>
+      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785447093985_f6g8n_San~20Sebastian.jpeg" alt="Mejillonera El Pasaje. La Ría" loading="lazy"></div>
       <div class="card-body">
         <span class="tag">Restaurant</span>
         <h3><a href="https://www.google.com/maps/place/?q=place_id:ChIJZZ89koAoQg0REx2435i6xSs" target="_blank" rel="noopener">Mejillonera El Pasaje. La Ría</a></h3>
@@ -534,7 +563,7 @@
     </div>
 
     <div class="card">
-      <div class="card-art" style="background:#2C4046;display:flex;align-items:center;justify-content:center;font-size:48px;">🖼️</div>
+      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1784971806681_81d79.jpeg" alt="Museo Thyssen-Bornemisza" loading="lazy"></div>
       <div class="card-body">
         <span class="tag">Kunstmuseum</span>
         <h3><a href="https://www.google.com/maps/place/?q=place_id:ChIJv-yiGoMoQg0Rj1LLgnhKk1o" target="_blank" rel="noopener">Museo Thyssen-Bornemisza</a></h3>
@@ -556,7 +585,7 @@
     </div>
 
     <div class="card">
-      <div class="card-art" style="background:#E8633D;display:flex;align-items:center;justify-content:center;font-size:48px;">🍸</div>
+      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785598759763_69nct.jpeg" alt="Viva Madrid" loading="lazy"></div>
       <div class="card-body">
         <span class="tag">Bistro / Cocktailbar</span>
         <h3><a href="https://www.google.com/maps/place/?q=place_id:ChIJ6VbynoIpQg0RDrA1QgbuAho" target="_blank" rel="noopener">Viva Madrid</a></h3>
@@ -567,13 +596,23 @@
     </div>
 
     <div class="card">
-      <div class="card-art" style="background:#1B2A30;display:flex;align-items:center;justify-content:center;font-size:48px;">🍢</div>
+      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785012630780_xgw1s.jpeg" alt="Tasca Celso y Manolo" loading="lazy"></div>
       <div class="card-body">
         <span class="tag">Restaurant</span>
         <h3><a href="https://www.google.com/maps/place/?q=place_id:ChIJxcIoL4QoQg0RWDyjjXQrsy4" target="_blank" rel="noopener">Tasca Celso y Manolo</a></h3>
         <p>Tapas-Restaurant nahe Gran Vía, bekannt für Tomatensalat und Chuletón.</p>
         <div class="rating">★ 4.0 · (2.355)</div>
         <a class="card-link" href="https://www.google.com/maps/place/?q=place_id:ChIJxcIoL4QoQg0RWDyjjXQrsy4" target="_blank" rel="noopener">Google Maps →</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1784971764567_qfq10.jpeg" alt="Plazuela de Antonio Vega" loading="lazy"></div>
+      <div class="card-body">
+        <span class="tag">Frühstück to go</span>
+        <h3><a href="https://www.google.com/maps/place/?q=place_id:ChIJL0nhvokoQg0R-MK631iyhB8" target="_blank" rel="noopener">Plazuela de Antonio Vega</a></h3>
+        <p>Kleiner Platz in Malasaña, spontaner Stopp für ein Straßen-Frühstück unterwegs.</p>
+        <a class="card-link" href="https://www.google.com/maps/place/?q=place_id:ChIJL0nhvokoQg0R-MK631iyhB8" target="_blank" rel="noopener">Google Maps →</a>
       </div>
     </div>
 
@@ -612,7 +651,7 @@
     </div>
 
     <div class="card">
-      <div class="card-art" style="background:#587A6E;display:flex;align-items:center;justify-content:center;font-size:48px;">🦐</div>
+      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785165132708_2ylp4.jpeg" alt="Casa Juan Pedro" loading="lazy"></div>
       <div class="card-body">
         <span class="tag">Fischrestaurant</span>
         <h3><a href="https://www.google.com/maps/place/?q=place_id:ChIJF7ntjCVrUQ0RvnsN-ucT-1g" target="_blank" rel="noopener">Casa Juan Pedro</a></h3>
@@ -623,7 +662,7 @@
     </div>
 
     <div class="card">
-      <div class="card-art" style="background:#C44A2B;display:flex;align-items:center;justify-content:center;font-size:48px;">🥘</div>
+      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785132428087_1cuc1.jpeg" alt="Bar Jean Biarritz" loading="lazy"></div>
       <div class="card-body">
         <span class="tag">Restaurant / Bar</span>
         <h3><a href="https://www.google.com/maps/place/?q=place_id:ChIJz6ck8ihrUQ0R2WP144CN4Is" target="_blank" rel="noopener">Bar Jean Biarritz</a></h3>
@@ -668,7 +707,7 @@
     </div>
 
     <div class="card">
-      <div class="card-art" style="background:#E8633D;display:flex;align-items:center;justify-content:center;font-size:48px;">🍢</div>
+      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785430226626_jznme_San~20Sebastian.jpeg" alt="El KBZÓN jatetxea" loading="lazy"></div>
       <div class="card-body">
         <span class="tag">Grillrestaurant</span>
         <h3><a href="https://www.google.com/maps/place/?q=place_id:ChIJtV43LSmlUQ0RFpbMXiNXYtc" target="_blank" rel="noopener">El KBZÓN jatetxea</a></h3>
@@ -679,7 +718,7 @@
     </div>
 
     <div class="card">
-      <div class="card-art" style="background:#1B2A30;display:flex;align-items:center;justify-content:center;font-size:48px;">🥘</div>
+      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785430223653_g7oxf_San~20Sebastian.jpeg" alt="Antonio taberna" loading="lazy"></div>
       <div class="card-body">
         <span class="tag">Bar</span>
         <h3><a href="https://www.google.com/maps/place/?q=place_id:ChIJ6T6eVVClUQ0Rr67NXUZTqSw" target="_blank" rel="noopener">Antonio taberna</a></h3>
@@ -690,7 +729,7 @@
     </div>
 
     <div class="card">
-      <div class="card-art" style="background:#587A6E;display:flex;align-items:center;justify-content:center;font-size:48px;">🥩</div>
+      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785430220051_hvixr_San~20Sebastian.jpeg" alt="Ubarrechena" loading="lazy"></div>
       <div class="card-body">
         <span class="tag">Reisrestaurant</span>
         <h3><a href="https://www.google.com/maps/place/?q=place_id:ChIJH0iWEk2lUQ0Rx7OW3sfhq-E" target="_blank" rel="noopener">Ubarrechena</a></h3>
@@ -1110,14 +1149,21 @@ function setStatus(msg, type){
 let galleryItems = [];
 let lbIndex = 0;
 
-async function loadGallery(){
+async function loadGallery(retriesLeft = 2){
   try {
     const res = await fetch(
-      `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/photos?ref=${BRANCH}`
+      `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/photos?ref=${BRANCH}`,
+      { cache: 'no-store' }
     );
-    if(!res.ok){ return; }
+    if(!res.ok){
+      // GitHub-API-Fehler (z.B. Rate-Limit 403) -- Antwort auslesen und anzeigen statt stillzuschweigen
+      let detail = '';
+      try { detail = (await res.json()).message || ''; } catch {}
+      showGalleryError(`GitHub-API antwortete mit ${res.status}${detail ? ': ' + detail : ''}`);
+      return;
+    }
     const files = await res.json();
-    if(!Array.isArray(files)) return;
+    if(!Array.isArray(files)){ showGalleryError('Unerwartete Antwort von GitHub.'); return; }
 
     const images = files.filter(f=>/\.(jpe?g|png|gif|webp|heic)$/i.test(f.name))
                         .sort((a,b)=>b.name.localeCompare(a.name)); // neueste zuerst
@@ -1129,7 +1175,25 @@ async function loadGallery(){
     }));
 
     renderGallery();
-  } catch(e){ console.warn('Galerie konnte nicht geladen werden:', e); }
+  } catch(e){
+    console.warn('Galerie konnte nicht geladen werden:', e);
+    if(retriesLeft > 0){
+      setTimeout(()=>loadGallery(retriesLeft - 1), 1200);
+    } else {
+      showGalleryError('Netzwerkfehler beim Laden (fetch fehlgeschlagen). Bitte Seite neu laden.');
+    }
+  }
+}
+
+function showGalleryError(msg){
+  const empty = document.getElementById('gallery-empty');
+  if(!empty) return;
+  empty.style.display = 'block';
+  empty.innerHTML = `⚠️ Galerie konnte nicht geladen werden.<br>
+    <span style="font-size:14px;opacity:0.7;font-style:normal;">${msg}</span><br>
+    <button onclick="location.reload()" style="margin-top:16px;font-family:'Archivo Expanded',sans-serif;
+      font-size:12px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;padding:10px 20px;
+      background:var(--coral);color:#fff;border:none;border-radius:8px;cursor:pointer;">Neu laden</button>`;
 }
 
 function decodeCaption(filename){
