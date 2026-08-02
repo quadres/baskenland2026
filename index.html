@@ -207,27 +207,64 @@
   /* wave divider */
   .wave{display:block; width:100%; height:46px; margin-top:-2px;}
 
-  /* ---------- HERO POLAROID (Titelbild) ---------- */
+  /* ---------- HERO TITELBILD: spanischer Kachel-Rahmen (Querformat) ---------- */
   .hero-flex{
     display:flex; align-items:flex-end; justify-content:space-between; gap:40px;
     flex-wrap:wrap;
   }
   .hero-text{flex:1 1 480px; min-width:0;}
-  .hero-polaroid{
-    flex:0 0 auto; width:200px; background:#F7F4ED; padding:10px 10px 34px;
-    border-radius:3px; box-shadow:0 22px 48px -18px rgba(0,0,0,0.55), 0 4px 14px rgba(0,0,0,0.25);
-    transform:rotate(4deg); position:relative; margin-bottom:6px;
+  .hero-frame{
+    flex:0 0 auto; width:300px; position:relative; margin-bottom:10px;
+    padding:11px;
+    border-radius:10px;
+    background:
+      repeating-linear-gradient(135deg,
+        #E8633D 0 9px, #C44A2B 9px 18px,
+        #F0D98C 18px 22px,
+        #587A6E 22px 31px,
+        #F0D98C 31px 35px);
+    box-shadow:
+      0 26px 52px -18px rgba(0,0,0,0.55),
+      0 6px 18px rgba(0,0,0,0.32),
+      inset 0 0 0 2px rgba(255,255,255,0.35);
+    transform:rotate(4deg);
   }
-  .hero-polaroid img{
-    width:100%; display:block; border-radius:1px; aspect-ratio:3/4; object-fit:cover;
+  .hero-frame::before{
+    content:'';
+    position:absolute; inset:5px;
+    border-radius:5px;
+    box-shadow: inset 0 0 0 2px rgba(27,42,48,0.35);
+    pointer-events:none;
+  }
+  .hero-frame .corner{
+    position:absolute; width:20px; height:20px; z-index:2;
+    display:flex; align-items:center; justify-content:center;
+    font-size:15px; filter:drop-shadow(0 1px 1px rgba(0,0,0,0.4));
+  }
+  .hero-frame .corner.tl{top:-8px; left:-8px;}
+  .hero-frame .corner.tr{top:-8px; right:-8px;}
+  .hero-frame .corner.bl{bottom:-8px; left:-8px;}
+  .hero-frame .corner.br{bottom:-8px; right:-8px;}
+  .hero-polaroid{
+    background:#F7F4ED; padding:8px 8px 30px; border-radius:3px; position:relative;
+  }
+  .hero-polaroid .rot-wrap{
+    width:100%; aspect-ratio:4/3; overflow:hidden; position:relative; border-radius:1px;
+    box-shadow: inset 0 0 0 1px rgba(27,42,48,0.15);
+  }
+  .hero-polaroid .rot-wrap img{
+    position:absolute; top:50%; left:50%;
+    width:75%; height:133.4%;
+    transform:translate(-50%,-50%) rotate(270deg);
+    object-fit:cover; display:block;
   }
   .hero-polaroid-cap{
-    position:absolute; bottom:9px; left:0; right:0; text-align:center;
-    font-family:'Fraunces',serif; font-style:italic; font-size:11.5px; color:#1B2A30; opacity:0.6;
+    position:absolute; bottom:8px; left:0; right:0; text-align:center;
+    font-family:'Fraunces',serif; font-style:italic; font-size:11.5px; color:#1B2A30; opacity:0.65;
   }
   @media (max-width:760px){
     .hero-flex{justify-content:center; text-align:center;}
-    .hero-polaroid{transform:rotate(-2deg); width:160px; margin:8px auto 0;}
+    .hero-frame{transform:rotate(-2deg); width:240px; margin:8px auto 0;}
   }
 
   /* ---------- ROUTE STRIP ---------- */
@@ -487,9 +524,17 @@
         <span>☀️ Sommermodus</span>
       </div>
     </div>
-    <div class="hero-polaroid">
-      <img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785447085084_jl5xj_San~20Sebastian.jpeg" alt="Skizze aus dem Reisetagebuch">
-      <div class="hero-polaroid-cap">Aus dem Reisetagebuch</div>
+    <div class="hero-frame">
+      <span class="corner tl">☀️</span>
+      <span class="corner tr">✺</span>
+      <span class="corner bl">✺</span>
+      <span class="corner br">☀️</span>
+      <div class="hero-polaroid">
+        <div class="rot-wrap">
+          <img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785598759763_69nct.jpeg" alt="Skizze aus dem Reisetagebuch">
+        </div>
+        <div class="hero-polaroid-cap">Sketch Basque 2026</div>
+      </div>
     </div>
   </div>
   <svg class="wave" viewBox="0 0 1200 46" preserveAspectRatio="none">
@@ -530,7 +575,7 @@
   <div class="grid">
 
     <div class="card">
-      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785012639204_9k5eo.jpeg" alt="Bulevar" loading="lazy"></div>
+      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785012654960_fgkik.jpeg" alt="Bulevar" loading="lazy"></div>
       <div class="card-body">
         <span class="tag">Bar</span>
         <h3><a href="https://www.google.com/maps/place/?q=place_id:ChIJkbQS544oQg0RGscocBqEAUk" target="_blank" rel="noopener">Bulevar</a></h3>
@@ -541,7 +586,7 @@
     </div>
 
     <div class="card">
-      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785447089417_35boy_San~20Sebastian.jpeg" alt="Vincci Rooftop Bar Gran Vía" loading="lazy"></div>
+      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785132447395_as2eo.jpeg" alt="Vincci Rooftop Bar Gran Vía" loading="lazy"></div>
       <div class="card-body">
         <span class="tag">Rooftop-Bar</span>
         <h3><a href="https://www.google.com/maps/place/?q=place_id:ChIJiap-QY4pQg0Rht0GKvcFzEg" target="_blank" rel="noopener">Vincci Rooftop Bar Gran Vía</a></h3>
@@ -552,7 +597,7 @@
     </div>
 
     <div class="card">
-      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785447093985_f6g8n_San~20Sebastian.jpeg" alt="Mejillonera El Pasaje. La Ría" loading="lazy"></div>
+      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1784971771427_tpu2l.jpeg" alt="Mejillonera El Pasaje. La Ría" loading="lazy"></div>
       <div class="card-body">
         <span class="tag">Restaurant</span>
         <h3><a href="https://www.google.com/maps/place/?q=place_id:ChIJZZ89koAoQg0REx2435i6xSs" target="_blank" rel="noopener">Mejillonera El Pasaje. La Ría</a></h3>
@@ -563,7 +608,7 @@
     </div>
 
     <div class="card">
-      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1784971806681_81d79.jpeg" alt="Museo Thyssen-Bornemisza" loading="lazy"></div>
+      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1784989023990_78f0r.jpeg" alt="Museo Thyssen-Bornemisza" loading="lazy"></div>
       <div class="card-body">
         <span class="tag">Kunstmuseum</span>
         <h3><a href="https://www.google.com/maps/place/?q=place_id:ChIJv-yiGoMoQg0Rj1LLgnhKk1o" target="_blank" rel="noopener">Museo Thyssen-Bornemisza</a></h3>
@@ -585,7 +630,7 @@
     </div>
 
     <div class="card">
-      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785598759763_69nct.jpeg" alt="Viva Madrid" loading="lazy"></div>
+      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785658559294_x8v5d.jpeg" alt="Viva Madrid" loading="lazy"></div>
       <div class="card-body">
         <span class="tag">Bistro / Cocktailbar</span>
         <h3><a href="https://www.google.com/maps/place/?q=place_id:ChIJ6VbynoIpQg0RDrA1QgbuAho" target="_blank" rel="noopener">Viva Madrid</a></h3>
@@ -596,7 +641,7 @@
     </div>
 
     <div class="card">
-      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785012630780_xgw1s.jpeg" alt="Tasca Celso y Manolo" loading="lazy"></div>
+      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785012644173_llqhj.jpeg" alt="Tasca Celso y Manolo" loading="lazy"></div>
       <div class="card-body">
         <span class="tag">Restaurant</span>
         <h3><a href="https://www.google.com/maps/place/?q=place_id:ChIJxcIoL4QoQg0RWDyjjXQrsy4" target="_blank" rel="noopener">Tasca Celso y Manolo</a></h3>
@@ -607,7 +652,7 @@
     </div>
 
     <div class="card">
-      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1784971764567_qfq10.jpeg" alt="Plazuela de Antonio Vega" loading="lazy"></div>
+      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1784971775377_2gheh.jpeg" alt="Plazuela de Antonio Vega" loading="lazy"></div>
       <div class="card-body">
         <span class="tag">Frühstück to go</span>
         <h3><a href="https://www.google.com/maps/place/?q=place_id:ChIJL0nhvokoQg0R-MK631iyhB8" target="_blank" rel="noopener">Plazuela de Antonio Vega</a></h3>
@@ -651,7 +696,7 @@
     </div>
 
     <div class="card">
-      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785165132708_2ylp4.jpeg" alt="Casa Juan Pedro" loading="lazy"></div>
+      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785236788774_kgn0f_Biarritz.jpeg" alt="Casa Juan Pedro" loading="lazy"></div>
       <div class="card-body">
         <span class="tag">Fischrestaurant</span>
         <h3><a href="https://www.google.com/maps/place/?q=place_id:ChIJF7ntjCVrUQ0RvnsN-ucT-1g" target="_blank" rel="noopener">Casa Juan Pedro</a></h3>
@@ -662,7 +707,7 @@
     </div>
 
     <div class="card">
-      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785132428087_1cuc1.jpeg" alt="Bar Jean Biarritz" loading="lazy"></div>
+      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785132439733_d7b5s.jpeg" alt="Bar Jean Biarritz" loading="lazy"></div>
       <div class="card-body">
         <span class="tag">Restaurant / Bar</span>
         <h3><a href="https://www.google.com/maps/place/?q=place_id:ChIJz6ck8ihrUQ0R2WP144CN4Is" target="_blank" rel="noopener">Bar Jean Biarritz</a></h3>
@@ -707,7 +752,7 @@
     </div>
 
     <div class="card">
-      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785430226626_jznme_San~20Sebastian.jpeg" alt="El KBZÓN jatetxea" loading="lazy"></div>
+      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785447074777_wem9c_San~20Sebastian.jpeg" alt="El KBZÓN jatetxea" loading="lazy"></div>
       <div class="card-body">
         <span class="tag">Grillrestaurant</span>
         <h3><a href="https://www.google.com/maps/place/?q=place_id:ChIJtV43LSmlUQ0RFpbMXiNXYtc" target="_blank" rel="noopener">El KBZÓN jatetxea</a></h3>
@@ -718,7 +763,7 @@
     </div>
 
     <div class="card">
-      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785430223653_g7oxf_San~20Sebastian.jpeg" alt="Antonio taberna" loading="lazy"></div>
+      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785430232770_nrlgu_San~20Sebastian.jpeg" alt="Antonio taberna" loading="lazy"></div>
       <div class="card-body">
         <span class="tag">Bar</span>
         <h3><a href="https://www.google.com/maps/place/?q=place_id:ChIJ6T6eVVClUQ0Rr67NXUZTqSw" target="_blank" rel="noopener">Antonio taberna</a></h3>
@@ -729,7 +774,7 @@
     </div>
 
     <div class="card">
-      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785430220051_hvixr_San~20Sebastian.jpeg" alt="Ubarrechena" loading="lazy"></div>
+      <div class="card-art"><img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785430229593_6pzsc_San~20Sebastian.jpeg" alt="Ubarrechena" loading="lazy"></div>
       <div class="card-body">
         <span class="tag">Reisrestaurant</span>
         <h3><a href="https://www.google.com/maps/place/?q=place_id:ChIJH0iWEk2lUQ0Rx7OW3sfhq-E" target="_blank" rel="noopener">Ubarrechena</a></h3>
