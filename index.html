@@ -214,8 +214,8 @@
   }
   .hero-text{flex:1 1 480px; min-width:0;}
   .hero-frame{
-    flex:0 0 auto; width:300px; position:relative; margin-bottom:10px;
-    padding:11px;
+    flex:0 0 auto; width:380px; position:relative; margin-bottom:10px;
+    padding:13px;
     border-radius:10px;
     background:
       repeating-linear-gradient(135deg,
@@ -264,7 +264,7 @@
   }
   @media (max-width:760px){
     .hero-flex{justify-content:center; text-align:center;}
-    .hero-frame{transform:rotate(-2deg); width:240px; margin:8px auto 0;}
+    .hero-frame{transform:rotate(-2deg); width:290px; margin:8px auto 0;}
   }
 
   /* ---------- ROUTE STRIP ---------- */
@@ -524,7 +524,7 @@
         <span>☀️ Sommermodus</span>
       </div>
     </div>
-    <div class="hero-frame">
+    <div class="hero-frame" onclick="openHeroLightbox()" style="cursor:zoom-in;">
       <span class="corner tl">☀️</span>
       <span class="corner tr">✺</span>
       <span class="corner bl">✺</span>
@@ -535,6 +535,21 @@
         </div>
         <div class="hero-polaroid-cap">Sketch Basque 2026</div>
       </div>
+    </div>
+
+    <!-- Vollbild-Ansicht für das Titelbild -->
+    <div id="hero-lightbox" onclick="closeHeroLightbox()"
+      style="display:none;position:fixed;inset:0;background:rgba(10,16,18,0.96);
+             z-index:220;align-items:center;justify-content:center;padding:24px;cursor:zoom-out;">
+      <button onclick="closeHeroLightbox()"
+        style="position:fixed;top:18px;right:22px;background:rgba(255,255,255,0.1);
+               border:none;color:#fff;font-size:20px;cursor:pointer;
+               width:40px;height:40px;border-radius:50%;display:flex;
+               align-items:center;justify-content:center;z-index:221;">✕</button>
+      <img src="https://raw.githubusercontent.com/quadres/baskenland2026/main/photos/1785598759763_69nct.jpeg"
+        alt="Skizze aus dem Reisetagebuch" style="max-width:88vh;max-height:92vw;
+        transform:rotate(270deg);
+        object-fit:contain;box-shadow:0 32px 80px -20px rgba(0,0,0,0.8);border-radius:2px;">
     </div>
   </div>
   <svg class="wave" viewBox="0 0 1200 46" preserveAspectRatio="none">
@@ -1430,6 +1445,22 @@ loadGallery();
 </script>
 
 <script>
+// Hero-Titelbild Vollbild
+function openHeroLightbox(){
+  document.getElementById('hero-lightbox').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeHeroLightbox(){
+  document.getElementById('hero-lightbox').style.display = 'none';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e=>{
+  if(e.key === 'Escape'){
+    const hlb = document.getElementById('hero-lightbox');
+    if(hlb && hlb.style.display === 'flex') closeHeroLightbox();
+  }
+});
+
 // Hamburger toggle
 function toggleMenu(){
   const btn = document.querySelector('.hamburger');
